@@ -13,4 +13,7 @@ INSERT INTO CITY(name, population, country_id) VALUES
     ('Cambridge', 2, SELECT id FROM Country WHERE code = 'UK'),
     ('New York', 27, SELECT id FROM Country WHERE code = 'US'),
     ('Los Angeles', 11, SELECT id FROM Country WHERE code = 'US'),
-    ('San Francisco', 7, SELECT id FROM Country WHERE code = 'US');        
+    ('San Francisco', 7, SELECT id FROM Country WHERE code = 'US');    
+
+INSERT INTO UTILISATEUR(adresse_mail, prenom, nom, mdp, date_de_naiss, categorie) VALUES
+    ('adresse@mail', '5Cure', 'PentaPathologie', 'motDePasse', '01-01-2001', 'patient');

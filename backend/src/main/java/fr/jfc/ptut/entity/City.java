@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Getter;
+import lombok.Getter;       //génère du code, librairie
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +17,11 @@ import lombok.ToString;
 // Un exemple d'entité
 // On utilise Lombok pour auto-générer getter / setter / toString...
 // cf. https://examples.javacodegeeks.com/spring-boot-with-lombok/
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
-@Entity // Une entité JPA
+@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString       //code facilité
+
+@Entity // déclare une entité JPA
 public class City {
+    
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
     @NonNull
