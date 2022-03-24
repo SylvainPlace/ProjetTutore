@@ -15,8 +15,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
+
 import fr.jfc.ptut.dao.MaladieRepository;
 import fr.jfc.ptut.entity.Maladie;
+
+
+import fr.jfc.ptut.dao.CityRepository;
+import fr.jfc.ptut.dao.CountryRepository;
+import fr.jfc.ptut.dao.SoignerRepository;
+import fr.jfc.ptut.dto.CityForm;
+import fr.jfc.ptut.dto.PopulationResult;
+import fr.jfc.ptut.entity.City;
+import fr.jfc.ptut.entity.Country;
+import fr.jfc.ptut.entity.Soigner;
 
 
 @Controller // This means that this class is a Controller
@@ -27,7 +38,11 @@ public class RestController {
 	@Autowired
 	private MaladieRepository maladieDao;
 
-}	
+
+	@Autowired
+	private SoignerRepository soignerDao;
+	
+
 
 	/**
 	 * Enregistre une ville dans la base
