@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
+
+import fr.jfc.ptut.dao.MaladieRepository;
+import fr.jfc.ptut.entity.Maladie;
+
+
 import fr.jfc.ptut.dao.CityRepository;
 import fr.jfc.ptut.dao.CountryRepository;
 import fr.jfc.ptut.dao.SoignerRepository;
@@ -24,16 +29,15 @@ import fr.jfc.ptut.entity.City;
 import fr.jfc.ptut.entity.Country;
 import fr.jfc.ptut.entity.Soigner;
 
+
 @Controller // This means that this class is a Controller
 @RequestMapping(path = "/api") // This means URL's start with /rest (after Application path)
 @Slf4j
 public class RestController {
 
 	@Autowired
-	private CityRepository cityDao;
+	private MaladieRepository maladieDao;
 
-	@Autowired
-	private CountryRepository countryDao;
 
 	@Autowired
 	private SoignerRepository soignerDao;
@@ -48,7 +52,8 @@ public class RestController {
 	 *                Spring fera une requête SQL INSERT ou UPDATE pour enregistrer
 	 *                la ville dans la base
 	 * @return la ville enregistrée (avec sa clé) en format JSON
-	 */
+     */
+	/*
 	@PostMapping(path = "saveCity") 
 	public @ResponseBody City enregistreUneVille(@RequestBody CityForm formData) {
 		log.info("Reçu: {}", formData);
@@ -69,7 +74,7 @@ public class RestController {
 	 *                Spring fera une requête SQL INSERT ou UPDATE pour enregistrer
 	 *                le pays dans la base
 	 * @return le pays enregistré (avec sa clé) en format JSON
-	 */
+	 
 	@PostMapping(path = "saveCountry") 
 	public @ResponseBody Country enregistreUnPays(@RequestBody Country lePays) {
 		log.info("Reçu: {}", lePays);
@@ -97,4 +102,4 @@ public class RestController {
 	}
 
 
-}
+}*/

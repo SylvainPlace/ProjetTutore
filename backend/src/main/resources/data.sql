@@ -1,8 +1,6 @@
 -- Initialisation des tables
-INSERT INTO Country(code, name) VALUES
-    ('FR', 'France'), -- Les clés sont auto-générées
-    ('UK', 'United Kingdom'),
-    ('US', 'United States of America');
+INSERT INTO Maladie(nom_maladie,symptomes,description,facteur_aggravant,cim_10) VALUES
+    ('Diabète','Nausées, soif,malaise',' Le diabète est une maladie chronique caractérisée par la présence d’un excès de sucre dans le sang appelé . Il est avéré si le taux de glycémie à jeun est égal ou supérieur à 1,26 g/l ou 7 mmol/l de sang lors de deux dosages successifs.','obésité', 4);
 
 INSERT INTO CITY(name, population, country_id) VALUES
     ('Paris', 12, SELECT id FROM Country WHERE code = 'FR'),
@@ -17,3 +15,4 @@ INSERT INTO CITY(name, population, country_id) VALUES
 
     INSERT INTO Soigner(valDuree, uniteDuree, valFreq,uniteFreq,doseParPrise) VALUES
     (1, 1, 3,0,1); 
+
