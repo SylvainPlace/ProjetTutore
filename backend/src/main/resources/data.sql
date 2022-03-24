@@ -14,3 +14,6 @@ INSERT INTO CITY(name, population, country_id) VALUES
     ('New York', 27, SELECT id FROM Country WHERE code = 'US'),
     ('Los Angeles', 11, SELECT id FROM Country WHERE code = 'US'),
     ('San Francisco', 7, SELECT id FROM Country WHERE code = 'US');        
+
+    INSERT INTO Soigner(valDuree, uniteDuree, valFreq,uniteFreq,doseParPrise) VALUES
+    (1, 1, 3,0,1); 

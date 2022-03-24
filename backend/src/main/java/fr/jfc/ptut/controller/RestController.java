@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.slf4j.Slf4j;
 import fr.jfc.ptut.dao.CityRepository;
 import fr.jfc.ptut.dao.CountryRepository;
+import fr.jfc.ptut.dao.SoignerRepository;
 import fr.jfc.ptut.dto.CityForm;
 import fr.jfc.ptut.dto.PopulationResult;
 import fr.jfc.ptut.entity.City;
 import fr.jfc.ptut.entity.Country;
+import fr.jfc.ptut.entity.Soigner;
 
 @Controller // This means that this class is a Controller
 @RequestMapping(path = "/api") // This means URL's start with /rest (after Application path)
@@ -32,6 +34,10 @@ public class RestController {
 
 	@Autowired
 	private CountryRepository countryDao;
+
+	@Autowired
+	private SoignerRepository soignerDao;
+	
 
 
 	/**
