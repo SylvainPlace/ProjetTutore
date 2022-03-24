@@ -30,12 +30,12 @@ public class Composer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToOne(mappedBy = "corps")
-    @NonNull
+   // @OneToOne(mappedBy = "corps")
+  //  @NonNull
     // On ne veut pas inclure la liste des villes dans le toString
-    @ToString.Exclude
+   // @ToString.Exclude
     // Sinon récursivité infinie
-    private Corps nomPartie;
+  //  private Corps nomPartie;
     /*
      * @OneToOne(mappedBy = "corps")
      * private Corps nom_partie_est_composee;
