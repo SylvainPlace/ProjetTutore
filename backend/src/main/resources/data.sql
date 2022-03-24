@@ -23,3 +23,6 @@ INSERT INTO CITY(name, population, country_id) VALUES
     INSERT INTO Soigner(valDuree, uniteDuree, valFreq,uniteFreq,doseParPrise) VALUES
     (1, 1, 3,0,1); 
 
+
+INSERT INTO MEDICAMENT( nom_medic, info_prise, contre_indications) VALUES
+   ('Maxilase', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose');
