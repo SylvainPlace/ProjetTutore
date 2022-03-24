@@ -20,13 +20,9 @@ import fr.jfc.ptut.dao.MaladieRepository;
 import fr.jfc.ptut.entity.Maladie;
 
 
-import fr.jfc.ptut.dao.CityRepository;
-import fr.jfc.ptut.dao.CountryRepository;
 import fr.jfc.ptut.dao.SoignerRepository;
 import fr.jfc.ptut.dto.CityForm;
 import fr.jfc.ptut.dto.PopulationResult;
-import fr.jfc.ptut.entity.City;
-import fr.jfc.ptut.entity.Country;
 import fr.jfc.ptut.entity.Soigner;
 
 
@@ -101,5 +97,5 @@ public class RestController {
 		return countryDao.findAll();
 	}
 
-
-}*/
+*/
+}
