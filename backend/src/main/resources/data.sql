@@ -1,7 +1,8 @@
 -- Initialisation des tables
 INSERT INTO Corps(nom_partie) VALUES
     ('partie1'), -- Les clés sont auto-générées
-    ('partie2');
+    ('partie2'),
+    ('pancréas');
 
 --INSERT INTO Corps(nom_partie_compose_id, nom_partie_est_composee_id) VALUES
   --  (SELECT id FROM Corps WHERE nom_partie = 'partie1', SELECT id FROM Corps WHERE nom_partie = 'partie2');
@@ -20,7 +21,5 @@ INSERT INTO Soigner(valDuree, uniteDuree, valFreq,uniteFreq,doseParPrise,medicam
     (1, 1, 3, 0, 1, SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'); 
 
 
-
-
-INSERT INTO TOUCHER (nom_maladie, nom_partie) VALUES
-    ('Diabète','pancréas');
+INSERT INTO Toucher(maladie_id, corps_id) VALUES
+   (SELECT id FROM Maladie WHERE nom_maladie = 'Diabète', SELECT id FROM Corps WHERE nom_partie ='pancréas');

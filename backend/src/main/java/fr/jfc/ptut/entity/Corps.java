@@ -24,7 +24,7 @@ public class Corps {
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
     @NonNull
-    private String nomPartie;
+    private String nom_partie;
     /*
     @OneToOne(optional = false)
     @NonNull
