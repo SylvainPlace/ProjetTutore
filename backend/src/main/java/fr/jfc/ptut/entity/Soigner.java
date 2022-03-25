@@ -26,17 +26,20 @@ import lombok.ToString;
 public class Soigner {
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
-/*
+
     @NonNull
     @ManyToOne(optional = false) 
+    @JsonIgnoreProperties({ "medicaments" })
     private Medicament medicament;
     @NonNull
     @ManyToOne(optional = false) 
+    @JsonIgnoreProperties({ "utilisateurs" })
     private Utilisateur utilisateur;
     @NonNull
     @ManyToOne(optional = false) 
+    @JsonIgnoreProperties({ "maladies" })
     private Maladie maladie;
-*/
+
     private int valduree;
     @Enumerated(EnumType.ORDINAL)
     private UniteDuree uniteduree;

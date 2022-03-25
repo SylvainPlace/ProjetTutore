@@ -9,13 +9,16 @@ INSERT INTO Corps(nom_partie) VALUES
 INSERT INTO Maladie(nom_maladie,symptomes,description,facteur_aggravant,cim_10) VALUES
     ('Diabète','Nausées, soif,malaise',' Le diabète est une maladie chronique caractérisée par la présence d’un excès de sucre dans le sang appelé . Il est avéré si le taux de glycémie à jeun est égal ou supérieur à 1,26 g/l ou 7 mmol/l de sang lors de deux dosages successifs.','obésité', 4);
 
-    INSERT INTO Soigner(valDuree, uniteDuree, valFreq,uniteFreq,doseParPrise) VALUES
-    (1, 1, 3,0,1); 
-
-
 INSERT INTO MEDICAMENT( nom_medic, info_prise, contre_indications) VALUES
    ('Maxilase', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose');
   
-
 INSERT INTO UTILISATEUR(adresse_mail, prenom, nom, mdp, date_de_naiss, categorie) VALUES
     ('adresse@mail', '5Cure', 'PentaPathologie', 'motDePasse', '01-01-2001', 'patient');
+
+
+INSERT INTO Soigner(valDuree, uniteDuree, valFreq,uniteFreq,doseParPrise,medicament_id, utilisateur_id ,maladie_id  ) VALUES
+    (1, 1, 3, 0, 1, SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'); 
+
+
+
+
