@@ -22,3 +22,5 @@ INSERT INTO Soigner(valDuree, uniteDuree, valFreq,uniteFreq,doseParPrise,medicam
 
 
 
+INSERT INTO TOUCHER (nom_maladie, nom_partie) VALUES
+    ('Diabète','pancréas');
