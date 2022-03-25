@@ -1,6 +1,6 @@
 package fr.jfc.ptut.enume;
 
 public enum UniteDuree {
-    Jour, Semaine
-    
+    Jour, Semaine, Mois, Annee
+
 }
