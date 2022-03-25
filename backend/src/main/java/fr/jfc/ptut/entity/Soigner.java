@@ -31,7 +31,6 @@ public class Soigner {
     private Medicament medicament;
     @ManyToOne(optional = false) 
     private Utilisateur utilisateur;
-    @NonNull
     @ManyToOne(optional = false) 
     private Maladie maladie;
 
