@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -26,7 +27,13 @@ public class Toucher {
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
     @NonNull
-    private String nom_maladie;
-    private String nom_partie;
+    @ManyToOne(optional = false)
+    @JsonIgnoreProperties({ "maladies" })
+    private Maladie maladie;
+
+    @NonNull
+    @ManyToOne(optional = false)
+    @JsonIgnoreProperties({ "corps" })
+    private Corps corps;
     
 }
