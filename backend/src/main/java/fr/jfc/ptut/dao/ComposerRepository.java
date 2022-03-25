@@ -5,5 +5,4 @@ import fr.jfc.ptut.entity.Composer;
 
 public interface ComposerRepository extends JpaRepository<Composer, Integer> {
 
-
 }
