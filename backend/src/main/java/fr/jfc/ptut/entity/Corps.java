@@ -24,6 +24,13 @@ public class Corps {
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
     @NonNull
-    private String nomPartie;
+    private String nom_partie;
+    /*
+    @OneToOne(optional = false)
+    @NonNull
+    private Composer nom_partie_compose;
+    @NonNull
+    private Composer nom_partie_est_composee;
+    */
 
 }
