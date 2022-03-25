@@ -25,12 +25,5 @@ public class Corps {
     private Integer id;
     @NonNull
     private String nomPartie;
-    /*
-    @OneToOne(optional = false)
-    @NonNull
-    private Composer nom_partie_compose;
-    @NonNull
-    private Composer nom_partie_est_composee;
-    */
 
 }

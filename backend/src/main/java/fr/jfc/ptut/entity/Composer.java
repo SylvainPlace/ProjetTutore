@@ -37,14 +37,10 @@ public class Composer {
   // Sinon récursivité infinie
   // private Corps nomPartie;
 
-  @NonNull
   @OneToOne(optional = false) 
-  @JsonIgnoreProperties({ "nom_partie_est_composees" })
   private Corps nom_partie_est_composee;
 
-  @NonNull
   @OneToOne(optional = false) 
-  @JsonIgnoreProperties({ "nom_partie_composes" })
   private Corps nom_partie_compose;
 
 }
