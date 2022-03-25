@@ -21,6 +21,8 @@ import lombok.ToString;
 
 @Entity // déclare une entité JPA
 public class Utilisateur {
+    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    private Integer id;
     
     @NonNull
     private String adresse_mail;
