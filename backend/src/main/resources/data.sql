@@ -19,3 +19,6 @@ INSERT INTO MEDICAMENT( nom_medic, info_prise, contre_indications) VALUES
 
 INSERT INTO UTILISATEUR(adresse_mail, prenom, nom, mdp, date_de_naiss, categorie) VALUES
     ('adresse@mail', '5Cure', 'PentaPathologie', 'motDePasse', '01-01-2001', 'patient');
+
+INSERT INTO TOUCHER (nom_maladie, nom_partie) VALUES
+    ('Diabète','pancréas');
