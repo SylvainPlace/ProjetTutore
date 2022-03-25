@@ -22,7 +22,7 @@ import lombok.ToString;
 // On utilise Lombok pour auto-générer getter / setter / toString...
 // cf. https://examples.javacodegeeks.com/spring-boot-with-lombok/
 
-@Entity // Une entité JPA
+@Entity @Getter @Setter// Une entité JPA
 public class Maladie {
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) 
      
