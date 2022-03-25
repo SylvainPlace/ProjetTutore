@@ -37,10 +37,10 @@ public class Composer {
   // Sinon récursivité infinie
   // private Corps nomPartie;
 
-  @OneToOne(optional = false) 
+  @OneToOne(optional = false)
   private Corps nom_partie_est_composee;
 
-  @OneToOne(optional = false) 
+  @OneToOne(optional = false)
   private Corps nom_partie_compose;
 
 }

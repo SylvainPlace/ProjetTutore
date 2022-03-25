@@ -4,6 +4,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+//4 import pour l'enum
+import fr.jfc.ptut.enume.*;
+import java.lang.Enum;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -36,6 +41,6 @@ public class Utilisateur {
 
     private String date_de_naiss;
 
-    @NonNull
-    private String categorie;
+    @Enumerated(EnumType.ORDINAL)
+    private Categorie categorie;
 }
