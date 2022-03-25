@@ -1,4 +1,5 @@
 package fr.jfc.ptut.entity;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,21 +22,24 @@ import lombok.ToString;
 // Un exemple d'entité
 // On utilise Lombok pour auto-générer getter / setter / toString...
 // cf. https://examples.javacodegeeks.com/spring-boot-with-lombok/
-@Getter @Setter@ToString
+@Getter
+@Setter
+@ToString
 @Entity // Une entité JPA
 public class Soigner {
-    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(optional = false) 
+    @ManyToOne(optional = false)
     private Medicament medicament;
-    @ManyToOne(optional = false) 
+    @ManyToOne(optional = false)
     private Utilisateur utilisateur;
-    @ManyToOne(optional = false) 
+    @ManyToOne(optional = false)
     private Maladie maladie;
 
     private int valduree;
-    @Enumerated(EnumType.ORDINAL)// STRING,ORDINAL
+    @Enumerated(EnumType.ORDINAL) // STRING,ORDINAL
     private UniteDuree uniteduree;
     private int valfreq;
     @Enumerated(EnumType.ORDINAL)
