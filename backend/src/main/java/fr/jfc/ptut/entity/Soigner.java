@@ -36,7 +36,7 @@ public class Soigner {
     private Maladie maladie;
 
     private int valduree;
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.ORDINAL)// STRING,ORDINAL
     private UniteDuree uniteduree;
     private int valfreq;
     @Enumerated(EnumType.ORDINAL)
