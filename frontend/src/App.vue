@@ -1,11 +1,10 @@
 <template>
   <div>
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/countries">Les pays</router-link> |
-      <router-link to="/countryEdit">Edition pays</router-link> |
-      <router-link to="/cityEdit">Edition villes</router-link> |
-      <router-link to="/about">About</router-link> |
+      <router-link to="/">Accueil</router-link> |
+      <router-link to="/personnelSoignant">Infirmier</router-link> |
+      <router-link to="/ajoutMedicament">ajoutMedicament</router-link> |
+      <router-link to="/resultat">resultat</router-link> |
       <router-view />
     </div>
   </div>
