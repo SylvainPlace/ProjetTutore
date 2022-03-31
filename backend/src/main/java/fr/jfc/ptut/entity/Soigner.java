@@ -34,6 +34,7 @@ public class Soigner {
     @ManyToOne(optional = false)
     private Medicament medicament;
     @ManyToOne(optional = false)
+    @JsonIgnoreProperties({ "soigners" })
     private Utilisateur utilisateur;
     @ManyToOne(optional = false)
     private Maladie maladie;

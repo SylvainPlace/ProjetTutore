@@ -1,11 +1,12 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <DetailPatient/>
   </div>
 </template>
 
 <script setup>
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
+import SelecteurPatient from "@/components/SelecteurPatient.vue";
+import DetailPatient from "@/components/DetailPatient.vue";
 </script>
