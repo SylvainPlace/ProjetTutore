@@ -27,9 +27,9 @@ onMounted(() => {
 </script>
 
 <template>
-    <label for="patientSelect">Choix du patient :</label>
+<label for="patientSelect">Choix du patient :</label>
     <select
-        id="patientSelect"
+    id="patientSelect"
         @change="$emit(`patientEvent`, $event.target.value)"
         v-model="data.allPatients.id"
     >
