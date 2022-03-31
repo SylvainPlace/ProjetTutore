@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Accueil from "src/views/Accueil.vue";
-import Infirmier from "src/views/Infirmier.vue";
-import Medicament from "src/views/Medicament.vue";
-import Resultat from "src/views/Resultat.vue";
+import Accueil from "../views/Accueil.vue";
+import Infirmier from "../views/Infirmier.vue";
+import Medicament from "../views/Medicament.vue";
+import Resultat from "../views/Resultat.vue";
 
 const routes = [
   {
