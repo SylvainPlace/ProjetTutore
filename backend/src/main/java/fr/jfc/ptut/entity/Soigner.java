@@ -10,9 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import fr.jfc.ptut.enume.*;
 import java.lang.Enum;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -56,5 +59,7 @@ public class Soigner {
     @Enumerated(EnumType.ORDINAL)
     private UniteFreq unitefreq;
     private int doseparprise;
+
+    
 
 }

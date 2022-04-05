@@ -6,7 +6,7 @@ package fr.jfc.ptut.dto;
  * Cette interface sera "automatiquement" implémentée par Spring.
  * @see monprojet.dao.SoignerRepository
  */
-public interface SoignerDetailsResult {
+public interface InfirmiereSoignerDetailsResult {
     String getNomMedicament();
     String getNomMaladie();
 }

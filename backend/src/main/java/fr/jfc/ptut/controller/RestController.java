@@ -25,10 +25,10 @@ import fr.jfc.ptut.entity.Medicament;
 import fr.jfc.ptut.dao.SoignerRepository;
 import fr.jfc.ptut.dto.PopulationResult;
 import fr.jfc.ptut.dto.CityForm;
-import fr.jfc.ptut.dto.SoignerDetailsResult;
+import fr.jfc.ptut.dto.InfirmiereSoignerDetailsResult;
+import fr.jfc.ptut.dto.PatientDetailMedicaments;
 import fr.jfc.ptut.entity.Soigner;
 
-import fr.jfc.ptut.entity.Soigner;
 import fr.jfc.ptut.enume.Categorie;
 import fr.jfc.ptut.enume.Cim;
 import fr.jfc.ptut.enume.UniteDuree;
@@ -48,10 +48,16 @@ public class RestController {
 	@Autowired
 	private SoignerRepository soignerDao;
 	
-	@GetMapping(path = "soignerMedicament/{id}") 
-	public @ResponseBody List<SoignerDetailsResult> soignerDetails(@PathVariable int id) {
+	@GetMapping(path = "InfirmierSoignerMedicament/{id}") 
+	public @ResponseBody List<InfirmiereSoignerDetailsResult> InfirmierSoignerDetails(@PathVariable int id) {
+		log.info("Soigner avec maladie et medicament");
+		return soignerDao.InfirmierSoignerDetails(id);
+	}
+
+	@GetMapping(path = "PatientSoignerMedicament/{id}") 
+	public @ResponseBody List<PatientDetailMedicaments> PatientSoignerDetails(@PathVariable int id) {
 		log.info("Soigner avec dose et medicament");
-		return soignerDao.soignerDetails(id);
+		return soignerDao.PatientSoignerDetails(id);
 	}
 
 	/**

@@ -12,6 +12,7 @@ import fr.jfc.ptut.entity.Soigner;
 import fr.jfc.ptut.enume.*;
 import java.lang.Enum;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EnumType;
@@ -56,7 +57,9 @@ public class Utilisateur {
     @NonNull
     private String mdp;
 
-    private String date_de_naiss;
+
+    @Temporal(TemporalType.DATE)
+    private Date date_de_naiss;
 
     @Enumerated(EnumType.ORDINAL)
     private Categorie categorie;
