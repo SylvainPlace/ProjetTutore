@@ -34,7 +34,9 @@ function fetchSoignersMedicament() {
 </script>
 
 <template>
-    <SelecteurPatient @patientEvent="choixPatient" />
+    <div class="container pb-3">
+        <SelecteurPatient @patientEvent="choixPatient" />
+    </div>
     <!--  <ListMedicament v-if="data.patientChoisi != ''"  :soignersPatient="data.patientChoisi + '/soigners'"  ref="liste"    /> -->
     <div class>
         <table class="table table-bordered table-sm table-hover shadow p-3 mb-5 bg-body rounded-3">
