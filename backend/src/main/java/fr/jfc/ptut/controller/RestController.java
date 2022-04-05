@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,8 +22,9 @@ import fr.jfc.ptut.entity.Maladie;
 
 
 import fr.jfc.ptut.dao.SoignerRepository;
-import fr.jfc.ptut.dto.CityForm;
 import fr.jfc.ptut.dto.PopulationResult;
+import fr.jfc.ptut.dto.CityForm;
+import fr.jfc.ptut.dto.SoignerDetailsResult;
 import fr.jfc.ptut.entity.Soigner;
 
 
@@ -38,7 +40,11 @@ public class RestController {
 	@Autowired
 	private SoignerRepository soignerDao;
 	
-
+	@GetMapping(path = "soignerMedicament/{id}") 
+	public @ResponseBody List<SoignerDetailsResult> soignerDetails(@PathVariable int id) {
+		log.info("Soigner avec dose et medicament");
+		return soignerDao.soignerDetails(id);
+	}
 
 	/**
 	 * Enregistre une ville dans la base

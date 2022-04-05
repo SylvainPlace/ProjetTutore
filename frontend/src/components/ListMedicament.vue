@@ -1,19 +1,22 @@
 <script setup>
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, onUpdated } from "vue";
 
 
-defineProps({
-    patientChoisi: String
-})
-defineEmits(['update:patientChoisi'])
-const data = reactive({
-
+const props = defineProps({
+    soignersPatient: {
+        type: String,
+        required: true,
+    },
 });
 
 
+onMounted(() => {
+    console.log("first");
+    fetchMedicamentPatient(); // On récupère les médicaments
+});
 
 function fetchMedicamentPatient() {
-    fetch(patientChoisi + "/soigners")
+    fetch(soignersPatient)
         .then((response) => response.json())
         .then((json) => {
             console.log(json);
@@ -24,5 +27,6 @@ function fetchMedicamentPatient() {
 </script>
 
 <template>
-    <p>{{ patientChoisi }}</p>
+    <p>Affiche</p>
+    <p>{{ props.soignersPatient }}</p>
 </template>

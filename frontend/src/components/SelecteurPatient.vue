@@ -37,7 +37,7 @@ onMounted(() => {
         <option
             v-for="patient in data.allPatients"
             :key="patient.id"
-            :value="patient._links.self.href"
+            :value="patient.id"
         >{{ patient.prenom }} {{ patient.nom }} né(e) le {{ patient.date_de_naiss }}</option>
     </select>
 </template>
