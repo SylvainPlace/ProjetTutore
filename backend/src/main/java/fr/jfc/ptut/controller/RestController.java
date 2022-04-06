@@ -121,13 +121,13 @@ public class RestController {
 
 	@GetMapping(path = "allMedicaments")
 	public @ResponseBody List<Medicament> allMedicaments() {
-		log.info("Renvoie la liste des villes");
+		log.info("Renvoie la liste des medicaments");
 		return medicamentDao.findAll();
 	}
 
 	@GetMapping(path = "allCategorie")
 	public @ResponseBody List<Categorie> allCategorie() {
-		log.info("Renvoie la liste des villes");
+		log.info("Renvoie la liste des categorie");
 		List<Categorie> lesCategories = new ArrayList<>();
 		for (Categorie c : Categorie.values()) {
 			lesCategories.add(c);
@@ -137,7 +137,7 @@ public class RestController {
 
 	@GetMapping(path = "allCim")
 	public @ResponseBody List<Cim> allCim() {
-		log.info("Renvoie la liste des villes");
+		log.info("Renvoie la liste des cim");
 		List<Cim> lesCims = new ArrayList<>();
 		for (Cim c : Cim.values()) {
 			lesCims.add(c);
@@ -147,7 +147,7 @@ public class RestController {
 
 	@GetMapping(path = "allUniteDuree")
 	public @ResponseBody List<UniteDuree> allUniteDuree() {
-		log.info("Renvoie la liste des villes");
+		log.info("Renvoie la liste des durees");
 		List<UniteDuree> lesUniteDuree = new ArrayList<>();
 		for (UniteDuree c : UniteDuree.values()) {
 			lesUniteDuree.add(c);
@@ -157,7 +157,7 @@ public class RestController {
 
 	@GetMapping(path = "allUniteFreq")
 	public @ResponseBody List<UniteFreq> allUniteFreq() {
-		log.info("Renvoie la liste des villes");
+		log.info("Renvoie la liste des fréquences");
 		List<UniteFreq> lesUniteFreq = new ArrayList<>();
 		for (UniteFreq c : UniteFreq.values()) {
 			lesUniteFreq.add(c);
