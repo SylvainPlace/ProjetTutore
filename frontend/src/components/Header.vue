@@ -9,9 +9,9 @@
       >Infirmier</router-link
     >
     <router-link to="/ajoutMedicament" class="navbar-brand"
-      >ajoutMedicament</router-link
+      >Ajout Medicament</router-link
     >
-    <router-link to="/resultat" class="navbar-brand">resultat</router-link>
+    <router-link to="/resultat" class="navbar-brand">Resultat</router-link>
   </nav>
   <router-view />
 </template>
