@@ -55,11 +55,14 @@ public class Soigner {
     private int valduree;
     @Enumerated(EnumType.ORDINAL) // STRING, ORDINAL
     private UniteDuree uniteduree;
+
     private int valfreq;
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.ORDINAL) // STRING, ORDINAL
     private UniteFreq unitefreq;
+
     private int doseparprise;
 
-    
+    @Temporal(TemporalType.DATE)
+    private Date datecreation;
 
 }

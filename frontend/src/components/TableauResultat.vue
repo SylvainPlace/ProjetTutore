@@ -1,9 +1,10 @@
 <script setup>
 import { reactive } from "vue";
 import SelecteurPatient from './SelecteurPatient.vue';
+import ConfirmationSupprimer from './ConfirmationSupprimer.vue';
 
 const data = reactive({
-    id: "1",
+    id: "",
     soigners: [],
 });
 
@@ -17,6 +18,7 @@ function fetchSoignersMedicament() {
         .then((response) => response.json())
         .then((json) => {
             data.soigners = json;
+            calculDates();
             gestionPluriels();
         })
         .catch((error) => alert(error));
@@ -24,13 +26,43 @@ function fetchSoignersMedicament() {
 
 function gestionPluriels() {
     for (let s of data.soigners) {
-        if (s.valDuree > 1) {
+        if (s.valDuree > 1 && s.uniteDuree != "Mois") {
             s.uniteDuree += "s";
         }
-        if (s.valFreq > 1) {
-            s.uniteFreq += "s";
+        if (s.doseParPrise > 1) {
+            s.dose = "doses";
+        } else {
+            s.dose = "dose";
         }
     }
+}
+
+function calculDates() {
+    for (let s of data.soigners) {
+        let date = new Date(s.dateCreation);
+        calculDateFin(s, new Date(s.dateCreation));
+        s.dateCreation = date.toLocaleDateString();
+    }
+}
+
+function calculDateFin(s, date) {
+    switch (s.uniteDuree) {
+        case "Jour":
+            date.setDate(date.getDate() + s.valDuree);
+            break;
+        case "Semaine":
+            date.setDate(date.getDate() + s.valDuree * 7);
+            break;
+        case "Mois":
+            date.setMonth(date.getMonth() + s.valDuree);
+            break;
+        case "Annee":
+            date.setFullYear(date.getFullYear() + s.valDuree);
+            break;
+        default:
+            break;
+    }
+    s.dateFin = date.toLocaleDateString();
 }
 
 function deleteFetch(id) {
@@ -54,37 +86,35 @@ function deleteFetch(id) {
     <div class="container pb-3">
         <SelecteurPatient @patientEvent="choixPatient" />
     </div>
+    <div class="container"></div>
     <!--  <ListMedicament v-if="data.patientChoisi != ''"  :soignersPatient="data.patientChoisi + '/soigners'"  ref="liste"    /> -->
     <div class="container pb-3">
         <table class="table table-bordered table-hover shadow p-3 mb-5 bg-body rounded-3">
             <thead>
                 <tr>
+                    <th>Date de création</th>
+                    <th>Durée</th>
+                    <th>Date de fin</th>
                     <th>Médicament</th>
                     <th>Moyen de prise</th>
                     <th>Contre Indication</th>
-                    <th>Durée</th>
-                    <th>Fréquence</th>
-                    <th>Dose Par Prise</th>
+                    <th>Posologie</th>
                     <th>Maladie</th>
                     <th>Supprimer</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="soigner in data.soigners">
+                    <td>{{ soigner.dateCreation }}</td>
+                    <td>{{ soigner.valDuree }} {{ soigner.uniteDuree }}</td>
+                    <td>{{ soigner.dateFin }}</td>
                     <td>{{ soigner.nomMedicament }}</td>
                     <td>{{ soigner.infoPrises }}</td>
                     <td>{{ soigner.contreIndications }}</td>
-                    <td>{{ soigner.valDuree }} {{ soigner.uniteDuree }}</td>
-                    <td>{{ soigner.valFreq }} {{ soigner.uniteFreq }}</td>
-                    <td>{{ soigner.doseParPrise }}</td>
+                    <td>{{ soigner.doseParPrise }} {{ soigner.dose }} {{ soigner.valFreq }} fois / {{ soigner.uniteFreq }} pendant {{ soigner.valDuree }} {{ soigner.uniteDuree }}</td>
                     <td>{{ soigner.nomMaladie }}</td>
                     <td>
-                        <input
-                            class="btn btn-danger"
-                            type="button"
-                            @click="deleteFetch(soigner.id)"
-                            value="X"
-                        />
+                        <ConfirmationSupprimer @supprConfirmed="deleteFetch" :id="soigner.id" />
                     </td>
                 </tr>
             </tbody>

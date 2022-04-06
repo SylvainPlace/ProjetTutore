@@ -1,5 +1,7 @@
 package fr.jfc.ptut.dto;
 
+import java.util.Date;
+
 /**
  * Un "DTO" (Data Transfer Object) pour représenter 
  * le résultat d'une requête SQL.
@@ -16,6 +18,7 @@ public interface PatientDetailMedicaments {
     int getValFreq();
     String getUniteFreq();
     int getDoseParPrise();
+    Date getdateCreation();
     String getNomMaladie();
     
 }

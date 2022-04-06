@@ -17,12 +17,14 @@ INSERT INTO MEDICAMENT( nom_medic, info_prise, contre_indications) VALUES
   
 INSERT INTO UTILISATEUR(adresse_mail, prenom, nom, mdp, date_de_naiss, categorie) VALUES
     ('adresse@mail', '5Cure', 'PentaPathologie', 'motDePasse', '2001-01-01', 0),
-    ('adresse2@mail', '6Cure', 'HexaPathologie', 'motDePasse', '2001-01-01', 1);
+    ('adresse2@mail', '6Cure', 'HexaPathologie', 'motDePasse', '2001-02-13', 1);
 
 
-INSERT INTO Soigner(valDuree, uniteDuree, valFreq,uniteFreq,doseParPrise,medicament_id, utilisateur_id ,maladie_id  ) VALUES
-    (1, 1, 3, 0, 1, SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
-(1, 1, 3, 0, 1, SELECT id FROM medicament WHERE nom_medic = 'Maxxxxxxxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diaaaaabete'); 
+INSERT INTO Soigner(valDuree, uniteDuree, valFreq,uniteFreq, doseParPrise,datecreation, medicament_id, utilisateur_id ,maladie_id  ) VALUES
+    (4, 0, 3, 0, 1,'2022-04-06', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
+    (4, 1, 3, 0, 2,'2022-04-06', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
+    (4, 2, 1, 1, 1,'2022-04-06', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
+    (4, 3, 2, 2, 1,'2022-04-06', SELECT id FROM medicament WHERE nom_medic = 'Maxxxxxxxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diaaaaabete'); 
 
 
 INSERT INTO Toucher(maladie_id, corps_id) VALUES

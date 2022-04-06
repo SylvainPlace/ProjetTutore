@@ -19,8 +19,17 @@ function fetchPatients() {
         .then((response) => response.json())
         .then((json) => {
             data.allPatients = json._embedded.utilisateurs;
+            calculDate()
         })
         .catch((error) => alert(error));
+}
+
+
+function calculDate() {
+    for (let s of data.allPatients) {
+        let date = new Date(s.date_de_naiss);
+        s.date_de_naiss = date.toLocaleDateString();
+    }
 }
 
 </script>
