@@ -1,15 +1,7 @@
 <template>
   <div>
     <Header nom="Dupont" prenom="Jean" />
-    <div id="nav">
-      <router-link to="/">Accueil</router-link>|
-      <router-link to="/personnelSoignant">Infirmier</router-link>|
-      <router-link to="/ajoutMedicament">ajoutMedicament</router-link>|
-      <router-link to="/resultat">resultat</router-link>
-    </div>
-    <div class=" block">
-      <router-view />
-    </div>
+
   </div>
 </template>
 <script setup>
@@ -36,5 +28,4 @@ import Header from "@/components/Header.vue";
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
 </style>
