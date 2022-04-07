@@ -1,8 +1,8 @@
 <template>
 
     <p>Vous aimez ?</p>
-	<input type="image" id="image" src="Téléchargements/pouceVert.png" alt="Bouton pouce vert"/>
-	<input type="image" id="image" src="Téléchargements/pouceRouge.png" alt="Bouton pouce rouge"/>
+	<img src="@/assets/pouceVert.png" alt="Bouton pouce vert"/>
+	<img src="@/assets/pouceRouge.png" alt="Bouton pouce rouge"/>
 
 
     <p>Five Cure</p>
@@ -13,7 +13,16 @@
 
 
     <!-- Bouton -->
-	<input type="image" id="image" value="Revenir en haut de page" src="Téléchargements/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page "/>
+	<!--<input type="image" id="image" value="Revenir en haut de page" src="@/assets/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page "/>-->
+    
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+    <img src="@/assets/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page"/>
+    <a href="#top" title ="ancre vers le haut de la page">Revenir en haut de page </a>
     
 
 </template>
+
+<script setup>
+
+</script>

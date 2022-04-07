@@ -1,7 +1,9 @@
+<script setup>
+import Footer from "@/components/Footer.vue"
+</script>
+
+
 <template>
-  <footer/>
+  <Footer/>
 </template>
 
-<script setup>
-import footer from "@/components/footer.vue"
-</script>

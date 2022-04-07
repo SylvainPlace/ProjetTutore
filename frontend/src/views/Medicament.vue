@@ -1,11 +1,11 @@
 <template>
-  <div class="home">
-    <h2>Les pays</h2>
-    <country-list />
-  </div>
+
+  <TabRecapMedic11/>
+
 </template>
 
 <script setup>
 // @ is an alias to /src
 import CountryList from "@/components/CountryList.vue";
+import TabRecapMedic11 from "@/components/TabRecapMedic11.vue"
 </script>

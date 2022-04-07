@@ -11,7 +11,9 @@ INSERT INTO Maladie(nom_maladie,symptomes,description,facteur_aggravant,cim_10) 
     ('Diabète','Nausées, soif,malaise',' Le diabète est une maladie chronique caractérisée par la présence d’un excès de sucre dans le sang appelé . Il est avéré si le taux de glycémie à jeun est égal ou supérieur à 1,26 g/l ou 7 mmol/l de sang lors de deux dosages successifs.','obésité', 3);
 
 INSERT INTO MEDICAMENT( nom_medic, info_prise, contre_indications) VALUES
-   ('Maxilase', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose');
+   ('Maxilase', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose'),
+   ('Maxilase2', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose'),
+   ('Maxilase3', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose');
   
 INSERT INTO UTILISATEUR(adresse_mail, prenom, nom, mdp, date_de_naiss, categorie) VALUES
     ('adresse@mail', '5Cure', 'PentaPathologie', 'motDePasse', '01-01-2001', 0);
