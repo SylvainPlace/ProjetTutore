@@ -8,7 +8,7 @@
     <router-link to="/personnelSoignant" class="navbar-brand"
       >Infirmier</router-link
     >
-    <router-link to="/ajoutMedicament" class="navbar-brand"
+    <router-link to="/ajoutTraitement" class="navbar-brand"
       >Ajout Medicament</router-link
     >
     <router-link to="/resultat" class="navbar-brand">Resultat</router-link>
