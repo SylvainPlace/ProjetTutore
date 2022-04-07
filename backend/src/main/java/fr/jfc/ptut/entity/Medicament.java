@@ -41,7 +41,4 @@ public class Medicament {
     @NonNull
     private String info_prise;
     private String contre_indications;
-    
-    @OneToMany(mappedBy = "medicament", cascade = CascadeType.ALL)
-    private List<Soigner> soigners;
 }

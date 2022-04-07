@@ -1,5 +1,10 @@
 <template>
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="`#modal${id}`">X</button>
+    <button
+        type="button"
+        class="btn btn-danger"
+        data-bs-toggle="modal"
+        :data-bs-target="`#modal${id}`"
+    >X</button>
 
     <!-- Modal -->
     <div

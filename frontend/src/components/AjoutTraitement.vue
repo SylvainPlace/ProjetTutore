@@ -3,7 +3,7 @@ import { onMounted, reactive } from "vue";
 function lesMedicaments(event) {
   let fetchOptions = { method: "GET" };
 
-  fetch("http://localhost:8989/api/medicamentsByName")
+  fetch("/api/medicamentsByName?mot=")
     .then((response) => {
       return response.json();
     })
