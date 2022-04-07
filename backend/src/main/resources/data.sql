@@ -25,9 +25,12 @@ INSERT INTO UTILISATEUR(adresse_mail, prenom, nom, mdp, date_de_naiss, categorie
 
 INSERT INTO Soigner(valDuree, uniteDuree, valFreq,uniteFreq, doseParPrise, datecreation, medicament_id, utilisateur_id ,maladie_id  ) VALUES
     (4, 0, 3, 0, 1,'2022-04-06', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
-    (4, 1, 3, 0, 2,'2022-05-04', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
-    (4, 2, 1, 1, 1,'2022-04-07', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
-    (4, 3, 2, 2, 1,'2023-03-05', SELECT id FROM medicament WHERE nom_medic = 'Maxxxxxxxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diaaaaabete'); 
+    (4, 0, 3, 0, 1,'2022-04-05', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
+    (4, 0, 3, 0, 1,'2022-04-04', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
+    (4, 0, 3, 0, 1,'2022-04-01', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
+    (4, 1, 3, 0, 2,'2022-04-04', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
+    (7, 2, 2, 1, 1,'2022-03-08', SELECT id FROM medicament WHERE nom_medic = 'Maxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diabète'),
+    (4, 3, 2, 2, 1,'2022-03-05', SELECT id FROM medicament WHERE nom_medic = 'Maxxxxxxxilase', SELECT id FROM utilisateur WHERE adresse_mail = 'adresse@mail', SELECT id FROM maladie WHERE nom_maladie = 'Diaaaaabete'); 
 
 
 INSERT INTO Toucher(maladie_id, corps_id) VALUES
