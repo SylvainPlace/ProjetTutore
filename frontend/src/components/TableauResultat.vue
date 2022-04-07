@@ -19,7 +19,7 @@ function fetchSoignersMedicament() {
         .then((json) => {
             data.soigners = json;
             calculDates();
-            data.soigners.sort(triNomMedicamentCroissant);
+            data.soigners.sort(triDateDebutCroissant);
             formatDates();
             gestionPluriels();
         })
@@ -88,13 +88,9 @@ function deleteFetch(id) {
         .catch((error) => alert(error));
 }
 
+
 function triNomMaladieCroissant(a, b) {
     if (a.nomMaladie < b.nomMaladie) return -1;
-    else if (a.nomMaladie == b.nomMaladie) return 0;
-    else return 1;
-}
-function triNomMaladieDecroissant(a, b) {
-    if (a.nomMaladie > b.nomMaladie) return -1;
     else if (a.nomMaladie == b.nomMaladie) return 0;
     else return 1;
 }
@@ -103,20 +99,19 @@ function triNomMedicamentCroissant(a, b) {
     else if (a.nomMedicament == b.nomMedicament) return 0;
     else return 1;
 }
-function triNomMedicamentDecroissant(a, b) {
-    if (a.nomMedicament > b.nomMedicament) return -1;
-    else if (a.nomMedicament == b.nomMedicament) return 0;
-    else return 1;
-}
 function triDateDebutCroissant(a, b) {
     if (a.dateCreation < b.dateCreation) return -1;
     else if (a.dateCreation == b.dateCreation) return 0;
     else return 1;
 }
-function triDateDebutDecroissant(a, b) {
-    if (a.dateCreation > b.dateCreation) return 1;
-    else if (a.dateCreation == b.dateCreation) return 0;
-    else return -1;
+function triDateFinCroissant(a, b) {
+    if (a.dateFin < b.dateFin) return -1;
+    else if (a.dateFin == b.dateFin) return 0;
+    else return 1;
+}
+
+function croissantDecroissant() {
+    data.soigners.reverse();
 }
 
 
@@ -127,16 +122,17 @@ function triDateDebutDecroissant(a, b) {
     <div class="container pb-3">
         <SelecteurPatient @patientEvent="choixPatient" />
     </div>
+    <button type="button" class="btn btn-primary" @click="croissantDecroissant()">Croissant / Decroissant</button>
     <div class="container"></div>
     <!--  <ListMedicament v-if="data.patientChoisi != ''"  :soignersPatient="data.patientChoisi + '/soigners'"  ref="liste"    /> -->
     <div class="container pb-3">
         <table class="table table-bordered table-hover shadow p-3 mb-5 bg-body rounded-3">
             <thead>
                 <tr>
-                    <th>Date de création</th>
+                    <th @click="data.soigners.sort(triDateDebutCroissant)">Date de création</th>
                     <th>Durée</th>
                     <th>Date de fin</th>
-                    <th>Médicament</th>
+                    <th @click="data.soigners.sort(triNomMedicamentCroissant)">Médicament</th>
                     <th>Moyen de prise</th>
                     <th>Contre Indication</th>
                     <th>Posologie</th>
