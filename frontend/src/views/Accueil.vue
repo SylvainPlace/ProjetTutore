@@ -1,11 +1,25 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  
+    <img id="logo" alt="Vue logo" src="../assets/5cure.png.jpg" />
+    <Accueil6 />
+  <h1>Bienvenue sur l'application WEB de FiveCure !</h1>
+  <p>Ce site WEB vous permettra de gérer les ordonnaces mieux que quiconque. <br> Une prise en main facilitée expliquée en quelques images </p>
+  <video controls poster="video.jpg" width="300">
+    <source src="@/assets/video.mp4"/>
+  </video>
 </template>
 
 <script setup>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Accueil6 from "@/components/Accueil6.vue";
 </script>
+<style scoped>
+ #logo{
+   width: 100px;
+   height: 100px;
+   position: absolute;
+   left : 0px;
+   top : 30px;
+
+ }
+</style>
