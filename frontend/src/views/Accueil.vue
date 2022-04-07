@@ -8,9 +8,4 @@ import Footer from "@/components/Footer.vue"
   </div>
 </template>
 
-<script setup>
-// @ is an alias to /src
-</script>
-  <Footer/>
-</template>
 

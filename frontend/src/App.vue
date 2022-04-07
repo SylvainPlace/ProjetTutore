@@ -28,4 +28,14 @@ import Header from "@/components/Header.vue";
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+/* Curseur indiquant un clic possible*/
+.pointer {
+    cursor: pointer;
+}
+
+/* Curseur classique*/
+.defaultCursor {
+    cursor: default;
+}
 </style>

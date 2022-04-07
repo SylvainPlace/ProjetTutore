@@ -6,6 +6,8 @@ import ConfirmationSupprimer from './ConfirmationSupprimer.vue';
 const data = reactive({
     id: "",
     soigners: [],
+    bouleanTri: [true, false, false, false],
+
 });
 
 function choixPatient(patient) {
@@ -68,9 +70,9 @@ function calculDateFin(s, date) {
 function formatDates() {
     for (let s of data.soigners) {
         let dateD = new Date(s.dateCreation);
-        s.dateCreation = dateD.toLocaleDateString();
+        s.dateCreationAffichage = dateD.toLocaleDateString();
         let dateF = new Date(s.dateFin);
-        s.dateFin = dateF.toLocaleDateString();
+        s.dateFinAffichage = dateF.toLocaleDateString();
     }
 }
 
@@ -114,6 +116,10 @@ function croissantDecroissant() {
     data.soigners.reverse();
 }
 
+function choixTri(nom) {
+    
+    data.soigners.sort(nom);
+}
 
 </script>
 
@@ -122,29 +128,61 @@ function croissantDecroissant() {
     <div class="container pb-3">
         <SelecteurPatient @patientEvent="choixPatient" />
     </div>
-    <button type="button" class="btn btn-primary" @click="croissantDecroissant()">Croissant / Decroissant</button>
+    <button
+        type="button"
+        class="btn btn-primary"
+        @click="croissantDecroissant()"
+    >Croissant / Decroissant</button>
     <div class="container"></div>
     <!--  <ListMedicament v-if="data.patientChoisi != ''"  :soignersPatient="data.patientChoisi + '/soigners'"  ref="liste"    /> -->
     <div class="container pb-3">
         <table class="table table-bordered table-hover shadow p-3 mb-5 bg-body rounded-3">
             <thead>
                 <tr>
-                    <th @click="data.soigners.sort(triDateDebutCroissant)">Date de création</th>
+                    <th>Avancement</th>
+                    <th>ProchainePrise</th>
+                    <th>
+                        Date de création
+                        <i
+                            class="pointer arrow down"
+                            @click="choixTri(triDateDebutCroissant)"
+                        ></i>
+                    </th>
                     <th>Durée</th>
-                    <th>Date de fin</th>
-                    <th @click="data.soigners.sort(triNomMedicamentCroissant)">Médicament</th>
+                    <th>
+                        Date de fin
+                        <i
+                            class="pointer arrow down"
+                            @click="choixTri(triDateFinCroissant)"
+                        ></i>
+                    </th>
+                    <th>
+                        Médicament
+                        <i
+                            class="pointer arrow down"
+                            @click="choixTri(triNomMedicamentCroissant)"
+                        ></i>
+                    </th>
                     <th>Moyen de prise</th>
                     <th>Contre Indication</th>
                     <th>Posologie</th>
-                    <th>Maladie</th>
+                    <th>
+                        Maladie
+                        <i
+                            class="pointer arrow down"
+                            @click="choixTri(triNomMaladieCroissant)"
+                        ></i>
+                    </th>
                     <th>Supprimer</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="soigner in data.soigners">
-                    <td>{{ soigner.dateCreation }}</td>
+                    <td>{{ soigner }}</td>
+                    <td>{{ soigner }}</td>
+                    <td>{{ soigner.dateCreationAffichage }}</td>
                     <td>{{ soigner.valDuree }} {{ soigner.uniteDuree }}</td>
-                    <td>{{ soigner.dateFin }}</td>
+                    <td>{{ soigner.dateFinAffichage }}</td>
                     <td>{{ soigner.nomMedicament }}</td>
                     <td>{{ soigner.infoPrises }}</td>
                     <td>{{ soigner.contreIndications }}</td>
@@ -158,3 +196,32 @@ function croissantDecroissant() {
         </table>
     </div>
 </template>
+
+<style>
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 6px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+</style>
