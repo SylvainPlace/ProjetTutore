@@ -1,15 +1,12 @@
 <template>
   <div>
-    <div id="nav">
-      <router-link to="/">Accueil</router-link> |
-      <router-link to="/personnelSoignant">Infirmier</router-link> |
-      <router-link to="/ajoutMedicament">ajoutMedicament</router-link> |
-      <router-link to="/resultat">resultat</router-link> |
-      <router-view />
-    </div>
+    <Header nom="Dupont" prenom="Jean" />
+
   </div>
 </template>
-
+<script setup>
+import Header from "@/components/Header.vue";
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

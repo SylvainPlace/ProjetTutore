@@ -7,11 +7,15 @@
   <video controls poster="video.jpg" width="300">
     <source src="@/assets/video.mp4"/>
   </video>
+    <Footer/>
+
 </template>
 
 <script setup>
 // @ is an alias to /src
 import Accueil6 from "@/components/Accueil6.vue";
+import Footer from "@/components/Footer.vue"
+
 </script>
 <style scoped>
  #logo{
@@ -23,3 +27,4 @@ import Accueil6 from "@/components/Accueil6.vue";
 
  }
 </style>
+
