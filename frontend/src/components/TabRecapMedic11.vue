@@ -3,18 +3,18 @@
     <table class="table table-bordered table-sm table-hover">
       <thead>
         <tr>
-          <th>Code</th>
-          <th>Nom</th>
-          <th>Action</th>
+          <th>Liste des médicaments ajoutés</th>
+          <th>Actions possibles</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="country in data.countries" :key="country.id">
-          <td>{{ country.code }}</td>
-          <td>{{ country.name }}</td>
+        <tr v-for="medicament in data.medicaments" :key="medicament.id">
+          <td>Nom : {{ medicament.nom_medic }} <br/> 
+          Informations sur la prise : {{ medicament.info_prise }} <br/>
+          Contres indications : {{ medicament.contre_indications }}</td>
           <td>
             <button
-              @click="deleteCountry(country)"
+              @click="deleteMedicament(medicament)"
             >
               Supprimer
             </button>
@@ -29,7 +29,7 @@
 import { reactive, onMounted } from "vue";
 
 let data = reactive({
-  countries: [],
+  medicaments: [],
 });
 
 defineExpose({ // On expose la méthode 'refresh' pour être utilisée par le parent
@@ -37,18 +37,19 @@ defineExpose({ // On expose la méthode 'refresh' pour être utilisée par le pa
 })
 
 // On définit les événements générés par le composant
-const emit = defineEmits(['countryEdited',])
+const emit = defineEmits(['medicamentEdited',])
 
-function editCountry(country) {
-  emit('countryEdited', country); // On notifie le parent qu'il faut modifier le pays
+function editMedicament(medicament) {
+  emit('medicamentEdited', medicament); // On notifie le parent qu'il faut modifier le pays
 }
 
-function deleteCountry(country) {
-  console.log(country);
+function deleteMedicament(medicament) {
+    console.log(medicament._links.self.href);
+  console.log(medicament);
   const options = {
     method: "DELETE",
   };
-  fetch(country._links.self.href, options)
+  fetch(medicament._links.self.href, options)
     .then((response) => {
       if (!response.ok) { // status != 2XX
         throw new Error(response.status);
@@ -60,7 +61,7 @@ function deleteCountry(country) {
 
 
 function refresh() {
-  fetch("api/countries")
+  fetch("api/medicaments")
     .then((response) => {
       if (!response.ok) { // status != 2XX
         throw new Error(response.status);
@@ -68,7 +69,7 @@ function refresh() {
       return response.json();
     })
     .then((json) => {
-      data.countries = json._embedded.countries;
+      data.medicaments = json._embedded.medicaments;
     })
     .catch((error) => alert(error));
 }

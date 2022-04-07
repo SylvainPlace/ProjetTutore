@@ -13,7 +13,10 @@ INSERT INTO Maladie(nom_maladie,symptomes,description,facteur_aggravant,cim_10) 
 
 INSERT INTO MEDICAMENT( nom_medic, info_prise, contre_indications) VALUES
    ('Maxilase', 'sirop', 'deconseiller pour les patients intolerants au fructose'),
-   ('Maxxxxxxxilase', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose');
+   ('Maxxxxxxxilase', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose'),
+   ('Maxilase', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose'),
+   ('Maxilase2', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose'),
+   ('Maxilase3', '2 cuillieres a cafe', 'deconseiller pour les patients intolerants au fructose');
   
 INSERT INTO UTILISATEUR(adresse_mail, prenom, nom, mdp, date_de_naiss, categorie) VALUES
     ('adresse@mail', '5Cure', 'PentaPathologie', 'motDePasse', '2001-01-01', 0),
