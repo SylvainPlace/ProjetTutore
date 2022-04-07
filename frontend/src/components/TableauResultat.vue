@@ -19,6 +19,8 @@ function fetchSoignersMedicament() {
         .then((json) => {
             data.soigners = json;
             calculDates();
+            data.soigners.sort(triNomMedicamentCroissant);
+            formatDates();
             gestionPluriels();
         })
         .catch((error) => alert(error));
@@ -39,9 +41,7 @@ function gestionPluriels() {
 
 function calculDates() {
     for (let s of data.soigners) {
-        let date = new Date(s.dateCreation);
         calculDateFin(s, new Date(s.dateCreation));
-        s.dateCreation = date.toLocaleDateString();
     }
 }
 
@@ -62,7 +62,16 @@ function calculDateFin(s, date) {
         default:
             break;
     }
-    s.dateFin = date.toLocaleDateString();
+    s.dateFin = date;
+}
+
+function formatDates() {
+    for (let s of data.soigners) {
+        let dateD = new Date(s.dateCreation);
+        s.dateCreation = dateD.toLocaleDateString();
+        let dateF = new Date(s.dateFin);
+        s.dateFin = dateF.toLocaleDateString();
+    }
 }
 
 function deleteFetch(id) {
@@ -78,6 +87,38 @@ function deleteFetch(id) {
         })
         .catch((error) => alert(error));
 }
+
+function triNomMaladieCroissant(a, b) {
+    if (a.nomMaladie < b.nomMaladie) return -1;
+    else if (a.nomMaladie == b.nomMaladie) return 0;
+    else return 1;
+}
+function triNomMaladieDecroissant(a, b) {
+    if (a.nomMaladie > b.nomMaladie) return -1;
+    else if (a.nomMaladie == b.nomMaladie) return 0;
+    else return 1;
+}
+function triNomMedicamentCroissant(a, b) {
+    if (a.nomMedicament < b.nomMedicament) return -1;
+    else if (a.nomMedicament == b.nomMedicament) return 0;
+    else return 1;
+}
+function triNomMedicamentDecroissant(a, b) {
+    if (a.nomMedicament > b.nomMedicament) return -1;
+    else if (a.nomMedicament == b.nomMedicament) return 0;
+    else return 1;
+}
+function triDateDebutCroissant(a, b) {
+    if (a.dateCreation < b.dateCreation) return -1;
+    else if (a.dateCreation == b.dateCreation) return 0;
+    else return 1;
+}
+function triDateDebutDecroissant(a, b) {
+    if (a.dateCreation > b.dateCreation) return 1;
+    else if (a.dateCreation == b.dateCreation) return 0;
+    else return -1;
+}
+
 
 </script>
 
