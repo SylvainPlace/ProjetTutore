@@ -110,7 +110,7 @@ public class RestController {
 		List<Medicament> searchMedicament = new ArrayList<>();
 		for (Medicament m : allMedicament) {
 			log.info(m.getNom_medic());
-			if (m.getNom_medic().contains(mot)) {
+			if (m.getNom_medic().toLowerCase().contains(mot.toLowerCase())) {
 				searchMedicament.add(m);
 			}
 		}
