@@ -3,7 +3,7 @@
     <div id="nav">
       <router-link to="/">Accueil</router-link> |
       <router-link to="/personnelSoignant">Infirmier</router-link> |
-      <router-link to="/ajoutMedicament">ajoutMedicament</router-link> |
+      <router-link to="/AjoutTraitement">AjoutTraitement</router-link> |
       <router-link to="/resultat">resultat</router-link> |
       <router-view />
     </div>
