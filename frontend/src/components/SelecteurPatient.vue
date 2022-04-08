@@ -35,7 +35,7 @@ function calculDate() {
 </script>
 
 <template>
-    <div class="container pb-3">
+    <div class="container py-3">
         <label for="patientSelect">Choix du patient :</label>
         <select id="patientSelect" @change="$emit(`patientEvent`, $event.target.value)">
             <option disabled selected>Choisissez un patient</option>
