@@ -199,13 +199,17 @@ function formeAjd() {
     var el = document.getElementsByClassName('date');
     for (var i = 0; i < el.length; i++) {
         if (el[i].innerHTML == "Aujourd'hui") {
-            el[i].setAttribute("class", "date table-info text-primary text-uppercase fw-bold");
+            el[i].classList.add("table-info");
+            el[i].classList.add("text-primary");
+            el[i].classList.add("text-uppercase");
+            el[i].classList.add("fw-bold");
         } else {
-            el[i].setAttribute("class", "date");
+            el[i].classList.remove("table-info");
+            el[i].classList.remove("text-primary");
+            el[i].classList.remove("text-uppercase");
+            el[i].classList.remove("fw-bold");
         }
-
     }
-
 }
 
 </script>
@@ -215,6 +219,9 @@ function formeAjd() {
     <SelecteurPatient @patientEvent="choixPatient" />
     <div class="container mb-2">
         <div class="row">
+            <div class="col">
+                <SwitchColonne attribut="avancement" nomAffichage="Avancement" />
+            </div>
             <div class="col">
                 <div class="form-check form-switch">
                     <label class="form-check-label" for="SwitchDebut">Date de Début</label>
@@ -243,7 +250,7 @@ function formeAjd() {
         <table class="table table-bordered table-hover shadow mb-5 bg-body rounded-3 table-sm align-middle">
             <thead>
                 <tr>
-                    <th>
+                    <th class="avancement">
                         Avancement
                         <i class="pointer arrow down" @click="choixTri(triAvancementCroissant)"></i>
                     </th>
@@ -275,7 +282,7 @@ function formeAjd() {
             </thead>
             <tbody>
                 <tr v-for="soigner in data.soigners">
-                    <td>
+                    <td class="avancement">
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" :style="`width: ${soigner.avancement}%`"
                                 :aria-valuenow="`${soigner.avancement}`" aria-valuemin="0" aria-valuemax="100"></div>

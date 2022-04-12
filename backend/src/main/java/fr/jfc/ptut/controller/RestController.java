@@ -51,20 +51,20 @@ public class RestController {
 
 	@Autowired
 	private UtilisateurRepository utilisateurDao;
-	
-	@GetMapping(path = "InfirmierSoignerMedicament/{id}") 
+
+	@GetMapping(path = "InfirmierSoignerMedicament/{id}")
 	public @ResponseBody List<InfirmiereSoignerDetailsResult> InfirmierSoignerDetails(@PathVariable int id) {
 		log.info("Soigner avec maladie et medicament");
 		return soignerDao.InfirmierSoignerDetails(id);
 	}
 
-	@GetMapping(path = "PatientSoignerMedicament/{id}") 
+	@GetMapping(path = "PatientSoignerMedicament/{id}")
 	public @ResponseBody List<PatientDetailMedicaments> PatientSoignerDetails(@PathVariable int id) {
 		log.info("Soigner avec dose et medicament");
 		return soignerDao.PatientSoignerDetails(id);
 	}
 
-	@GetMapping(path = "ListePatient/") 
+	@GetMapping(path = "ListePatient/")
 	public @ResponseBody List<Utilisateur> ListePatient() {
 		log.info("Liste des patients");
 		return utilisateurDao.ListePatient();
