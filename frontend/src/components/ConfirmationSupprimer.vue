@@ -41,7 +41,6 @@
 </template>
 
 <script setup>
-
 defineProps(["id"]);
 const emit = defineEmits(['supprConfirmed']);
 

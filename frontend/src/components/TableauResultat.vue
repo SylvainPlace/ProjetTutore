@@ -1,17 +1,21 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, onUpdated } from "vue";
 import SelecteurPatient from './SelecteurPatient.vue';
 import ConfirmationSupprimer from './ConfirmationSupprimer.vue';
+import SwitchColonne from './SwitchColonne.vue';
 
 const data = reactive({
     id: "",
     soigners: [],
 });
 
+onUpdated(() => {
+    formeAjd();
+});
+
 function choixPatient(patient) {
     data.id = patient;
     fetchSoignersMedicament();
-    formeAjd()
 }
 
 function fetchSoignersMedicament() {
@@ -180,11 +184,28 @@ function choixTri(nom) {
     }
 }
 
+function cacherAfficherColonne(attibut) {
+    var el = document.getElementsByClassName(attibut);
+    for (var i = 0; i < el.length; i++) {
+        if (el[i].classList.contains("d-none")) {
+            el[i].classList.remove("d-none");
+        } else {
+            el[i].classList.add("d-none");
+        }
+    }
+}
+
 function formeAjd() {
-    console.log("FormeAjd");
-    let trs = document.getElementsByClassName("cellulePrise");
-    console.log(trs);
-    console.log(trs[1]);
+    var el = document.getElementsByClassName('date');
+    for (var i = 0; i < el.length; i++) {
+        if (el[i].innerHTML == "Aujourd'hui") {
+            el[i].setAttribute("class", "date table-info text-primary text-uppercase fw-bold");
+        } else {
+            el[i].setAttribute("class", "date");
+        }
+
+    }
+
 }
 
 </script>
@@ -192,54 +213,62 @@ function formeAjd() {
 
 <template>
     <SelecteurPatient @patientEvent="choixPatient" />
+    <div class="container mb-2">
+        <div class="row">
+            <div class="col">
+                <div class="form-check form-switch">
+                    <label class="form-check-label" for="SwitchDebut">Date de Début</label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="SwitchDebut"
+                        @click="cacherAfficherColonne('debut')" />
+                </div>
+            </div>
+            <div class="col">
+                <SwitchColonne attribut="fin" nomAffichage="Date de Fin" />
+            </div>
+            <div class="col">
+                <SwitchColonne attribut="info" nomAffichage="Moyen de Prise" />
+            </div>
+            <div class="col">
+                <SwitchColonne attribut="contreIndication" nomAffichage="Contre Indications" />
+            </div>
+            <div class="col">
+                <SwitchColonne attribut="posologie" nomAffichage="Posologie" />
+            </div>
+            <div class="col">
+                <SwitchColonne attribut="maladie" nomAffichage="Maladie" />
+            </div>
+        </div>
+    </div>
     <div class="container rounded-pill bg-info px-5">
-        <table class="table table-bordered table-hover shadow p-3 mb-5 bg-body rounded-3">
+        <table class="table table-bordered table-hover shadow mb-5 bg-body rounded-3 table-sm align-middle">
             <thead>
                 <tr>
                     <th>
                         Avancement
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triAvancementCroissant)"
-                        ></i>
+                        <i class="pointer arrow down" @click="choixTri(triAvancementCroissant)"></i>
                     </th>
                     <th>
                         Prochaine Prise
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triDatePriseCroissant)"
-                        ></i>
+                        <i class="pointer arrow down" @click="choixTri(triDatePriseCroissant)"></i>
                     </th>
-                    <th>
+                    <th class="debut d-none">
                         Date de création
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triDateDebutCroissant)"
-                        ></i>
+                        <i class="pointer arrow down" @click="choixTri(triDateDebutCroissant)"></i>
                     </th>
-                    <th>
+                    <th class="fin">
                         Date de fin
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triDateFinCroissant)"
-                        ></i>
+                        <i class="pointer arrow down" @click="choixTri(triDateFinCroissant)"></i>
                     </th>
                     <th>
                         Médicament
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triNomMedicamentCroissant)"
-                        ></i>
+                        <i class="pointer arrow down" @click="choixTri(triNomMedicamentCroissant)"></i>
                     </th>
-                    <th>Moyen de prise</th>
-                    <th>Contre Indication</th>
-                    <th>Posologie</th>
-                    <th>
+                    <th class="info">Moyen de prise</th>
+                    <th class="contreIndication">Contre Indication</th>
+                    <th class="posologie">Posologie</th>
+                    <th class="maladie">
                         Maladie
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triNomMaladieCroissant)"
-                        ></i>
+                        <i class="pointer arrow down" @click="choixTri(triNomMaladieCroissant)"></i>
                     </th>
                     <th>Supprimer</th>
                 </tr>
@@ -248,24 +277,20 @@ function formeAjd() {
                 <tr v-for="soigner in data.soigners">
                     <td>
                         <div class="progress">
-                            <div
-                                class="progress-bar"
-                                role="progressbar"
-                                :style="`width: ${soigner.avancement}%`"
-                                :aria-valuenow="`${soigner.avancement}`"
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                            ></div>
+                            <div class="progress-bar" role="progressbar" :style="`width: ${soigner.avancement}%`"
+                                :aria-valuenow="`${soigner.avancement}`" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </td>
-                    <td class="cellulePrise">{{ soigner.datePriseAffichage }}</td>
-                    <td>{{ soigner.dateCreationAffichage }}</td>
-                    <td>{{ soigner.dateFinAffichage }}</td>
+                    <td class="date">{{ soigner.datePriseAffichage }}</td>
+                    <td class="debut d-none">{{ soigner.dateCreationAffichage }}</td>
+                    <td class="fin">{{ soigner.dateFinAffichage }}</td>
                     <td>{{ soigner.nomMedicament }}</td>
-                    <td>{{ soigner.infoPrises }}</td>
-                    <td>{{ soigner.contreIndications }}</td>
-                    <td>{{ soigner.doseParPrise }} {{ soigner.dose }} {{ soigner.valFreq }} fois / {{ soigner.uniteFreq }} pendant {{ soigner.valDuree }} {{ soigner.uniteDuree }}</td>
-                    <td>{{ soigner.nomMaladie }}</td>
+                    <td class="info">{{ soigner.infoPrises }}</td>
+                    <td class="contreIndication">{{ soigner.contreIndications }}</td>
+                    <td class="posologie">{{ soigner.doseParPrise }} {{ soigner.dose }} {{ soigner.valFreq }} fois / {{
+                        soigner.uniteFreq
+                    }} pendant {{ soigner.valDuree }} {{ soigner.uniteDuree }}</td>
+                    <td class="maladie">{{ soigner.nomMaladie }}</td>
                     <td>
                         <ConfirmationSupprimer @supprConfirmed="deleteFetch" :id="soigner.id" />
                     </td>
@@ -282,6 +307,7 @@ function formeAjd() {
     display: inline-block;
     padding: 6px;
 }
+
 .up {
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
