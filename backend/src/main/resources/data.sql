@@ -181,7 +181,7 @@ VALUES (
         3,
         0,
         2,
-        '2022-05-04',
+        '2022-04-04',
         SELECT id
         FROM medicament
         WHERE nom_medic = 'Paxlovid',
