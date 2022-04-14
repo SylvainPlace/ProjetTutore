@@ -15,10 +15,10 @@ onMounted(() => {
 });
 
 function fetchPatients() {
-    fetch("api/utilisateurs")
+    fetch("api/ListePatient/")
         .then((response) => response.json())
         .then((json) => {
-            data.allPatients = json._embedded.utilisateurs;
+            data.allPatients = json;
             calculDate()
         })
         .catch((error) => alert(error));
@@ -35,14 +35,12 @@ function calculDate() {
 </script>
 
 <template>
-    <div class="container pb-3">
-        <label for="patientSelect">Choix du patient :</label>
-        <select id="patientSelect" @change="$emit(`patientEvent`, $event.target.value)">
-            <option disabled selected>Choisissez un patient</option>
-            <option
-                v-for="patient in data.allPatients"
-                :value="patient.id"
-            >{{ patient.prenom }} {{ patient.nom }} né(e) le {{ patient.date_de_naiss }}</option>
+    <div class="container py-3">
+        <select class="form-select" id="patientSelect" @change="$emit(`patientEvent`, $event.target.value)"
+            aria-label="Floating label select example">
+            <option selected disabled>Choisissez un patient</option>
+            <option v-for="patient in data.allPatients" :value="patient.id">{{ patient.prenom }} {{ patient.nom }} né(e)
+                le {{ patient.date_de_naiss }}</option>
         </select>
     </div>
 </template>

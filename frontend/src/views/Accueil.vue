@@ -1,5 +1,4 @@
 <script setup>
-import Footer from "@/components/Footer.vue"
 </script>
 
 
@@ -7,5 +6,3 @@ import Footer from "@/components/Footer.vue"
   <div class="home">
   </div>
 </template>
-
-
