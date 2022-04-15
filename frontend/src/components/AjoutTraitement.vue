@@ -119,6 +119,7 @@ function listTraitementEvent() {
   listTraitement.push(
     new traitement(
       medicChoisi,
+      medicNom,
       maladieChoisi,
       patienchoisi,
       duree,
@@ -130,6 +131,11 @@ function listTraitementEvent() {
   );
   console.log(listTraitement);
 }
+
+
+
+
+
 </script>
 <template>
   <div>

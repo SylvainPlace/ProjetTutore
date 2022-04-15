@@ -1,8 +1,10 @@
 export default
     class Traitement {
-    constructor(medic, maladie, utilisateurs, duree, unitduree, freq, unitfreq, qte) {
+    constructor(medic, medicNom, maladie, maladieNom, utilisateurs, duree, unitduree, freq, unitfreq, qte) {
         this._medic = medic;
+        this._medicNom = medicNom;
         this._maladie = maladie;
+        this._maladieNom = maladieNom;
         this._utilisateurs = utilisateurs;
         this._duree = duree;
         this._unitduree = unitduree;
@@ -11,17 +13,5 @@ export default
         this._qte = qte;
         this._date = new Date();
     }
-
-    get medic() {
-        let url = "/api//api/medicaments/" + this._medic;
-        let fetchOptions = { method: "Get" };
-        fetch(url, fetchOptions)
-            .then((response) => response.json())
-            .then((json) => {
-                return json.nom_medic;
-            })
-            .catch((error) => alert(error));
-    }
-
 
 }
