@@ -115,31 +115,48 @@ function listTraitementEvent() {
   let quantite = document.getElementById("quantite").value;
   let patient = document.getElementById("selectPatient").value;
   let maladie = document.getElementById("selectMaladie").value;
-
-  listTraitement.push(
-    new traitement(
-      medicChoisi,
-      medicNom,
-      maladieChoisi,
-      patienchoisi,
-      duree,
-      dureeUnite,
-      frequence,
-      frequenceUnite,
-      quantite
-    )
-  );
-  console.log(listTraitement);
+  let url = "/api/medicaments/" + medicChoisi;
+  let fetchOptions = { method: "Get" };
+  let medicNom;
+  fetch(url, fetchOptions)
+    .then((response) => response.json())
+    .then((json) => {
+      medicNom = json.nom_medic;
+      let url2 = "/api/maladies/" + maladieChoisi;
+  let fetchOptions = { method: "Get" };
+  let maladieNom;
+  fetch(url2, fetchOptions)
+    .then((response) => response.json())
+    .then((json) => {
+      maladieNom = json.nom_maladie;
+      listTraitement.push(
+        new traitement(
+          medicChoisi,
+          medicNom,
+          maladieChoisi,
+          maladieNom,
+          patienchoisi,
+          duree,
+          dureeUnite,
+          frequence,
+          frequenceUnite,
+          quantite
+        )
+      );
+      console.log(listTraitement);
+    })
+    .catch((error) => alert(error));
 }
 
-
-
-
-
+function getNomMedic() {}
 </script>
 <template>
   <div>
-    <select id="selectPatient" @change="valeurPatientChoisi()">
+    <select
+      id="selectPatient"
+      v-model="patienchoisi"
+      @change="valeurPatientChoisi()"
+    >
       <option disabled selected>
         Choissisez votre utilisateur dans la liste
       </option>
@@ -208,30 +225,22 @@ function listTraitementEvent() {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(traitement, index) of listTraitement" :key=index>
-          <td>Nom du médicament : {{ traitement.medic }} <br/>
-          Nom de la maladie : {{traitement._maladie}} <br/>
-          Durée : {{traitement._duree}} {{traitement._unitduree}} <br/>
-          Fréquence : {{traitement._freq}} {{traitement._unitfreq}} <br/>
-          Quantité : {{traitement._qte}} dose(s) par prises<br/>
-         </td>
+        <tr v-for="(traitement, index) of listTraitement" :key="index">
           <td>
-            <button
-              @click="deleteMedicament(medicament)"
-            >
-              Supprimer
-            </button>
-            <button
-              @click="modifMedicament(medicament)"
-            >
-              Modifier
-            </button>
+            Nom du médicament : {{ traitement.medicNom }} <br />
+            Nom de la maladie : {{ traitement._maladie }} <br />
+            Durée : {{ traitement._duree }} {{ traitement._unitduree }} <br />
+            Fréquence : {{ traitement._freq }} {{ traitement._unitfreq }} <br />
+            Quantité : {{ traitement._qte }} dose(s) par prises<br />
+          </td>
+          <td>
+            <button @click="deleteMedicament(medicament)">Supprimer</button>
+            <button @click="modifMedicament(medicament)">Modifier</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-
 </template>
 <style scopped>
 </style>
