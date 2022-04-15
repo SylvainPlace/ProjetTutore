@@ -1,6 +1,6 @@
 <template>
   
-    <img id="logo" alt="Vue logo" src="../assets/5cure.png.jpg" />
+  
     <Accueil6 />
   <h1>Bienvenue sur l'application WEB de FiveCure !</h1>
   <p>Ce site WEB vous permettra de gérer les ordonnaces mieux que quiconque. <br> Une prise en main facilitée expliquée en quelques images </p>
@@ -18,13 +18,6 @@ import Footer from "@/components/Footer.vue"
 
 </script>
 <style scoped>
- #logo{
-   width: 100px;
-   height: 100px;
-   position: absolute;
-   left : 0px;
-   top : 30px;
-
- }
+ 
 </style>
 

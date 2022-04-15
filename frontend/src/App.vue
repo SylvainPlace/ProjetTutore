@@ -1,12 +1,19 @@
+<script setup>
+import Footer from "@/components/Footer.vue";
+import Header from "@/components/Header.vue";
+</script>
+
+
+
+
 <template>
   <div>
     <Header nom="Dupont" prenom="Jean" />
-
+    <Footer />
   </div>
 </template>
-<script setup>
-import Header from "@/components/Header.vue";
-</script>
+
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -27,5 +34,15 @@ import Header from "@/components/Header.vue";
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+/* Curseur indiquant un clic possible*/
+.pointer {
+    cursor: pointer;
+}
+
+/* Curseur classique*/
+.defaultCursor {
+    cursor: default;
 }
 </style>

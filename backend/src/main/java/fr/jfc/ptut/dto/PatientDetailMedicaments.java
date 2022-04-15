@@ -20,5 +20,4 @@ public interface PatientDetailMedicaments {
     int getDoseParPrise();
     Date getdateCreation();
     String getNomMaladie();
-    
 }
