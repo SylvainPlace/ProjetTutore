@@ -70,9 +70,9 @@ function gestionPluriels() {
 // calcule les dates nécessaires pour l'affichage des données
 function calculDates() {
     for (let s of data.soigners) {
-        calculDiffDates();
         calculDateFin(s, new Date(s.dateCreation));
         calculDateProchain(s, new Date(s.dateCreation));
+        calculDiffDates();
         formatDates();
     }
 }
@@ -251,7 +251,7 @@ function formeAjd() {
 </script>
 
 <template>
-    <div class="container bg-bleufonce rounded-3">
+    <div class="container bg-gradient-bleufonce rounded-3">
         <SelecteurPatient @patientEvent="choixPatient" />
         <div class="container" v-if="data.id != ''">
             <div id="alerteMessage"></div>
@@ -387,7 +387,7 @@ function formeAjd() {
     border-color: #5F4850 !important;
 }
 
-.bg-bleufonce {
+.bg-gradient-bleufonce {
     background: -webkit-linear-gradient(to bottom, #2dafd6, #03619f);
     background: linear-gradient(to bottom, #03619f, #2dafd6);
 }
@@ -400,19 +400,6 @@ function formeAjd() {
     background-color: #5F4850 !important;
 }
 
-.bg-beige {
-    background-color: #d09478 !important;
-    border-color: #5F4850 !important;
-}
-
-.bg-marronclair {
-    background-color: #B48B75 !important;
-}
-
-.txt-bleuclair {
-    color: #2DAED6 !important;
-    background-color: #03619F !important;
-}
 
 .txt-bleufonce {
     color: #034b7a !important;
@@ -420,10 +407,6 @@ function formeAjd() {
 
 .txt-violet {
     color: #5F4850;
-}
-
-.txt-bleufonce {
-    color: #03619F;
 }
 
 div .form-check-input:checked {
