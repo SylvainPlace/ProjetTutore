@@ -240,23 +240,22 @@ function formeAjd() {
         if (el[i].innerHTML == "Aujourd'hui") {
             el[i].classList.add("text-uppercase");
             el[i].classList.add("fw-bold");
-            parentNode.classList.add("bg-bleuclair");
+            parentNode.classList.add("bg-white");
         } else {
-            el[i].classList.remove("txt-bleuclair");
             el[i].classList.remove("text-uppercase");
             el[i].classList.remove("fw-bold");
-            parentNode.classList.remove("bg-bleuclair");
+            parentNode.classList.remove("bg-white");
         }
     }
 }
 </script>
 
 <template>
-    <div class="container bg-marronclair rounded-3">
+    <div class="container bg-bleufonce rounded-3">
         <SelecteurPatient @patientEvent="choixPatient" />
         <div class="container" v-if="data.id != ''">
             <div id="alerteMessage"></div>
-            <div class="row">
+            <div class="row ">
                 <div class="col">
                     <SwitchColonne attribut="avancement" nomAffichage="Avancement" />
                 </div>
@@ -283,12 +282,11 @@ function formeAjd() {
                     <SwitchColonne attribut="maladie" nomAffichage="Maladie" />
                 </div>
             </div>
-
             <div class="table-responsive">
-                <table class="table table-bordered table-hover shadow table-sm align-middle bg-beige">
+                <table class="table table-bordered table-hover shadow table-sm align-middle bg-bleuclair">
                     <thead class="txt-violet">
                         <tr>
-                            <th class="avancement">
+                            <th class="avancement" data-toggle="tooltip" title="La barre se remplit jusqu'à la fin du traitement">
                                 Avancement
                                 <i class="pointer arrow down" @click="choixTri(triAvancementCroissant)"></i>
                             </th>
@@ -322,7 +320,7 @@ function formeAjd() {
                         <tr v-if="data.soigners.length != 0" v-for="soigner in data.soigners">
                             <td class="avancement">
                                 <div class="progress">
-                                    <div class="progress-bar bg-bleufonce" role="progressbar"
+                                    <div class="progress-bar bg-gradient-marron" role="progressbar"
                                         :style="`width: ${soigner.avancement}%`"
                                         :aria-valuenow="`${soigner.avancement}`" aria-valuemin="0" aria-valuemax="100">
                                     </div>
@@ -333,7 +331,7 @@ function formeAjd() {
                             <td class="fin">{{ soigner.dateFinAffichage }}</td>
                             <td>{{ soigner.nomMedicament }}</td>
                             <td class="info">{{ soigner.infoPrises }}</td>
-                            <td class="contreIndication">{{ soigner.contreIndications }}</td>
+                            <td class="contreIndication txt-bleufonce"><img src="@/assets/attention.png" width="15" height="15" alt="deconseille" data-toggle="tooltip" title="déconseillé"/> {{ soigner.contreIndications }}</td>
                             <td class="posologie">{{ soigner.doseParPrise }} {{ soigner.dose }} {{ soigner.valFreq }}
                                 fois /
                                 {{
@@ -347,7 +345,7 @@ function formeAjd() {
                         <tr v-else>
                             <td colspan="10">
                                 Vous n'avez aucun médicament dans votre liste. Vous pouvez en ajouter dans la page <a
-                                    href="/ajoutTraitement" class="text-decoration-none txt-bleufonce">Ajout Médicament</a>
+                                    href="/ajoutTraitement" class="text-decoration-none txt-bleufonce">Ajout Traitement</a>
                             </td>
                         </tr>
                     </tbody>
@@ -378,12 +376,17 @@ function formeAjd() {
 
 
 .bg-bleuclair {
-    background-color: #2dafd6d2 !important;
-    border-color: #03619F !important;
+    background-color: #53b1ceb9 !important;
+    border-color: #5F4850 !important;
 }
 
 .bg-bleufonce {
-    background-color: #03619F !important;
+    background: -webkit-linear-gradient(to bottom, #2dafd6, #03619f);
+    background: linear-gradient(to bottom, #03619f, #2dafd6);
+}
+
+.bg-gradient-marron {
+    background: linear-gradient(to left, #ad6c4a, #caa391);
 }
 
 .bg-violet {
@@ -403,6 +406,9 @@ function formeAjd() {
     color: #2DAED6 !important;
     background-color: #03619F !important;
 }
+.txt-bleufonce {
+    color: #034b7a !important;
+}
 
 .txt-violet {
     color: #5F4850;
@@ -410,11 +416,6 @@ function formeAjd() {
 
 .txt-bleufonce {
     color: #03619F;
-}
-
-div .form-check-input {
-    border-color: #5f4850;
-    background-color: #d09478;
 }
 
 div .form-check-input:checked {
