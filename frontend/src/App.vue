@@ -30,6 +30,7 @@ import Header from "@/components/Header.vue";
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+  font-size: 2em;
 }
 
 #nav a.router-link-exact-active {
@@ -38,11 +39,11 @@ import Header from "@/components/Header.vue";
 
 /* Curseur indiquant un clic possible*/
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Curseur classique*/
 .defaultCursor {
-    cursor: default;
+  cursor: default;
 }
 </style>
