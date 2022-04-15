@@ -85,12 +85,10 @@
     </form>
     <span id="texte"></span>
   </div>
-  <Test/>
 </template>
 
 <script setup>
 import { onMounted, reactive, ref } from "vue";
-import Test from "./Test.vue";
 const listeC = reactive([]);
 onMounted(() => {
   console.log("oui");
