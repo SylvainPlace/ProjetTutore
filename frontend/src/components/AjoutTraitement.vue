@@ -49,8 +49,8 @@ function valeurPatientChoisi() {
   return patienchoisi;
 }
 
-function valeurMaladieChoisi() {
-  maladieChoisi = document.getElementById("selectMaladie").value;
+function valeurMaladieChoisi(id) {
+  maladieChoisi = id;
   return maladieChoisi;
 }
 
@@ -114,7 +114,7 @@ function listTraitementEvent() {
   let frequence = document.getElementById("frequence").value;
   let quantite = document.getElementById("quantite").value;
   let patient = document.getElementById("selectPatient").value;
-  let maladie = document.getElementById("selectMaladie").value;
+  console.log(medicChoisi)
   let url = "/api/medicaments/" + medicChoisi;
   let fetchOptions = { method: "Get" };
   let medicNom;
@@ -122,28 +122,32 @@ function listTraitementEvent() {
     .then((response) => response.json())
     .then((json) => {
       medicNom = json.nom_medic;
+      console.log(maladieChoisi)
       let url2 = "/api/maladies/" + maladieChoisi;
-  let fetchOptions = { method: "Get" };
-  let maladieNom;
-  fetch(url2, fetchOptions)
-    .then((response) => response.json())
-    .then((json) => {
-      maladieNom = json.nom_maladie;
-      listTraitement.push(
-        new traitement(
-          medicChoisi,
-          medicNom,
-          maladieChoisi,
-          maladieNom,
-          patienchoisi,
-          duree,
-          dureeUnite,
-          frequence,
-          frequenceUnite,
-          quantite
-        )
-      );
-      console.log(listTraitement);
+      let fetchOptions = { method: "Get" };
+      let maladieNom;
+      fetch(url2, fetchOptions)
+        .then((response) => response.json())
+        .then((json) => {
+          maladieNom = json.nom_maladie;
+          console.log(maladieNom);
+          listTraitement.push(
+            new traitement(
+              medicChoisi,
+              medicNom,
+              maladieChoisi,
+              maladieNom,
+              patienchoisi,
+              duree,
+              dureeUnite,
+              frequence,
+              frequenceUnite,
+              quantite
+            )
+          );
+          console.log(listTraitement);
+        })
+        .catch((error) => alert(error));
     })
     .catch((error) => alert(error));
 }
@@ -164,7 +168,7 @@ function getNomMedic() {}
         {{ patient.nom }} {{ patient.prenom }}
       </option>
     </select>
-    <select id="selectMaladie" @change="valeurMaladieChoisi()">
+    <select id="selectMaladie" @change="valeurMaladieChoisi($event.target.value)">
       <option disabled selected>Choissisez votre maladie dans la liste</option>
       <option v-for="maladie of maladies" :value="maladie.id">
         {{ maladie.nom_maladie }}
@@ -227,8 +231,8 @@ function getNomMedic() {}
       <tbody>
         <tr v-for="(traitement, index) of listTraitement" :key="index">
           <td>
-            Nom du médicament : {{ traitement.medicNom }} <br />
-            Nom de la maladie : {{ traitement._maladie }} <br />
+            Nom du médicament : {{ traitement._medicNom }} <br />
+            Nom de la maladie : {{ traitement._maladieNom }} <br />
             Durée : {{ traitement._duree }} {{ traitement._unitduree }} <br />
             Fréquence : {{ traitement._freq }} {{ traitement._unitfreq }} <br />
             Quantité : {{ traitement._qte }} dose(s) par prises<br />
