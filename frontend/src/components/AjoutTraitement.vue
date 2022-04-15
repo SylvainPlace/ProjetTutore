@@ -152,10 +152,8 @@ function listTraitementEvent() {
     .catch((error) => alert(error));
 }
 
-function getNomMedic() {}
 </script>
 <template>
-  <div>
     <select
       id="selectPatient"
       v-model="patienchoisi"
@@ -174,37 +172,39 @@ function getNomMedic() {}
         {{ maladie.nom_maladie }}
       </option>
     </select>
-    <h4>Rechercher votre médicament :</h4>
+  <div class="formulaireTraitement">
+    <h4 id="recherche">Recherchez votre médicament :</h4>
     <form @submit.prevent="listTraitementEvent(dureeUnite)">
       <input id="listeMedic" v-model="medic" @keyup="lesMedicaments(medic)" />
-      <select id="selectmedic" @change="valeurMedicChoisi()">
+      <select class="select" id="selectrech" @change="valeurMedicChoisi()">
         <option disabled selected>
-          Choissisez votre Medicament dans la liste
+          Selectionnez
         </option>
         <option v-for="search of listeSearch" :value="search.id">
           {{ search.nom_medic }}
         </option>
       </select>
-      <h4>Posologie ?</h4>
+
+      <h4 id="poso">Entrez la posologie</h4>
       <div>
-        <h5>Durée de traitement</h5>
-        <input id="duree" type="number" min="0" max="100" />
-        <select id="dureeUnite" class="unite">
+        <h5 id="dureeTraitement">Durée de traitement</h5>
+        <input id="choix" type="number" min="0" max="100" />
+        <select class="select" id="selectduree" >
           <option disabled selected>
-            Choissisez votre Unite de Duree dans la liste
+           Jour
           </option>
           <option v-for="(duree, index) of listeunitDuree" :value="index">
             {{ duree }}
           </option>
         </select>
       </div>
-      <div>
-        <h5>Fréquence</h5>
+      <div >
+        <h5 id="frequenceT">Fréquence</h5>
         <input id="frequence" type="number" min="0" max="10" />
-        <h5>fois par</h5>
-        <select id="freqUnite">
+        <h5 id="fois">fois par</h5>
+        <select class="select" id="selectF">
           <option disabled selected>
-            Choissisez votre Unite de Frequence dans la liste
+            Jour
           </option>
           <option v-for="(freq, index) of listeunitFreq" :value="index">
             {{ freq }}
@@ -212,12 +212,13 @@ function getNomMedic() {}
         </select>
       </div>
       <div>
-        <h5>Quantité</h5>
+        <h5 id="quantitetxt">Quantité</h5>
         <input id="quantite" type="number" step=".5" min="0" max="15" />
-        <h5>dose(s) par prise</h5>
+        <h5 id="dosetxt">dose(s) par prise</h5>
       </div>
-
-      <input id="valider" type="submit" value="ajouter" />
+      <div >
+      <input id="valider" type="submit" value="Ajouter" />
+      </div>
     </form>
   </div>
   <div class="container mt-3">
@@ -247,4 +248,107 @@ function getNomMedic() {}
   </div>
 </template>
 <style scopped>
+.formulaireTraitement{
+  position : relative ; 
+  left : 13px;
+  top : 82px;
+  height : 430px;
+  width : 447px;
+  border: 3px solid #B48B75;
+   background: #D09478;
+   color : white;
+   text-align : center;
+}
+.select {
+	position: relative; 
+	background-color: white;
+	border: #B48B75  1px solid;
+	margin: 0 0 1.5em 0;
+	overflow: hidden; 
+  
+}
+
+#dureeTraitement{
+  position : relative;
+  width : 189px;
+  left : 9px;
+}
+#selectduree{
+  position : relative;
+  left : -50px;}
+#choix{
+   position : relative;
+  left : -62px;
+  top :0px;
+}
+
+#poso{
+  position : relative;
+  left : -104px;
+}
+
+#recherche{
+  position : relative;
+  left : -36px;
+  top : 5px;
+}
+
+#listeMedic{
+  position : relative;
+  left : -40px;
+}
+
+#selectrech{
+   position : relative;
+  left : -27px;
+}
+
+#frequenceT{
+  position : relative;
+  left : -158px;
+}
+
+#frequence{
+  position : relative;
+  left : -116px;
+}
+
+#fois{
+  position : relative;
+  left : 18px;
+  top : -27px; 
+}
+
+#selectF{
+    position : relative;
+  left : 114px;
+  top : -57px; 
+}
+
+#quantitetxt{
+  position : relative;
+  left : -167px;
+  top : -61px; 
+}
+
+#quantite{
+  position : relative;
+  left : -115px;
+  top : -61px; 
+}
+
+#dosetxt{
+   position : relative;
+  left : 61px;
+  top : -89px; 
+}
+
+#valider{
+  color : black ;
+    border: 3px solid #B48B75;
+   background: white;
+    position : relative;
+  left : 6px;
+  top : -80px; 
+}
 </style>

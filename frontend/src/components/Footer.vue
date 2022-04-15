@@ -5,7 +5,7 @@ import { reactive, ref } from "vue";
 let remerciement = ref("oui");
 function pouce() {
     console.log("hey");
-    remerciement = ("Merci pour ton avis !");
+    remerciement = remerciement+"Merci pour ton avis !";
     return remerciement;
 }
 </script>
@@ -60,7 +60,7 @@ function pouce() {
     bottom: 0;
     width: 100%;
     padding-top: 20px;
-    height: 20px;
+    height: 11em;
 
     background: #ff5f6d;
     background: -webkit-linear-gradient(to right, #2dafd6, #03619f);
