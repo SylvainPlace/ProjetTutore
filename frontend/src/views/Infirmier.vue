@@ -1,6 +1,6 @@
 <template>
   <AddPatient />
-  <div class="container py-4 espace">
+  <div class="container py-4">
     <DetailPatient />
   </div> 
   <DetailMedic/>
