@@ -8,7 +8,7 @@ import Header from "@/components/Header.vue";
 
 <template>
   <div>
-    <Header nom="Dupont" prenom="Jean" />
+    <Header  />
     <Footer />
   </div>
 </template>

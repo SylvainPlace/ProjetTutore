@@ -1,7 +1,7 @@
 <template>
   <div>
     <img src="@/assets/logo.png" alt="logo" />
-    <h3>Bienvenue {{ prenom }} {{ nom }}</h3>
+    
   </div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <router-link to="/" class="navbar-brand">Accueil</router-link>
