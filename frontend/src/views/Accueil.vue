@@ -3,6 +3,7 @@
 
 
 <template>
-  <div class="home">
+  <div class="home espace">
+    
   </div>
 </template>

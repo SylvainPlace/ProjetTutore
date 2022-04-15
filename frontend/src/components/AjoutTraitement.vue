@@ -87,6 +87,7 @@ function listTraitementEvent() {
       quantite
     )
   );
+  
   console.log(listTraitement);
   console.log(listTraitement[2]._duree);
   console.log(listTraitement[0]._unitduree);
