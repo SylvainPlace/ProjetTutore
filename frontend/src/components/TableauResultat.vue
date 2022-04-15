@@ -1,31 +1,59 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, onUpdated } from "vue";
 import SelecteurPatient from './SelecteurPatient.vue';
 import ConfirmationSupprimer from './ConfirmationSupprimer.vue';
+import SwitchColonne from './SwitchColonne.vue';
 
 const data = reactive({
     id: "",
     soigners: [],
+    medicamentsSuppr: [],
 });
 
+onUpdated(() => {
+    formeAjd();
+});
+
+//executé lorsqu'un patient est sélectionné
 function choixPatient(patient) {
     data.id = patient;
     fetchSoignersMedicament();
-    formeAjd()
 }
 
+// Récupère les informations à afficher 
 function fetchSoignersMedicament() {
     fetch("/api/PatientSoignerMedicament/" + data.id)
         .then((response) => response.json())
         .then((json) => {
             data.soigners = json;
             calculDates();
-            data.soigners.sort(triDatePriseCroissant);
-            gestionPluriels();
+            if (!gestionTraitementFini()) {
+                data.soigners.sort(triDatePriseCroissant);
+                gestionPluriels();
+            }
         })
         .catch((error) => alert(error));
 }
 
+// supprime les traitements et affiche une alerte
+function gestionTraitementFini() {
+    let bDelete = false;
+    for (let s of data.soigners) {
+        if (new Date(s.dateFin) < new Date()) {
+            document.getElementById("alerteMessage").innerHTML +=
+                "<div class='alert alert-success d-flex alert-dismissible fade show' role='alert'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'class='bi bi-check-circle-fill mx-2' viewBox='0 0 16 16'> <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z' />   </svg>"
+                + "<div> Bravo, vous avez fini de prendre : "
+                + s.nomMedicament
+                + "</div> <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+            deleteFetch(s.id);
+            bDelete = true;
+        }
+    }
+    return bDelete;
+}
+
+
+// ajoute les s necessaires pour l'affichage des données
 function gestionPluriels() {
     for (let s of data.soigners) {
         if (s.valDuree > 1 && s.uniteDuree != "Mois") {
@@ -39,15 +67,18 @@ function gestionPluriels() {
     }
 }
 
+// calcule les dates nécessaires pour l'affichage des données
 function calculDates() {
     for (let s of data.soigners) {
+        calculDiffDates();
         calculDateFin(s, new Date(s.dateCreation));
         calculDateProchain(s, new Date(s.dateCreation));
-        calculDiffDates();
         formatDates();
     }
 }
 
+
+// calcule la différence entre la date de création et la date actuelle puis l'arrange sous la forme d'un pourcentage d'avancement
 function calculDiffDates() {
     for (let s of data.soigners) {
         let reste = new Date(s.dateFin) - new Date();
@@ -56,6 +87,7 @@ function calculDiffDates() {
     }
 }
 
+// calcule la date de fin d'un traitement
 function calculDateFin(s, date) {
     switch (s.uniteDuree) {
         case "Jour":
@@ -76,6 +108,7 @@ function calculDateFin(s, date) {
     s.dateFin = date;
 }
 
+// calcule la date du prochain traitement
 function calculDateProchain(s, date) {
     let i = 1;
     let ajd = new Date();
@@ -99,6 +132,8 @@ function calculDateProchain(s, date) {
     s.datePrise = date.toISOString().substring(0, 10);
 }
 
+
+// formatte les dates pour l'affichage
 function formatDates() {
 
     let ajd = new Date();
@@ -125,6 +160,8 @@ function formatDates() {
     }
 }
 
+
+// supprime un traitement
 function deleteFetch(id) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -139,7 +176,7 @@ function deleteFetch(id) {
         .catch((error) => alert(error));
 }
 
-
+// Fonctions de tri suivant les différents paramètres
 function triNomMaladieCroissant(a, b) {
     if (a.nomMaladie < b.nomMaladie) return -1;
     else if (a.nomMaladie == b.nomMaladie) return 0;
@@ -171,6 +208,7 @@ function triAvancementCroissant(a, b) {
     else return 1;
 }
 
+// Tri les données (les mets dans l'ordre inverse si elles sont déjà triées)
 function choixTri(nom) {
     let t = [...data.soigners];
     data.soigners.sort(nom);
@@ -180,108 +218,154 @@ function choixTri(nom) {
     }
 }
 
-function formeAjd() {
-    console.log("FormeAjd");
-    let trs = document.getElementsByClassName("cellulePrise");
-    console.log(trs);
-    console.log(trs[1]);
+
+// Affiche ou cache la colonne choisie
+function cacherAfficherColonne(attibut) {
+    var el = document.getElementsByClassName(attibut);
+    for (var i = 0; i < el.length; i++) {
+        if (el[i].classList.contains("d-none")) {
+            el[i].classList.remove("d-none");
+        } else {
+            el[i].classList.add("d-none");
+        }
+    }
 }
 
+
+// formatte la date d'aujourd'hui pour la faire ressortir
+function formeAjd() {
+    var el = document.getElementsByClassName('date');
+    for (var i = 0; i < el.length; i++) {
+        let parentNode = el[i].parentNode;
+        if (el[i].innerHTML == "Aujourd'hui") {
+            el[i].classList.add("text-uppercase");
+            el[i].classList.add("fw-bold");
+            parentNode.classList.add("bg-bleuclair");
+        } else {
+            el[i].classList.remove("txt-bleuclair");
+            el[i].classList.remove("text-uppercase");
+            el[i].classList.remove("fw-bold");
+            parentNode.classList.remove("bg-bleuclair");
+        }
+    }
+}
 </script>
 
-
 <template>
-    <SelecteurPatient @patientEvent="choixPatient" />
-    <div class="container rounded-pill bg-info px-5">
-        <table class="table table-bordered table-hover shadow p-3 mb-5 bg-body rounded-3">
-            <thead>
-                <tr>
-                    <th>
-                        Avancement
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triAvancementCroissant)"
-                        ></i>
-                    </th>
-                    <th>
-                        Prochaine Prise
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triDatePriseCroissant)"
-                        ></i>
-                    </th>
-                    <th>
-                        Date de création
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triDateDebutCroissant)"
-                        ></i>
-                    </th>
-                    <th>
-                        Date de fin
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triDateFinCroissant)"
-                        ></i>
-                    </th>
-                    <th>
-                        Médicament
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triNomMedicamentCroissant)"
-                        ></i>
-                    </th>
-                    <th>Moyen de prise</th>
-                    <th>Contre Indication</th>
-                    <th>Posologie</th>
-                    <th>
-                        Maladie
-                        <i
-                            class="pointer arrow down"
-                            @click="choixTri(triNomMaladieCroissant)"
-                        ></i>
-                    </th>
-                    <th>Supprimer</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="soigner in data.soigners">
-                    <td>
-                        <div class="progress">
-                            <div
-                                class="progress-bar"
-                                role="progressbar"
-                                :style="`width: ${soigner.avancement}%`"
-                                :aria-valuenow="`${soigner.avancement}`"
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                            ></div>
-                        </div>
-                    </td>
-                    <td class="cellulePrise">{{ soigner.datePriseAffichage }}</td>
-                    <td>{{ soigner.dateCreationAffichage }}</td>
-                    <td>{{ soigner.dateFinAffichage }}</td>
-                    <td>{{ soigner.nomMedicament }}</td>
-                    <td>{{ soigner.infoPrises }}</td>
-                    <td>{{ soigner.contreIndications }}</td>
-                    <td>{{ soigner.doseParPrise }} {{ soigner.dose }} {{ soigner.valFreq }} fois / {{ soigner.uniteFreq }} pendant {{ soigner.valDuree }} {{ soigner.uniteDuree }}</td>
-                    <td>{{ soigner.nomMaladie }}</td>
-                    <td>
-                        <ConfirmationSupprimer @supprConfirmed="deleteFetch" :id="soigner.id" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="container bg-marronclair rounded-3">
+        <SelecteurPatient @patientEvent="choixPatient" />
+        <div class="container" v-if="data.id != ''">
+            <div id="alerteMessage"></div>
+            <div class="row">
+                <div class="col">
+                    <SwitchColonne attribut="avancement" nomAffichage="Avancement" />
+                </div>
+                <div class="col">
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="SwitchDebut">Date de Début</label>
+                        <input class="form-check-input border-beige" type="checkbox" role="switch" id="SwitchDebut"
+                            @click="cacherAfficherColonne('debut')" />
+                    </div>
+                </div>
+                <div class="col">
+                    <SwitchColonne attribut="fin" nomAffichage="Date de Fin" />
+                </div>
+                <div class="col">
+                    <SwitchColonne attribut="info" nomAffichage="Moyen de Prise" />
+                </div>
+                <div class="col">
+                    <SwitchColonne attribut="contreIndication" nomAffichage="Contre Indications" />
+                </div>
+                <div class="col">
+                    <SwitchColonne attribut="posologie" nomAffichage="Posologie" />
+                </div>
+                <div class="col">
+                    <SwitchColonne attribut="maladie" nomAffichage="Maladie" />
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover shadow table-sm align-middle bg-beige">
+                    <thead class="txt-violet">
+                        <tr>
+                            <th class="avancement">
+                                Avancement
+                                <i class="pointer arrow down" @click="choixTri(triAvancementCroissant)"></i>
+                            </th>
+                            <th>
+                                Prochaine Prise
+                                <i class="pointer arrow down" @click="choixTri(triDatePriseCroissant)"></i>
+                            </th>
+                            <th class="debut d-none">
+                                Date de création
+                                <i class="pointer arrow down" @click="choixTri(triDateDebutCroissant)"></i>
+                            </th>
+                            <th class="fin">
+                                Date de fin
+                                <i class="pointer arrow down" @click="choixTri(triDateFinCroissant)"></i>
+                            </th>
+                            <th>
+                                Médicament
+                                <i class="pointer arrow down" @click="choixTri(triNomMedicamentCroissant)"></i>
+                            </th>
+                            <th class="info">Moyen de prise</th>
+                            <th class="contreIndication">Contre Indication</th>
+                            <th class="posologie">Posologie</th>
+                            <th class="maladie">
+                                Maladie
+                                <i class="pointer arrow down" @click="choixTri(triNomMaladieCroissant)"></i>
+                            </th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody class="txt-violet">
+                        <tr v-if="data.soigners.length != 0" v-for="soigner in data.soigners">
+                            <td class="avancement">
+                                <div class="progress">
+                                    <div class="progress-bar bg-bleufonce" role="progressbar"
+                                        :style="`width: ${soigner.avancement}%`"
+                                        :aria-valuenow="`${soigner.avancement}`" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="date">{{ soigner.datePriseAffichage }}</td>
+                            <td class="debut d-none">{{ soigner.dateCreationAffichage }}</td>
+                            <td class="fin">{{ soigner.dateFinAffichage }}</td>
+                            <td>{{ soigner.nomMedicament }}</td>
+                            <td class="info">{{ soigner.infoPrises }}</td>
+                            <td class="contreIndication">{{ soigner.contreIndications }}</td>
+                            <td class="posologie">{{ soigner.doseParPrise }} {{ soigner.dose }} {{ soigner.valFreq }}
+                                fois /
+                                {{
+                                    soigner.uniteFreq
+                                }} pendant {{ soigner.valDuree }} {{ soigner.uniteDuree }}</td>
+                            <td class="maladie">{{ soigner.nomMaladie }}</td>
+                            <td>
+                                <ConfirmationSupprimer @supprConfirmed="deleteFetch" :id="soigner.id" />
+                            </td>
+                        </tr>
+                        <tr v-else>
+                            <td colspan="10">
+                                Vous n'avez aucun médicament dans votre liste. Vous pouvez en ajouter dans la page <a
+                                    href="/ajoutTraitement" class="text-decoration-none txt-bleufonce">Ajout Médicament</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </template>
 
 <style>
+/* Crée la fléche de tri*/
 .arrow {
-    border: solid black;
+    border: solid #5F4850;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 6px;
 }
+
 .up {
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
@@ -290,5 +374,51 @@ function formeAjd() {
 .down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
+}
+
+
+.bg-bleuclair {
+    background-color: #2dafd6d2 !important;
+    border-color: #03619F !important;
+}
+
+.bg-bleufonce {
+    background-color: #03619F !important;
+}
+
+.bg-violet {
+    background-color: #5F4850 !important;
+}
+
+.bg-beige {
+    background-color: #d09478 !important;
+    border-color: #5F4850 !important;
+}
+
+.bg-marronclair {
+    background-color: #B48B75 !important;
+}
+
+.txt-bleuclair {
+    color: #2DAED6 !important;
+    background-color: #03619F !important;
+}
+
+.txt-violet {
+    color: #5F4850;
+}
+
+.txt-bleufonce {
+    color: #03619F;
+}
+
+div .form-check-input {
+    border-color: #5f4850;
+    background-color: #d09478;
+}
+
+div .form-check-input:checked {
+    border-color: #5F4850;
+    background-color: #5F4850;
 }
 </style>

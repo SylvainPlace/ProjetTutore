@@ -18,6 +18,11 @@
             >
               Supprimer
             </button>
+            <button
+              @click="modifMedicament(medicament)"
+            >
+              Modifier
+            </button>
           </td>
         </tr>
       </tbody>
