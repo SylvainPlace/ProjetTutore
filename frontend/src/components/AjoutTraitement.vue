@@ -246,6 +246,6 @@ function listTraitementEvent() {
    background: white;
     position : relative;
   left : 6px;
-  top : -68px; 
+  top : -80px; 
 }
 </style>
