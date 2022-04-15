@@ -5,7 +5,7 @@ import { reactive, ref } from "vue";
 let remerciement = ref("oui");
 function pouce() {
     console.log("hey");
-    remerciement = ("Merci pour ton avis !");
+    remerciement = remerciement+"Merci pour ton avis !";
     return remerciement;
 }
 </script>
