@@ -34,6 +34,5 @@ import TabRecapMedic11 from "@/components/TabRecapMedic11.vue"
 <AjoutTraitement/>
 
 
-  <TabRecapMedic11/>
 
 </template>

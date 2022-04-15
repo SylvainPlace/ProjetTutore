@@ -1,42 +1,81 @@
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import traitement from "@/Traitement.js";
+import TabRecapMedic11 from "@/components/TabRecapMedic11.vue";
 let medicChoisi = ref(0);
+let patienchoisi = ref(0);
+let maladieChoisi = ref(0);
 const listeunitFreq = reactive([]);
 const listeunitDuree = reactive([]);
 const listTraitement = reactive([]);
 const listeSearch = reactive([]);
+const patients = reactive([]);
+const maladies = reactive([]);
 
 onMounted(() => {
-  console.log("oui");
   getFrequence();
   getDuree();
   lesMedicaments("");
+  getPatients();
+  getMaladies();
 });
+
+function getPatients(event) {
+  let url = "/api/utilisateurs";
+  let fetchOptions = { method: "Get" };
+  fetch(url, fetchOptions)
+    .then((response) => response.json())
+    .then((json) => {
+      let results = json._embedded.utilisateurs;
+      results.forEach((v) => patients.push(v));
+    })
+    .catch((error) => alert(error));
+}
+
+function getMaladies(event) {
+  let url = "/api/maladies";
+  let fetchOptions = { method: "Get" };
+  fetch(url, fetchOptions)
+    .then((response) => response.json())
+    .then((json) => {
+      let results = json._embedded.maladies;
+      results.forEach((v) => maladies.push(v));
+    })
+    .catch((error) => alert(error));
+}
+
+function valeurPatientChoisi() {
+  patienchoisi = document.getElementById("selectPatient").value;
+  return patienchoisi;
+}
+
+function valeurMaladieChoisi() {
+  maladieChoisi = document.getElementById("selectMaladie").value;
+  return maladieChoisi;
+}
 
 function lesMedicaments(medic) {
   let fetchOptions = { method: "GET" };
-  console.log("ici " + medic);
   fetch("/api/medicamentsByName?mot=" + medic)
     .then((response) => {
       return response.json();
     })
 
     .then((dataJSON) => {
-      console.log(dataJSON);
       listeSearch.splice(0, listeSearch.length);
       dataJSON.forEach((v) => listeSearch.push(v));
     })
 
     .catch((error) => {
-      console.log(error);
+      //console.log(error);
     });
 }
+
 function valeurMedicChoisi() {
   medicChoisi = document.getElementById("selectmedic").value;
-  console.log(medicChoisi);
   return medicChoisi;
 }
+
 function getFrequence(event) {
   let url = "/api/allUniteFreq";
   let fetchOptions = { method: "Get" };
@@ -45,9 +84,7 @@ function getFrequence(event) {
       return response.json();
     })
     .then((dataJSON) => {
-      console.log(dataJSON);
       dataJSON.forEach((v) => listeunitFreq.push(v));
-      console.log(listeunitFreq);
     })
     .catch((error) => {
       //console.log(error);
@@ -62,24 +99,28 @@ function getDuree(event) {
       return response.json();
     })
     .then((dataJSON) => {
-      console.log(dataJSON);
       dataJSON.forEach((v) => listeunitDuree.push(v));
-      console.log(listeunitDuree);
     })
     .catch((error) => {
       //console.log(error);
     });
 }
+
 function listTraitementEvent() {
   let dureeUnite = document.getElementById("dureeUnite").value;
-  console.log("ici " + dureeUnite);
+  //console.log("ici " + dureeUnite);
   let frequenceUnite = document.getElementById("freqUnite").value;
   let duree = document.getElementById("duree").value;
   let frequence = document.getElementById("frequence").value;
   let quantite = document.getElementById("quantite").value;
+  let patient = document.getElementById("selectPatient").value;
+  let maladie = document.getElementById("selectMaladie").value;
+
   listTraitement.push(
     new traitement(
       medicChoisi,
+      maladieChoisi,
+      patienchoisi,
       duree,
       dureeUnite,
       frequence,
@@ -88,12 +129,24 @@ function listTraitementEvent() {
     )
   );
   console.log(listTraitement);
-  console.log(listTraitement[2]._duree);
-  console.log(listTraitement[0]._unitduree);
 }
 </script>
 <template>
   <div>
+    <select id="selectPatient" @change="valeurPatientChoisi()">
+      <option disabled selected>
+        Choissisez votre utilisateur dans la liste
+      </option>
+      <option v-for="patient of patients" :value="patient.id">
+        {{ patient.nom }} {{ patient.prenom }}
+      </option>
+    </select>
+    <select id="selectMaladie" @change="valeurMaladieChoisi()">
+      <option disabled selected>Choissisez votre maladie dans la liste</option>
+      <option v-for="maladie of maladies" :value="maladie.id">
+        {{ maladie.nom_maladie }}
+      </option>
+    </select>
     <h4>Rechercher votre médicament :</h4>
     <form @submit.prevent="listTraitementEvent(dureeUnite)">
       <input id="listeMedic" v-model="medic" @keyup="lesMedicaments(medic)" />
@@ -105,7 +158,6 @@ function listTraitementEvent() {
           {{ search.nom_medic }}
         </option>
       </select>
-
       <h4>Posologie ?</h4>
       <div>
         <h5>Durée de traitement</h5>
@@ -141,6 +193,39 @@ function listTraitementEvent() {
       <input id="valider" type="submit" value="ajouter" />
     </form>
   </div>
+  <div class="container mt-3">
+    <table class="table table-bordered table-sm table-hover">
+      <thead>
+        <tr>
+          <th>Liste des médicaments ajoutés</th>
+          <th>Actions possibles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(traitement, index) of listTraitement" :key=index>
+          <td>Nom du médicament : {{ traitement.medic }} <br/>
+          Nom de la maladie : {{traitement._maladie}} <br/>
+          Durée : {{traitement._duree}} {{traitement._unitduree}} <br/>
+          Fréquence : {{traitement._freq}} {{traitement._unitfreq}} <br/>
+          Quantité : {{traitement._qte}} dose(s) par prises<br/>
+         </td>
+          <td>
+            <button
+              @click="deleteMedicament(medicament)"
+            >
+              Supprimer
+            </button>
+            <button
+              @click="modifMedicament(medicament)"
+            >
+              Modifier
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </template>
 <style scopped>
 </style>
