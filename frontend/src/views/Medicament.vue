@@ -29,10 +29,10 @@ import TabRecapMedic11 from "@/components/TabRecapMedic11.vue"
 }*/
 </script>
 <template>
-  
 
-<AjoutTraitement/>
-
-
+<div class="espace">
+  <AjoutTraitement/>
+  <TabRecapMedic11/>
+</div>
 
 </template>

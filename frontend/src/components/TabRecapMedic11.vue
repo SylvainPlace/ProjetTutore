@@ -8,18 +8,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="medicament in data.medicaments" :key="medicament.id">
-          <td>Nom : {{ medicament.nom_medic }} <br/> 
-          Informations sur la prise : {{ medicament.info_prise }} <br/>
-          Contres indications : {{ medicament.contre_indications }}</td>
+        <tr v-for="traitement in listTraitement" :key="traitement.id">
+          <td>Nom : {{ traitement.medic }} <br/> 
+          <!--Informations sur la prise : {{ traitement.info_prise }} <br/> -->
+          <!--Contres indications : {{ traitement.contre_indications }} -->
+          </td>
           <td>
             <button
-              @click="deleteMedicament(medicament)"
+              @click="deleteMedicament(traitement)"
             >
               Supprimer
             </button>
             <button
-              @click="modifMedicament(medicament)"
+              @click="modifMedicament(traitement)"
             >
               Modifier
             </button>
@@ -31,7 +32,10 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, ref } from "vue";
+
+import traitement from "@/Traitement.js";
+const listTraitement = reactive([]);
 
 let data = reactive({
   medicaments: [],

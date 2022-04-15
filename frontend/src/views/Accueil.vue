@@ -21,3 +21,8 @@ import Footer from "@/components/Footer.vue"
  
 </style>
 
+<template>
+  <div class="home espace">
+    
+  </div>
+</template>
