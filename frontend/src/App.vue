@@ -17,25 +17,12 @@ import Header from "@/components/Header.vue";
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 1.1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-  font-size: 2em;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 
 /* Curseur indiquant un clic possible*/
 .pointer {
