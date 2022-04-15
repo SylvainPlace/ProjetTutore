@@ -1,6 +1,6 @@
 <template>
  <div>
-    <table class="table table-bordered table-sm table-hover">
+    <table class="table table-bordered table-sm table-hover" >
       <thead>
         <tr>
           <th>Nom maladie</th>
@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="maladie in maladies" :key="maladie.id">
+        <tr v-for="maladie in data.maladies" :key="maladie.id">
           <td>{{ maladie.nom_maladie }}</td>
           <td>{{ maladie.symptomes }}</td>
           <td>{{ maladie.description }}</td>
