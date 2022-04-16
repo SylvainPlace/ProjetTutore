@@ -28,6 +28,7 @@ import fr.jfc.ptut.dto.PopulationResult;
 import fr.jfc.ptut.dto.CityForm;
 import fr.jfc.ptut.dto.InfirmiereSoignerDetailsResult;
 import fr.jfc.ptut.dto.PatientDetailMedicaments;
+import fr.jfc.ptut.dto.IdNomDTO;
 import fr.jfc.ptut.entity.Soigner;
 import fr.jfc.ptut.entity.Utilisateur;
 import fr.jfc.ptut.enume.Categorie;
@@ -68,6 +69,20 @@ public class RestController {
 	public @ResponseBody List<Utilisateur> ListePatient() {
 		log.info("Liste des patients");
 		return utilisateurDao.ListePatient();
+	}
+
+	@GetMapping(path = "idEnNom")
+	public @ResponseBody List<String> idEnNom(@PathVariable int idMedic) {
+		List<String> noms = new ArrayList<>();
+		List<Medicament> allMedicament = this.allMedicaments();
+		for (Medicament m : allMedicament) {
+			log.info(m.getNom_medic());
+			if (m.getId() == idMedic) {
+				noms.add(m.getNom_medic());
+			}
+		}
+
+		return noms;
 	}
 
 	/**
