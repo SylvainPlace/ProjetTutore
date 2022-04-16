@@ -1,17 +1,18 @@
 <template>
-  <div class="navbar mb-3">
-
-
-
-    <nav class="container navbar-expand-lg d-flex justify-content-md-between py-3 mb-4 border-bottom">
-      <img src="@/assets/logo.png" alt="logo" />
-      <router-link to="/" class="navbar-brand"><span class="max">Accueil</span></router-link>
-      <router-link to="/personnelSoignant" class="navbar-brand"><span class="max">Infirmier</span></router-link>
-      <router-link to="/ajoutTraitement" class="navbar-brand"><span class="max">Ajout Traitement</span></router-link>
-      <router-link to="/resultat" class="navbar-brand"><span class="max">Résultat</span></router-link>
-      <p class="mt-3">Bienvenue {{ prenom }} {{ nom }}</p>
-    </nav>
+  <div>
+    <img src="@/assets/logo.png" alt="logo" />
+    <h3>Bienvenue {{ prenom }} {{ nom }}</h3>
   </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <router-link to="/" class="navbar-brand">Accueil</router-link>
+    <router-link to="/personnelSoignant" class="navbar-brand"
+      >Infirmier</router-link
+    >
+    <router-link to="/ajoutTraitement" class="navbar-brand"
+      >Ajout Traitement</router-link
+    >
+    <router-link to="/resultat" class="navbar-brand">Résultat</router-link>
+  </nav>
   <router-view />
 </template>
 
@@ -21,15 +22,7 @@ defineProps(["nom", "prenom"]);
 
 <style scoped>
 img {
-  height: 80px;
-}
-
-.navbar {
-  background: -webkit-linear-gradient(to right, #2dafd6, #03619f);
-  background: linear-gradient(to right, #03619f, #2dafd6);
-}
-
-.max{
-  font-size: 1.6em;
+  max-width: 100%;
+  height: 100px;
 }
 </style>
