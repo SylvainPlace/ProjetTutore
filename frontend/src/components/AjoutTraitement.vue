@@ -114,7 +114,7 @@ function listTraitementEvent() {
   let frequence = document.getElementById("frequence").value;
   let quantite = document.getElementById("quantite").value;
   let patient = document.getElementById("selectPatient").value;
-  console.log(medicChoisi)
+  console.log(medicChoisi);
   let url = "/api/medicaments/" + medicChoisi;
   let fetchOptions = { method: "Get" };
   let medicNom;
@@ -122,7 +122,7 @@ function listTraitementEvent() {
     .then((response) => response.json())
     .then((json) => {
       medicNom = json.nom_medic;
-      console.log(maladieChoisi)
+      console.log(maladieChoisi);
       let url2 = "/api/maladies/" + maladieChoisi;
       let fetchOptions = { method: "Get" };
       let maladieNom;
@@ -152,7 +152,60 @@ function listTraitementEvent() {
     .catch((error) => alert(error));
 }
 
-function getNomMedic() {}
+function deleteMedicament(index) {
+  listTraitement.splice(index, 1);
+  return listTraitement;
+}
+
+function putMedicament() {
+  listTraitement.forEach((item, index) => {
+    console.log(item._medic)
+    postUnSoigner(
+      item._medic,
+      item._utilisateurs,
+      item._maladie,
+      item._unitduree,
+      item._unitefreq,
+      item._qte,
+      item._date
+    );
+  });
+}
+
+function postUnSoigner(
+  medic,
+  utilisateurs,
+  maladie,
+  unitduree,
+  unitfreq,
+  qte,
+  date
+) {
+  let url = "/api/soigners";
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  const fetchOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify({
+      medicament: medic,
+      utilisateur: utilisateurs,
+      maladie: maladie,
+      uniteduree: unitduree,
+      unitefreq: unitfreq,
+      doseparprise: qte,
+      datecreation: date,
+    }),
+  };
+  console.log(fetchOptions);
+  fetch(url, fetchOptions)
+    .then((response) => {
+      return response.json();
+    })
+    .then((dataJSON) => {
+      console.log(dataJSON);
+    });
+}
 </script>
 <template>
   <div>
@@ -168,7 +221,10 @@ function getNomMedic() {}
         {{ patient.nom }} {{ patient.prenom }}
       </option>
     </select>
-    <select id="selectMaladie" @change="valeurMaladieChoisi($event.target.value)">
+    <select
+      id="selectMaladie"
+      @change="valeurMaladieChoisi($event.target.value)"
+    >
       <option disabled selected>Choissisez votre maladie dans la liste</option>
       <option v-for="maladie of maladies" :value="maladie.id">
         {{ maladie.nom_maladie }}
@@ -238,10 +294,10 @@ function getNomMedic() {}
             Quantité : {{ traitement._qte }} dose(s) par prises<br />
           </td>
           <td>
-            <button @click="deleteMedicament(medicament)">Supprimer</button>
-            <button @click="modifMedicament(medicament)">Modifier</button>
+            <button @click="deleteMedicament(index)">Supprimer</button>
           </td>
         </tr>
+        <button @click="putMedicament()">Valider la saisie</button>
       </tbody>
     </table>
   </div>
