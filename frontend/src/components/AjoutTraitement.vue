@@ -2,9 +2,6 @@
 import { onMounted, reactive, ref } from "vue";
 import traitement from "@/Traitement.js";
 import TabRecapMedic11 from "@/components/TabRecapMedic11.vue";
-let medicChoisi = ref(0);
-let patienchoisi = ref(0);
-let maladieChoisi = ref(0);
 const listeunitFreq = reactive([]);
 const listeunitDuree = reactive([]);
 const listTraitement = reactive([]);
@@ -15,9 +12,9 @@ const maladies = reactive([]);
 onMounted(() => {
   getFrequence();
   getDuree();
-  lesMedicaments("");
   getPatients();
   getMaladies();
+  lesMedicaments("");
 });
 
 function getPatients(event) {
@@ -44,16 +41,6 @@ function getMaladies(event) {
     .catch((error) => alert(error));
 }
 
-function valeurPatientChoisi() {
-  patienchoisi = document.getElementById("selectPatient").value;
-  return patienchoisi;
-}
-
-function valeurMaladieChoisi(id) {
-  maladieChoisi = id;
-  return maladieChoisi;
-}
-
 function lesMedicaments(medic) {
   let fetchOptions = { method: "GET" };
   fetch("/api/medicamentsByName?mot=" + medic)
@@ -69,11 +56,6 @@ function lesMedicaments(medic) {
     .catch((error) => {
       //console.log(error);
     });
-}
-
-function valeurMedicChoisi() {
-  medicChoisi = document.getElementById("selectmedic").value;
-  return medicChoisi;
 }
 
 function getFrequence(event) {
@@ -106,50 +88,29 @@ function getDuree(event) {
     });
 }
 
-function listTraitementEvent() {
-  let dureeUnite = document.getElementById("dureeUnite").value;
-  //console.log("ici " + dureeUnite);
-  let frequenceUnite = document.getElementById("freqUnite").value;
-  let duree = document.getElementById("duree").value;
-  let frequence = document.getElementById("frequence").value;
-  let quantite = document.getElementById("quantite").value;
-  let patient = document.getElementById("selectPatient").value;
-  console.log(medicChoisi);
-  let url = "/api/medicaments/" + medicChoisi;
-  let fetchOptions = { method: "Get" };
-  let medicNom;
-  fetch(url, fetchOptions)
-    .then((response) => response.json())
-    .then((json) => {
-      medicNom = json.nom_medic;
-      console.log(maladieChoisi);
-      let url2 = "/api/maladies/" + maladieChoisi;
-      let fetchOptions = { method: "Get" };
-      let maladieNom;
-      fetch(url2, fetchOptions)
-        .then((response) => response.json())
-        .then((json) => {
-          maladieNom = json.nom_maladie;
-          console.log(maladieNom);
-          listTraitement.push(
-            new traitement(
-              medicChoisi,
-              medicNom,
-              maladieChoisi,
-              maladieNom,
-              patienchoisi,
-              duree,
-              dureeUnite,
-              frequence,
-              frequenceUnite,
-              quantite
-            )
-          );
-          console.log(listTraitement);
-        })
-        .catch((error) => alert(error));
-    })
-    .catch((error) => alert(error));
+function listTraitementEvent(
+  medicChoisi,
+  patienchoisi,
+  maladieChoisi,
+  duree,
+  dureeUnite,
+  frequence,
+  frequenceUnite,
+  quantite
+) {
+  listTraitement.push(
+    new traitement(
+      medicChoisi,
+      maladieChoisi,
+      patienchoisi,
+      duree,
+      dureeUnite,
+      frequence,
+      frequenceUnite,
+      quantite
+    )
+  );
+  console.log(listTraitement);
 }
 
 function deleteMedicament(index) {
@@ -159,13 +120,15 @@ function deleteMedicament(index) {
 
 function putMedicament() {
   listTraitement.forEach((item, index) => {
-    console.log(item._medic)
+    console.log(item._medic);
     postUnSoigner(
       item._medic,
-      item._utilisateurs,
       item._maladie,
+      item._utilisateurs,
       item._unitduree,
+      item._duree,
       item._unitefreq,
+      item._freq,
       item._qte,
       item._date
     );
@@ -174,10 +137,12 @@ function putMedicament() {
 
 function postUnSoigner(
   medic,
-  utilisateurs,
   maladie,
+  utilisateurs,
   unitduree,
+  duree,
   unitfreq,
+  freq,
   qte,
   date
 ) {
@@ -188,13 +153,15 @@ function postUnSoigner(
     method: "POST",
     headers: myHeaders,
     body: JSON.stringify({
-      medicament: medic,
-      utilisateur: utilisateurs,
+      datecreation: date,
+      doseparprise: qte,
       maladie: maladie,
+      medicament: medic,
       uniteduree: unitduree,
       unitefreq: unitfreq,
-      doseparprise: qte,
-      datecreation: date,
+      utilisateur: utilisateurs,
+      valduree: duree,
+      valfreq: freq,
     }),
   };
   console.log(fetchOptions);
@@ -209,70 +176,88 @@ function postUnSoigner(
 </script>
 <template>
   <div>
-    <select
-      id="selectPatient"
-      v-model="patienchoisi"
-      @change="valeurPatientChoisi()"
-    >
+    <select id="selectPatient" v-model="patienchoisi">
       <option disabled selected>
         Choissisez votre utilisateur dans la liste
       </option>
-      <option v-for="patient of patients" :value="patient.id">
+      <option v-for="patient of patients">
         {{ patient.nom }} {{ patient.prenom }}
       </option>
     </select>
-    <select
-      id="selectMaladie"
-      @change="valeurMaladieChoisi($event.target.value)"
-    >
+    <select id="selectMaladie" v-model="maladieChoisi">
       <option disabled selected>Choissisez votre maladie dans la liste</option>
-      <option v-for="maladie of maladies" :value="maladie.id">
+      <option v-for="maladie of maladies">
         {{ maladie.nom_maladie }}
       </option>
     </select>
     <h4>Rechercher votre médicament :</h4>
-    <form @submit.prevent="listTraitementEvent(dureeUnite)">
+    <form
+      @submit.prevent="
+        listTraitementEvent(
+          medicChoisi,
+          patienchoisi,
+          maladieChoisi,
+          duree,
+          dureeUnite,
+          frequence,
+          frequenceUnite,
+          quantite
+        )
+      "
+    >
       <input id="listeMedic" v-model="medic" @keyup="lesMedicaments(medic)" />
-      <select id="selectmedic" @change="valeurMedicChoisi()">
+      <select id="selectmedic" v-model="medicChoisi">
         <option disabled selected>
           Choissisez votre Medicament dans la liste
         </option>
-        <option v-for="search of listeSearch" :value="search.id">
+        <option v-for="search of listeSearch">
           {{ search.nom_medic }}
         </option>
       </select>
       <h4>Posologie ?</h4>
       <div>
         <h5>Durée de traitement</h5>
-        <input id="duree" type="number" min="0" max="100" />
-        <select id="dureeUnite" class="unite">
+        <input id="duree" type="number" min="0" max="100" v-model="duree" />
+        <select id="dureeUnite" class="unite" v-model="dureeUnite">
           <option disabled selected>
             Choissisez votre Unite de Duree dans la liste
           </option>
-          <option v-for="(duree, index) of listeunitDuree" :value="index">
+          <option v-for="(duree, index) of listeunitDuree">
             {{ duree }}
           </option>
         </select>
       </div>
       <div>
         <h5>Fréquence</h5>
-        <input id="frequence" type="number" min="0" max="10" />
+        <input
+          id="frequence"
+          type="number"
+          min="0"
+          max="10"
+          v-model="frequence"
+        />
         <h5>fois par</h5>
-        <select id="freqUnite">
+        <select id="freqUnite" v-model="frequenceUnite">
           <option disabled selected>
             Choissisez votre Unite de Frequence dans la liste
           </option>
-          <option v-for="(freq, index) of listeunitFreq" :value="index">
+          <option v-for="(freq, index) of listeunitFreq">
             {{ freq }}
           </option>
         </select>
       </div>
       <div>
         <h5>Quantité</h5>
-        <input id="quantite" type="number" step=".5" min="0" max="15" />
+        <input
+          id="quantite"
+          type="number"
+          step=".5"
+          min="0"
+          max="15"
+          v-model="quantite"
+        />
         <h5>dose(s) par prise</h5>
       </div>
-
       <input id="valider" type="submit" value="ajouter" />
     </form>
   </div>
@@ -287,10 +272,11 @@ function postUnSoigner(
       <tbody>
         <tr v-for="(traitement, index) of listTraitement" :key="index">
           <td>
-            Nom du médicament : {{ traitement._medicNom }} <br />
-            Nom de la maladie : {{ traitement._maladieNom }} <br />
+            Nom du médicament : {{ traitement._medic }} <br />
+            Nom de la maladie : {{ traitement._maladie }} <br />
             Durée : {{ traitement._duree }} {{ traitement._unitduree }} <br />
-            Fréquence : {{ traitement._freq }} {{ traitement._unitfreq }} <br />
+            Fréquence : {{ traitement._freq }} fois par
+            {{ traitement._unitfreq }} <br />
             Quantité : {{ traitement._qte }} dose(s) par prises<br />
           </td>
           <td>
