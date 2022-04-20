@@ -154,6 +154,8 @@ function listTraitementEvent() {
 
 </script>
 <template>
+    
+  <div class="formulaireTraitement">
     <select
       id="selectPatient"
       v-model="patienchoisi"
@@ -172,7 +174,6 @@ function listTraitementEvent() {
         {{ maladie.nom_maladie }}
       </option>
     </select>
-  <div class="formulaireTraitement">
     <h4 id="recherche">Recherchez votre médicament :</h4>
     <form @submit.prevent="listTraitementEvent(dureeUnite)">
       <input id="listeMedic" v-model="medic" @keyup="lesMedicaments(medic)" />
@@ -189,7 +190,7 @@ function listTraitementEvent() {
       <div>
         <h5 id="dureeTraitement">Durée de traitement</h5>
         <input id="choix" type="number" min="0" max="100" />
-        <select class="select" id="selectduree" >
+        <select  class="select" id="selectduree" >
           <option disabled selected>
            Jour
           </option>
@@ -251,18 +252,20 @@ function listTraitementEvent() {
 .formulaireTraitement{
   position : relative ; 
   left : 13px;
-  top : 82px;
-  height : 430px;
-  width : 447px;
+  top : 8px;
+  height : 530px;
+  width : 483px;
   border: 3px solid #B48B75;
    background: #D09478;
    color : white;
    text-align : center;
+    border-radius: 10px 100px / 120px;
 }
 .select {
 	position: relative; 
 	background-color: white;
 	border: #B48B75  1px solid;
+  border-radius: 30px;
 	margin: 0 0 1.5em 0;
 	overflow: hidden; 
   
@@ -271,84 +274,122 @@ function listTraitementEvent() {
 #dureeTraitement{
   position : relative;
   width : 189px;
-  left : 9px;
+  left : 16px;
+  top : 105px;
 }
 #selectduree{
   position : relative;
-  left : -50px;}
+  left : -50px;
+  top : 105px;
+  border-radius: 30px;}
 #choix{
    position : relative;
   left : -62px;
-  top :0px;
+  top :105px;
+   border-radius: 10px;
 }
 
 #poso{
   position : relative;
-  left : -104px;
+  left : -116px;
+  top : 100px;
 }
 
 #recherche{
   position : relative;
-  left : -36px;
-  top : 5px;
+  left : -48px;
+  top : 105px;
 }
 
 #listeMedic{
   position : relative;
   left : -40px;
+  top : 105px;
+  border-radius: 10px;
 }
 
 #selectrech{
    position : relative;
   left : -27px;
+  top : 105px;
+   border-radius: 10px; 
 }
 
 #frequenceT{
   position : relative;
-  left : -158px;
+  left : -164px;
+  top : 105px;
 }
 
 #frequence{
   position : relative;
   left : -116px;
+  top : 105px;
+   border-radius: 10px;
 }
 
 #fois{
   position : relative;
-  left : 18px;
-  top : -27px; 
+  left : 215px;
+  top : 78px; 
+  width : 86px;
 }
 
 #selectF{
     position : relative;
   left : 114px;
-  top : -57px; 
+  top : 45px; 
 }
 
 #quantitetxt{
   position : relative;
-  left : -167px;
-  top : -61px; 
+  left : -174px;
+  top : 44px; 
 }
 
 #quantite{
   position : relative;
   left : -115px;
-  top : -61px; 
+  top : 44px; 
+   border-radius: 10px;
 }
 
 #dosetxt{
    position : relative;
-  left : 61px;
-  top : -89px; 
+  left : 221px;
+  top : 16px; 
+  width : 162px;
 }
 
 #valider{
   color : black ;
     border: 3px solid #B48B75;
+    border-radius: 10px 100px / 120px;
    background: white;
     position : relative;
   left : 6px;
-  top : -80px; 
+  top : 25px; 
 }
+
+
+#selectPatient{
+  position : absolute;
+	background-color: white;
+	border: black  1px solid;
+   border-radius: 10px;
+   top : 16px;
+   left : 18px;
+  
+}
+
+#selectMaladie{
+  position : absolute;
+ border-radius: 10px;
+ background-color: white;
+	border: black  1px solid;
+   top : 60px;
+   left : 18px;
+}
+
+
 </style>
