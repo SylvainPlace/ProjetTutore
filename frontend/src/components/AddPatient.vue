@@ -1,5 +1,5 @@
 <template>
-  <h3>Patient à ajouter</h3>
+  <h3>Utilisateur à ajouter</h3>
   <div class="container">
     <form
       @submit.prevent="
@@ -80,7 +80,11 @@
         </select>
       </div>
       <div class="col-12">
-        <input type="submit" value="Ajouter un patient" class="btn btn-primary" />
+        <input
+          type="submit"
+          value="Ajouter un patient"
+          class="btn btn-primary"
+        />
       </div>
     </form>
     <span id="texte"></span>
@@ -143,7 +147,8 @@ function handlerAddPatient(
     .then((dataJSON) => {
       console.log(dataJSON);
       document.getElementById("texte").innerHTML =
-        "Le patient " +
+        categorie +
+        " " +
         nom +
         " " +
         prenom +

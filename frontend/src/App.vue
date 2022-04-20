@@ -33,4 +33,8 @@ import Header from "@/components/Header.vue";
 .defaultCursor {
   cursor: default;
 }
+
+.espace {
+  min-height: 70vh;
+}
 </style>
