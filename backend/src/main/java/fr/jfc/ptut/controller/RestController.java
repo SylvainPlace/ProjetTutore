@@ -25,7 +25,7 @@ import fr.jfc.ptut.entity.Medicament;
 import fr.jfc.ptut.dao.SoignerRepository;
 import fr.jfc.ptut.dao.UtilisateurRepository;
 import fr.jfc.ptut.dto.PopulationResult;
-import fr.jfc.ptut.dto.CityForm;
+import fr.jfc.ptut.dto.SoignerForm;
 import fr.jfc.ptut.dto.InfirmiereSoignerDetailsResult;
 import fr.jfc.ptut.dto.PatientDetailMedicaments;
 import fr.jfc.ptut.dto.IdNomDTO;
@@ -85,6 +85,58 @@ public class RestController {
 		return noms;
 	}
 
+	// datecreation: date,
+	// doseparprise: qte,
+	// maladie: maladie,
+	// medicament: medic,
+	// uniteduree: unitduree,
+	// unitefreq: unitfreq,
+	// utilisateur: utilisateurs,
+	// valduree: duree,
+	// valfreq: freq,
+
+	@PostMapping(path = "saveCity")
+	public @ResponseBody Soigner enregistreUneVille(@RequestBody SoignerForm formData) {
+		log.info("Reçu: {}", formData);
+		List<Medicament> allMedicament = medicamentDao.findAll();
+		List<Maladie> allMaladie = maladieDao.findAll();
+		List<Utilisateur> allUtilisateur = utilisateurDao.findAll();
+		Medicament medicament;
+		Maladie maladie;
+		Utilisateur utilisateur;
+		for (Medicament m : allMedicament) {
+			if (m.getNom_medic().equals(formData.getMedicament())) {
+				medicament = m;
+				break;
+			}
+		}
+		for (Maladie m : allMaladie) {
+			if (m.getNom_maladie().equals(formData.getMaladie())) {
+				maladie = m;
+				break;
+			}
+		}
+		for (Utilisateur u : allUtilisateur) {
+			if (u.getNom().equals(formData.getUtilisateur())) {
+				utilisateur = u;
+				break;
+			}
+		}
+
+		Soigner soigner = new Soigner();
+		soigner.setDatecreation(formData.getDatecreation());
+		soigner.setDoseparprise(formData.getDoseparprise());
+		soigner.setMaladie(maladie);
+		soigner.setMedicament(medicament);
+		soigner.setUniteduree(formData.getUnitduree());
+		soigner.setUnitefreq(formData.getUnitfreq());
+		soigner.setUtilisateur(utilisateur);
+		soigner.setValduree(formData.getValduree());
+		soigner.setValfreq(formData.getValfreq());
+		soignerDao.save(soigner);
+		log.info("Enregistré: {}", soigner);
+		return soigner;
+	}
 	/**
 	 * Enregistre une ville dans la base
 	 * Requête HTTP POST à l'URL http://localhost:8989/rest/saveCity
