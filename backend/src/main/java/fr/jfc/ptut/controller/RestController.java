@@ -106,7 +106,8 @@ public class RestController {
 		Utilisateur utilisateur = null;
 		String nom = formData.getUtilisateur().substring(0, formData.getUtilisateur().indexOf(" "));
 		log.info(nom);
-		String prenom = formData.getUtilisateur().substring(formData.getUtilisateur().indexOf(" ")+1, formData.getUtilisateur().length());
+		String prenom = formData.getUtilisateur().substring(formData.getUtilisateur().indexOf(" ") + 1,
+				formData.getUtilisateur().length());
 		log.info(prenom);
 		UniteDuree uniteDuree = null;
 		UniteFreq uniteFreq = null;
@@ -129,13 +130,13 @@ public class RestController {
 				}
 			}
 		}
-
 		for (UniteDuree d : UniteDuree.values()) {
 			if (d.toString().equals(formData.getUnitduree())) {
 				uniteDuree = d;
 				break;
 			}
 		}
+		log.info("unit: {}", formData.getUnitfreq());
 		for (UniteFreq f : UniteFreq.values()) {
 			if (f.toString().equals(formData.getUnitfreq())) {
 				uniteFreq = f;

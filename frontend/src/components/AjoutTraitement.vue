@@ -146,6 +146,7 @@ function postUnSoigner(
   qte,
   date
 ) {
+  console.log(unitfreq);
   let url = "/api/saveSoigner";
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -157,8 +158,8 @@ function postUnSoigner(
       doseparprise: qte,
       maladie: maladie,
       medicament: medic,
-      uniteduree: unitduree,
-      unitefreq: unitfreq,
+      unitduree: unitduree,
+      unitfreq: unitfreq,
       utilisateur: utilisateurs,
       valduree: duree,
       valfreq: freq,

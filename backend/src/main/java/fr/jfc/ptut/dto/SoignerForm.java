@@ -16,7 +16,7 @@ public class SoignerForm {
     private String utilisateur;
     private String unitduree;
     private String unitfreq;
-    private int doseparprise;
+    private double doseparprise;
     private int valduree;
     private int valfreq;
 }

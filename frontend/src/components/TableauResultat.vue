@@ -353,7 +353,7 @@ function formeAjd() {
                                 <td colspan="10">
                                     Vous n'avez aucun médicament dans votre liste. Vous pouvez en ajouter dans la page
                                     <a href="/ajoutTraitement" class="text-decoration-none txt-bleufonce">Ajout
-                                        Médicament</a>
+                                        Traitement</a>
                                 </td>
                             </tr>
                         </tbody>
