@@ -1,5 +1,3 @@
-
-
 <script setup>
 import { reactive, ref } from "vue";
 let remerciement = ref("");
@@ -58,14 +56,14 @@ function pouce() {
 <style>
 #leFooter {
     bottom: 0;
-    width: 100%;
+    /*width: 100%;*/
     padding-top: 20px;
-    height: 20px;
+    /*height: 100%;*/
 
     background: #ff5f6d;
     background: -webkit-linear-gradient(to right, #2dafd6, #03619f);
     background: linear-gradient(to right, #03619f, #2dafd6);
-    min-height: 20vh;
+    /*min-height: 50vh;*/
 
     display: flex;
 

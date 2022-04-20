@@ -182,7 +182,10 @@ function supprimer(index) {
 
 
 <template>
-    
+  
+  <div id="formulaireETtableau">
+
+    <!--Case : Choisissez votre patient -->
   <div class="formulaireTraitement">
     <h4 id="patient">Choisissez votre patient : </h4>
     <select
@@ -272,64 +275,75 @@ function supprimer(index) {
       <input id="valider" type="submit" value="ajouter" />
     </form>
   </div>
-  <div class="container mt-3">
-  </div>
 
-  <div> <!-- tableau -->
+  <!--Case : Tableau -->
+  <div class="tableau"> 
 
     <h2> Liste des médicaments en cours d'ajout </h2>
 	
-	<table border="1">
+	<table border="1" id="leTableau" class="table table-bordered table-sm table-hover">
 		<thead>
 			<tr>
-				<th colspan="4">Liste de vos médicaments en cours de saisie</th>
-				<th>Réécrire une saisie</th>
+				<th colspan="4" id="liste">Liste de vos médicaments en cours de saisie</th>
+				<th id="action">Réécrire une saisie</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr v-for="(ceTraitement, index) in listTraitement" 
       :key="index"
         >
-				<td>
+				<td id="1">
           Nom du médicament : <br/>
           Maladie traité :
         </td>
-        <td>
+        <td id="2">
           {{ceTraitement._medic}} <br/>
           {{ceTraitement._maladie}}
         </td>
-        <td>
+        <td id="3">
           Durée de prise : <br/>
           
           Fréquence de prise : <br/>
           
           Quantité à prendre :
         </td>
-        <td>
+        <td id="4">
           {{ceTraitement._duree}} {{ceTraitement._unitduree}} <br/>
           
           {{ceTraitement._freq}} / {{ceTraitement._unitfreq}} <br/>
           
           {{ceTraitement._qte}} / Prise<br/>
         </td>
-				<td>
+				<td id="5">
           <!-- Bouton -->
-			    <input type="button" value="Supprimer" @click="supprimer(index)" />
+			    <input type="button" value="Supprimer" id="enregistrer" @click="supprimer(index)" />
         </td>
 			</tr>
 		</tbody>
 	</table>
 
   <!-- Bouton -->
-	<input type="button" value="Valider" @click="putMedicament()" />
+	<input type="button" id="enregistrer" value="Valider la liste et l'enregistrer" @click="putMedicament()" />
 
+  </div>
   </div>
 
 </template>
 <style scopped>
+
+/* CSS formulaire + tableau */ 
+
+#formulaireETtableau {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* CSS Formulaire */
+
 .formulaireTraitement{
   position : relative ; 
-  left : 13px;
+  /*left : 13px;*/
+  margin-left: 5%;
   top : 8px;
   height : 612px;
   width : 483px;
@@ -480,4 +494,52 @@ function supprimer(index) {
   left: -105px;
   top : 25px;
 }
+
+
+/* CSS Tableau */
+
+.tableau{
+  position : relative ; 
+  top : 8px;
+  min-height : 612px;
+  border: 5px solid #B48B75;
+  /*background: -webkit-linear-gradient(to left, #D09478, #f5bba0);
+    background: linear-gradient(to left, #f5bba0, #D09478);*/
+  background-color: white;
+
+   color : #B48B75 ;
+   text-align : center;
+   border-radius: 100px 10px / 120px;
+
+   padding: 5%;
+  margin-right: 5%; 
+  margin-left: 5%;  
+}
+
+#leTableau {
+  width : 800px;
+
+  table-layout: auto;
+width: 100%;
+}
+
+#liste {
+  width: 700px;
+}
+
+tbody {
+  border: 1px solid #B48B75 ;
+}
+
+tr {
+  border: 1px solid #B48B75 ;
+}
+
+#enregistrer{
+  color : black ;
+    border: 3px solid #B48B75;
+    border-radius: 10px 100px / 120px;
+   background: white;
+}
+
 </style>
