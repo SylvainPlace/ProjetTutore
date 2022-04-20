@@ -61,18 +61,18 @@ VALUES (
         3
     ),
     (
-        'Covid-19',
+        'Arthrose',
         'douleur articulaire, courbatures et raideur matinale',
         'Maladie articulaire. Elle se caractérise par une destruction du cartilage qui s étend à toutes les structures de l articulation',
         'vieillissement ou la surcharge mécanique de l articulation',
-        21
+        12
     ),
     (
-        'Arthrose',
+        'Covid-19',
         'fièvre, essouflement, malaise, perte brutale de l’odorat',
         ' Maladie infectieuse émergente de type zoonose virale',
         'Age avancé, Cancer',
-        12
+        21
     ),
     (
         'Hypertension artérielle',
