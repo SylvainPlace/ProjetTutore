@@ -22,9 +22,9 @@ h3{
   color: #5F4850;
 }
 
- select.form-select {
+ select#patientSelect {
     cursor:pointer;
-    color: #5F4850;
+    color: black;
     border-radius: 10px 100px/120px;
     background: -webkit-linear-gradient(to top, #f5bba0, #D09478);
     background: linear-gradient(to top, #D09478, #f5bba0)
