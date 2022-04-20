@@ -23,9 +23,9 @@ public class SoignerForm {
     private String maladie;
     private String medicament;
     private String utilisateur;
-    private String valduree;
-    private String valfreq;
+    private String unitduree;
+    private String unitfreq;
     private int doseparprise;
-    private int unitduree;
-    private int unitfreq;
+    private int valduree;
+    private int valfreq;
 }

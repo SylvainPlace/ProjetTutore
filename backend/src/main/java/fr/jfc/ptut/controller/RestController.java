@@ -101,9 +101,11 @@ public class RestController {
 		List<Medicament> allMedicament = medicamentDao.findAll();
 		List<Maladie> allMaladie = maladieDao.findAll();
 		List<Utilisateur> allUtilisateur = utilisateurDao.findAll();
-		Medicament medicament;
-		Maladie maladie;
-		Utilisateur utilisateur;
+		Medicament medicament = null;
+		Maladie maladie = null;
+		Utilisateur utilisateur = null;
+		UniteDuree uniteDuree = null;
+		UniteFreq uniteFreq = null;
 		for (Medicament m : allMedicament) {
 			if (m.getNom_medic().equals(formData.getMedicament())) {
 				medicament = m;
@@ -123,13 +125,26 @@ public class RestController {
 			}
 		}
 
+		for (UniteDuree d : UniteDuree.values()) {
+			if (d.toString().equals(formData.getUnitduree())) {
+				uniteDuree = d;
+				break;
+			}
+		}
+		for (UniteFreq f : UniteFreq.values()) {
+			if (f.toString().equals(formData.getUnitfreq())) {
+				uniteFreq = f;
+				break;
+			}
+		}
+
 		Soigner soigner = new Soigner();
 		soigner.setDatecreation(formData.getDatecreation());
 		soigner.setDoseparprise(formData.getDoseparprise());
 		soigner.setMaladie(maladie);
 		soigner.setMedicament(medicament);
-		soigner.setUniteduree(formData.getUnitduree());
-		soigner.setUnitefreq(formData.getUnitfreq());
+		soigner.setUniteduree(uniteDuree);
+		soigner.setUnitefreq(uniteFreq);
 		soigner.setUtilisateur(utilisateur);
 		soigner.setValduree(formData.getValduree());
 		soigner.setValfreq(formData.getValfreq());
