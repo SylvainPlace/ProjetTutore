@@ -240,12 +240,12 @@ function formeAjd() {
         if (el[i].innerHTML == "Aujourd'hui") {
             el[i].classList.add("text-uppercase");
             el[i].classList.add("fw-bold");
-            parentNode.classList.add("bg-bleuclair");
+            parentNode.classList.add("bg-beige");
         } else {
             el[i].classList.remove("txt-bleuclair");
             el[i].classList.remove("text-uppercase");
             el[i].classList.remove("fw-bold");
-            parentNode.classList.remove("bg-bleuclair");
+            parentNode.classList.remove("bg-beige");
         }
     }
 }
@@ -287,7 +287,7 @@ function formeAjd() {
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover shadow table-sm align-middle bg-beige">
+                    <table class="table table-bordered table-hover shadow table-sm align-middle bg-bleuclair">
                         <thead class="txt-violet">
                             <tr>
                                 <th class="avancement">
@@ -386,7 +386,6 @@ function formeAjd() {
 
 .bg-bleuclair {
     background-color: #2dafd6d2 !important;
-    border-color: #03619F !important;
 }
 
 .bg-gradient-bleufonce {
@@ -400,6 +399,10 @@ function formeAjd() {
 
 .bg-bleufonce {
     background-color: #03619F !important;
+}
+
+.bg-beige {
+    background-color: #caa391 !important;
 }
 
 .bg-violet {
