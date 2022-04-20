@@ -23,7 +23,7 @@ function choixMaladie(idMaladie, allMaladies) {
     <SelecteurMaladie @maladieEvent="choixMaladie" />
     <div>
     <table class="table table-bordered table-sm table-hover" >
-      <thead>
+      <thead class="head-table">
         <tr>
           <th>Nom maladie</th>
           <th>Symptômes</th>
