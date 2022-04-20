@@ -105,8 +105,9 @@ public class RestController {
 		Maladie maladie = null;
 		Utilisateur utilisateur = null;
 		String nom = formData.getUtilisateur().substring(0, formData.getUtilisateur().indexOf(" "));
-		String prenom = formData.getUtilisateur().substring(formData.getUtilisateur().indexOf(" "),
-				formData.getUtilisateur().length());
+		log.info(nom);
+		String prenom = formData.getUtilisateur().substring(formData.getUtilisateur().indexOf(" ")+1, formData.getUtilisateur().length());
+		log.info(prenom);
 		UniteDuree uniteDuree = null;
 		UniteFreq uniteFreq = null;
 		for (Medicament m : allMedicament) {
