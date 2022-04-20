@@ -30,7 +30,7 @@ function fetchSoignersMedicament() {
         <SelecteurPatient @patientEvent="choixPatient" />
         <table v-if="data.patientChoisiId != ''"
             class="table table-bordered table-sm table-hover shadow p-3 mb-5 bg-body rounded-3">
-            <thead>
+            <thead class="head-table">
                 <tr>
                     <th>Médicament</th>
                     <th>Maladie</th>
