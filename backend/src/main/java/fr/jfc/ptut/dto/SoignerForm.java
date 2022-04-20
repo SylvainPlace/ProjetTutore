@@ -10,15 +10,6 @@ import lombok.Data;
  */
 @Data // Lombok pour auto-générer getter / setter / toString...
 public class SoignerForm {
-    // datecreation: date,
-	// doseparprise: qte,
-	// maladie: maladie,
-	// medicament: medic,
-	// uniteduree: unitduree,
-	// unitefreq: unitfreq,
-	// utilisateur: utilisateurs,
-	// valduree: duree,
-	// valfreq: freq,
     private Date datecreation;
     private String maladie;
     private String medicament;

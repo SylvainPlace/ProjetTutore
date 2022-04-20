@@ -104,6 +104,9 @@ public class RestController {
 		Medicament medicament = null;
 		Maladie maladie = null;
 		Utilisateur utilisateur = null;
+		String nom = formData.getUtilisateur().substring(0, formData.getUtilisateur().indexOf(" "));
+		String prenom = formData.getUtilisateur().substring(formData.getUtilisateur().indexOf(" "),
+				formData.getUtilisateur().length());
 		UniteDuree uniteDuree = null;
 		UniteFreq uniteFreq = null;
 		for (Medicament m : allMedicament) {
@@ -119,9 +122,10 @@ public class RestController {
 			}
 		}
 		for (Utilisateur u : allUtilisateur) {
-			if (u.getNom().equals(formData.getUtilisateur())) {
-				utilisateur = u;
-				break;
+			if (u.getNom().equals(nom)) {
+				if (u.getPrenom().equals(prenom)) {
+					utilisateur = u;
+				}
 			}
 		}
 
@@ -152,6 +156,7 @@ public class RestController {
 		log.info("Enregistré: {}", soigner);
 		return soigner;
 	}
+
 	/**
 	 * Enregistre une ville dans la base
 	 * Requête HTTP POST à l'URL http://localhost:8989/rest/saveCity

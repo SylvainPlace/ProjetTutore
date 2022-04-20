@@ -146,7 +146,7 @@ function postUnSoigner(
   qte,
   date
 ) {
-  let url = "/api/soigners";
+  let url = "/api/saveSoigner";
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   const fetchOptions = {
@@ -262,6 +262,30 @@ function postUnSoigner(
     </form>
   </div>
   <div class="container mt-3">
+    <table class="table table-bordered table-sm table-hover">
+      <thead>
+        <tr>
+          <th>Liste des médicaments ajoutés</th>
+          <th>Actions possibles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(traitement, index) of listTraitement" :key="index">
+          <td>
+            Nom du médicament : {{ traitement._medic }} <br />
+            Nom de la maladie : {{ traitement._maladie }} <br />
+            Durée : {{ traitement._duree }} {{ traitement._unitduree }} <br />
+            Fréquence : {{ traitement._freq }} fois par
+            {{ traitement._unitfreq }} <br />
+            Quantité : {{ traitement._qte }} dose(s) par prises<br />
+          </td>
+          <td>
+            <button @click="deleteMedicament(index)">Supprimer</button>
+          </td>
+        </tr>
+        <button @click="putMedicament()">Valider la saisie</button>
+      </tbody>
+    </table>
   </div>
 </template>
 <style scopped>
