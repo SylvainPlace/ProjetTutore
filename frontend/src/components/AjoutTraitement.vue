@@ -18,13 +18,13 @@ onMounted(() => {
 });
 
 function getPatients(event) {
-  let url = "/api/utilisateurs";
+  let url = "/api/ListePatient/";
   let fetchOptions = { method: "Get" };
   fetch(url, fetchOptions)
     .then((response) => response.json())
     .then((json) => {
-      let results = json._embedded.utilisateurs;
-      results.forEach((v) => patients.push(v));
+      console.log(json)
+      json.forEach((v) => patients.push(v));
     })
     .catch((error) => alert(error));
 }
