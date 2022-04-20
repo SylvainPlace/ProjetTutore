@@ -17,14 +17,15 @@ import AddPatient from "@/components/AddPatient.vue";
 import DetailPatient from "@/components/DetailPatient.vue";
 import DetailMaladie from "../components/DetailMaladie.vue";
 </script>
-<style >
+<style>
+
 h3{
   color: #5F4850;
 }
 
- select.form-select {
+ select.select-beige {
     cursor:pointer;
-    color: #5F4850;
+  color: black;
     border-radius: 10px 100px/120px;
     background: -webkit-linear-gradient(to top, #f5bba0, #D09478);
     background: linear-gradient(to top, #D09478, #f5bba0)
@@ -42,7 +43,7 @@ div.py-5.table{
   width : 400px; 
 }
 
-thead{
+.head-table{
   color : white;
   background: -webkit-linear-gradient(to top, #f5bba0, #D09478);
   background: linear-gradient(to top, #D09478, #f5bba0);
