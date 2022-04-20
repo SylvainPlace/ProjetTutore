@@ -173,7 +173,14 @@ function postUnSoigner(
       console.log(dataJSON);
     });
 }
+
+function supprimer(index) {
+  listTraitement.splice(index, 1);
+  return listTraitement;
+}
 </script>
+
+
 <template>
   <div>
     <select id="selectPatient" v-model="patienchoisi">
@@ -263,6 +270,57 @@ function postUnSoigner(
   </div>
   <div class="container mt-3">
   </div>
+
+  <div> <!-- tableau -->
+
+    <h2> Liste des médicaments en cours d'ajout </h2>
+	
+	<table border="1">
+		<thead>
+			<tr>
+				<th colspan="4">Liste de vos médicaments en cours de saisie</th>
+				<th>Réécrire une saisie</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="(ceTraitement, index) in listTraitement" 
+      :key="index"
+        >
+				<td>
+          Nom du médicament : <br/>
+          Maladie traité :
+        </td>
+        <td>
+          {{ceTraitement._medic}} <br/>
+          {{ceTraitement._maladie}}
+        </td>
+        <td>
+          Durée de prise : <br/>
+          
+          Fréquence de prise : <br/>
+          
+          Quantité à prendre :
+        </td>
+        <td>
+          {{ceTraitement._duree}} {{ceTraitement._unitduree}} <br/>
+          
+          {{ceTraitement._freq}} / {{ceTraitement._unitfreq}} <br/>
+          
+          {{ceTraitement._qte}} / Prise<br/>
+        </td>
+				<td>
+          <!-- Bouton -->
+			    <input type="button" value="Supprimer" @click="supprimer(index)" />
+        </td>
+			</tr>
+		</tbody>
+	</table>
+
+  <!-- Bouton -->
+	<input type="button" value="Valider" @click="putMedicament()" />
+
+  </div>
+
 </template>
 <style scopped>
 </style>
