@@ -252,10 +252,9 @@ function formeAjd() {
 </script>
 
 <template>
-    <<<<<<< HEAD <div class="container bg-gradient-bleufonce rounded-3">
-        =======
+    <div class="container bg-gradient-bleufonce rounded-3">
+
         <div class="container bg-marronclair rounded-3">
-            >>>>>>> origin/Florian
             <SelecteurPatient @patientEvent="choixPatient" />
             <div class="container" v-if="data.id != ''">
                 <div id="alerteMessage"></div>
