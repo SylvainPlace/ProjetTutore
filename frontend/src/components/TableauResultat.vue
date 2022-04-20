@@ -59,6 +59,7 @@ function gestionPluriels() {
         if (s.valDuree > 1 && s.uniteDuree != "Mois") {
             s.uniteDuree += "s";
         }
+    console.log(s.doseParPrise);
         if (s.doseParPrise >= 2) {
             s.dose = "doses";
         } else {

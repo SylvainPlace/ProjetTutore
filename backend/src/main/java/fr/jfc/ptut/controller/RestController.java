@@ -143,7 +143,7 @@ public class RestController {
 				break;
 			}
 		}
-
+		log.info("Enregistré: {}", formData.getDoseparprise());
 		Soigner soigner = new Soigner();
 		soigner.setDatecreation(formData.getDatecreation());
 		soigner.setDoseparprise(formData.getDoseparprise());
