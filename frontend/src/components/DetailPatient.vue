@@ -26,8 +26,6 @@ function fetchSoignersMedicament() {
 
 <template>
     <div class="py-5">
-        <a href="javascript:void(0);" class="text-danger"
-            onclick="document.getElementById('maladieSelect').getElementsByTagName('option')[2].selected = 'selected';">change</a>
         <h3>Médicaments du patient</h3>
         <SelecteurPatient @patientEvent="choixPatient" />
         <table v-if="data.patientChoisiId != ''"

@@ -25,9 +25,10 @@ import fr.jfc.ptut.entity.Medicament;
 import fr.jfc.ptut.dao.SoignerRepository;
 import fr.jfc.ptut.dao.UtilisateurRepository;
 import fr.jfc.ptut.dto.PopulationResult;
-import fr.jfc.ptut.dto.CityForm;
+import fr.jfc.ptut.dto.SoignerForm;
 import fr.jfc.ptut.dto.InfirmiereSoignerDetailsResult;
 import fr.jfc.ptut.dto.PatientDetailMedicaments;
+import fr.jfc.ptut.dto.IdNomDTO;
 import fr.jfc.ptut.entity.Soigner;
 import fr.jfc.ptut.entity.Utilisateur;
 import fr.jfc.ptut.enume.Categorie;
@@ -70,6 +71,88 @@ public class RestController {
 		return utilisateurDao.ListePatient();
 	}
 
+	@GetMapping(path = "idEnNom")
+	public @ResponseBody List<String> idEnNom(@PathVariable int idMedic) {
+		List<String> noms = new ArrayList<>();
+		List<Medicament> allMedicament = this.allMedicaments();
+		for (Medicament m : allMedicament) {
+			log.info(m.getNom_medic());
+			if (m.getId() == idMedic) {
+				noms.add(m.getNom_medic());
+			}
+		}
+
+		return noms;
+	}
+
+	// datecreation: date,
+	// doseparprise: qte,
+	// maladie: maladie,
+	// medicament: medic,
+	// uniteduree: unitduree,
+	// unitefreq: unitfreq,
+	// utilisateur: utilisateurs,
+	// valduree: duree,
+	// valfreq: freq,
+
+	@PostMapping(path = "saveSoigner")
+	public @ResponseBody Soigner enregistreUneVille(@RequestBody SoignerForm formData) {
+		log.info("Reçu: {}", formData);
+		List<Medicament> allMedicament = medicamentDao.findAll();
+		List<Maladie> allMaladie = maladieDao.findAll();
+		List<Utilisateur> allUtilisateur = utilisateurDao.findAll();
+		Medicament medicament = null;
+		Maladie maladie = null;
+		Utilisateur utilisateur =  utilisateurDao.findAll().get(0);
+		UniteDuree uniteDuree = null;
+		UniteFreq uniteFreq = null;
+		for (Medicament m : allMedicament) {
+			if (m.getNom_medic().equals(formData.getMedicament())) {
+				medicament = m;
+				break;
+			}
+		}
+		for (Maladie m : allMaladie) {
+			if (m.getNom_maladie().equals(formData.getMaladie())) {
+				maladie = m;
+				break;
+			}
+		}
+		for (Utilisateur u : allUtilisateur) {
+			if (u.getNom().equals(formData.getUtilisateur())) {
+				
+				utilisateur = u;
+				break;
+			}
+		}
+
+		for (UniteDuree d : UniteDuree.values()) {
+			if (d.toString().equals(formData.getUnitduree())) {
+				uniteDuree = d;
+				break;
+			}
+		}
+		for (UniteFreq f : UniteFreq.values()) {
+			if (f.toString().equals(formData.getUnitfreq())) {
+				uniteFreq = f;
+				break;
+			}
+		}
+
+		Soigner soigner = new Soigner();
+		soigner.setDatecreation(formData.getDatecreation());
+		soigner.setDoseparprise(formData.getDoseparprise());
+		soigner.setMaladie(maladie);
+		soigner.setMedicament(medicament);
+		soigner.setUniteduree(uniteDuree);
+		soigner.setUnitefreq(uniteFreq);
+		soigner.setUtilisateur(utilisateur);
+		soigner.setValduree(formData.getValduree());
+		soigner.setValfreq(formData.getValfreq());
+		soignerDao.save(soigner);
+		log.info("Enregistré: {}", soigner);
+		return soigner;
+	}
 	/**
 	 * Enregistre une ville dans la base
 	 * Requête HTTP POST à l'URL http://localhost:8989/rest/saveCity

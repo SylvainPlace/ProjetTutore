@@ -7,8 +7,7 @@ import lombok.Data;
  * une ville.
  */
 @Data // Lombok pour auto-générer getter / setter / toString...
-public class CityForm {
-    private String name;
-    private int population;
-    private Integer country;
+public class IdNomDTO {
+    private String nomMadicament;
+    private String nomMaladie;
 }
