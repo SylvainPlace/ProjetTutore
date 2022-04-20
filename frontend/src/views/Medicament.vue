@@ -23,7 +23,6 @@ import TabRecapMedic11 from "@/components/TabRecapMedic11.vue"
         getIngredient();
       })
       .catch((error) => {
-        console.log(error);
       });
   }
 }*/

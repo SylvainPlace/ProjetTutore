@@ -14,7 +14,6 @@ function choixMaladie(idMaladie, allMaladies) {
       data.maladieChoisi = maladie;
     }
   }
-    console.log(data.maladieChoisiId);
 }
 </script>
 

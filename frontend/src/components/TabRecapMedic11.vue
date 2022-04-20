@@ -49,8 +49,6 @@ function editMedicament(medicament) {
 }
 
 function deleteMedicament(medicament) {
-    console.log(medicament._links.self.href);
-  console.log(medicament);
   const options = {
     method: "DELETE",
   };

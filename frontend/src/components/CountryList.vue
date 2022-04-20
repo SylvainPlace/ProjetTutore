@@ -44,7 +44,6 @@ function editCountry(country) {
 }
 
 function deleteCountry(country) {
-  console.log(country);
   const options = {
     method: "DELETE",
   };

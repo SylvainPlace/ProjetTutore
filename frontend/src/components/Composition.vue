@@ -4,7 +4,6 @@ const msg = "Hello !!!";
 
 // functions
 function log() {
-  console.log(msg);
 }
 </script>
 

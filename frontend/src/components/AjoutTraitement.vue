@@ -23,7 +23,6 @@ function getPatients(event) {
   fetch(url, fetchOptions)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json)
       json.forEach((v) => patients.push(v));
     })
     .catch((error) => alert(error));
@@ -54,7 +53,6 @@ function lesMedicaments(medic) {
     })
 
     .catch((error) => {
-      //console.log(error);
     });
 }
 
@@ -69,7 +67,6 @@ function getFrequence(event) {
       dataJSON.forEach((v) => listeunitFreq.push(v));
     })
     .catch((error) => {
-      //console.log(error);
     });
 }
 
@@ -84,7 +81,6 @@ function getDuree(event) {
       dataJSON.forEach((v) => listeunitDuree.push(v));
     })
     .catch((error) => {
-      //console.log(error);
     });
 }
 
@@ -110,7 +106,6 @@ function listTraitementEvent(
       quantite
     )
   );
-  console.log(listTraitement);
 }
 
 function deleteMedicament(index) {
@@ -120,7 +115,6 @@ function deleteMedicament(index) {
 
 function putMedicament() {
   listTraitement.forEach((item, index) => {
-    console.log(item._medic);
     postUnSoigner(
       item._medic,
       item._maladie,
@@ -146,7 +140,6 @@ function postUnSoigner(
   qte,
   date
 ) {
-  console.log("wesg"+unitfreq);
   let url = "/api/saveSoigner";
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -165,13 +158,11 @@ function postUnSoigner(
       valfreq: freq,
     }),
   };
-  console.log(fetchOptions);
   fetch(url, fetchOptions)
     .then((response) => {
       return response.json();
     })
     .then((dataJSON) => {
-      console.log(dataJSON);
     });
 }
 </script>
