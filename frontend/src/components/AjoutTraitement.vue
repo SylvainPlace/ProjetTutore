@@ -66,7 +66,7 @@ function lesMedicaments(medic) {
       dataJSON.forEach((v) => listeSearch.push(v));
     })
 
-    .catch((error) => {});
+    .catch((error) => { });
 }
 
 function valeurMedicChoisi() {
@@ -84,7 +84,7 @@ function getFrequence(event) {
     .then((dataJSON) => {
       dataJSON.forEach((v) => listeunitFreq.push(v));
     })
-    .catch((error) => {});
+    .catch((error) => { });
 }
 
 function getDuree(event) {
@@ -97,7 +97,7 @@ function getDuree(event) {
     .then((dataJSON) => {
       dataJSON.forEach((v) => listeunitDuree.push(v));
     })
-    .catch((error) => {});
+    .catch((error) => { });
 }
 
 function listTraitementEvent(
@@ -180,7 +180,7 @@ function postUnSoigner(
     .then((response) => {
       return response.json();
     })
-    .then((dataJSON) => {});
+    .then((dataJSON) => { });
 }
 </script>
 
@@ -189,21 +189,18 @@ function postUnSoigner(
   <div id="formulaireETtableau">
     <!--Case : Choisissez votre patient -->
     <div class="formulaireTraitement">
-      <form
-        @submit.prevent="
-          listTraitementEvent(
-            medicChoisi,
-            patienchoisi,
-            maladieChoisi,
-            duree,
-            dureeUnite,
-            frequence,
-            unitfreq,
-            quantite
-          )
-        "
-        id="form"
-      >
+      <form @submit.prevent="
+        listTraitementEvent(
+          medicChoisi,
+          patienchoisi,
+          maladieChoisi,
+          duree,
+          dureeUnite,
+          frequence,
+          unitfreq,
+          quantite
+        )
+      " id="form">
         <h4 id="patient">Choisissez votre patient :</h4>
         <select id="selectPatient" v-model="patienchoisi">
           <option disabled selected>
@@ -245,13 +242,7 @@ function postUnSoigner(
         </div>
         <div>
           <h5 id="frequenceT">Fréquence</h5>
-          <input
-            id="frequence"
-            type="number"
-            min="0"
-            max="10"
-            v-model="frequence"
-          />
+          <input id="frequence" type="number" min="0" max="10" v-model="frequence" />
           <h5 id="fois">fois par</h5>
           <select class="select" id="selectF" v-model="unitfreq">
             <option disabled selected>Fréquence</option>
@@ -262,14 +253,7 @@ function postUnSoigner(
         </div>
         <div>
           <h5 id="quantitetxt">Quantité</h5>
-          <input
-            id="quantite"
-            type="number"
-            step=".5"
-            min="0"
-            max="15"
-            v-model="quantite"
-          />
+          <input id="quantite" type="number" step=".5" min="0" max="15" v-model="quantite" />
           <h5 id="dosetxt">dose(s) par prise</h5>
         </div>
         <div>
@@ -282,11 +266,7 @@ function postUnSoigner(
     <div class="tableau">
       <h2>Liste des médicaments en cours d'ajout</h2>
 
-      <table
-        border="1"
-        id="leTableau"
-        class="table table-bordered table-sm table-hover"
-      >
+      <table border="1" id="leTableau" class="table table-bordered table-sm table-hover">
         <thead>
           <tr>
             <th colspan="4" id="liste">
@@ -321,24 +301,14 @@ function postUnSoigner(
             </td>
             <td id="5">
               <!-- Bouton -->
-              <input
-                type="button"
-                value="Supprimer"
-                id="enregistrer"
-                @click="supprimer(index)"
-              />
+              <input type="button" value="Supprimer" id="enregistrer" @click="supprimer(index)" />
             </td>
           </tr>
         </tbody>
       </table>
 
       <!-- Bouton -->
-      <input
-        type="button"
-        id="enregistrer"
-        value="Valider la liste et l'enregistrer"
-        @click="putMedicament()"
-      />
+      <input type="button" id="enregistrer" value="Valider la liste et l'enregistrer" @click="putMedicament()" />
     </div>
   </div>
 </template>
@@ -380,7 +350,7 @@ function postUnSoigner(
 #dureeTraitement {
   position: relative;
   width: 189px;
-  left: 5px;
+  left: 42px;
   top: 48px;
 }
 
@@ -396,6 +366,7 @@ function postUnSoigner(
   left: -62px;
   top: 48px;
   border-radius: 10px;
+  width: 170px;
 }
 
 #poso {
@@ -435,6 +406,7 @@ function postUnSoigner(
   left: -107px;
   top: 48px;
   border-radius: 10px;
+  width: 170px;
 }
 
 #fois {
@@ -461,6 +433,7 @@ function postUnSoigner(
   left: -105px;
   top: -13px;
   border-radius: 10px;
+  width: 170px;
 }
 
 #dosetxt {
