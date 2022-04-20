@@ -95,7 +95,7 @@ function listTraitementEvent(
   duree,
   dureeUnite,
   frequence,
-  frequenceUnite,
+  unitfreq,
   quantite
 ) {
   listTraitement.push(
@@ -106,7 +106,7 @@ function listTraitementEvent(
       duree,
       dureeUnite,
       frequence,
-      frequenceUnite,
+      unitfreq,
       quantite
     )
   );
@@ -127,7 +127,7 @@ function putMedicament() {
       item._utilisateurs,
       item._unitduree,
       item._duree,
-      item._unitefreq,
+      item._unitfreq,
       item._freq,
       item._qte,
       item._date
@@ -146,7 +146,7 @@ function postUnSoigner(
   qte,
   date
 ) {
-  console.log(unitfreq);
+  console.log("wesg"+unitfreq);
   let url = "/api/saveSoigner";
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -201,7 +201,7 @@ function postUnSoigner(
           duree,
           dureeUnite,
           frequence,
-          frequenceUnite,
+          unitfreq,
           quantite
         )
       "
@@ -238,7 +238,7 @@ function postUnSoigner(
           v-model="frequence"
         />
         <h5>fois par</h5>
-        <select id="freqUnite" v-model="frequenceUnite">
+        <select id="freqUnite" v-model="unitfreq">
           <option disabled selected>
             Choissisez votre Unite de Frequence dans la liste
           </option>
