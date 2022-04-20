@@ -1,4 +1,7 @@
 <template>
+  
+    <img src="@/assets/logo.png" alt="logo" />
+    
   <div class="navbar mb-3">
 
 

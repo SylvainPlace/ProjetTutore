@@ -8,7 +8,7 @@ import Header from "@/components/Header.vue";
 
 <template>
   <div>
-    <Header nom="Dupont" prenom="Jean" />
+    <Header  />
     <Footer />
   </div>
 </template>
@@ -32,5 +32,9 @@ import Header from "@/components/Header.vue";
 /* Curseur classique*/
 .defaultCursor {
   cursor: default;
+}
+
+.espace {
+  min-height: 70vh;
 }
 </style>

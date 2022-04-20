@@ -25,26 +25,30 @@ function fetchSoignersMedicament() {
 </script>
 
 <template>
-    <h3>Médicaments du patient</h3>
-    <SelecteurPatient @patientEvent="choixPatient" />
-    <table v-if="data.patientChoisiId != ''"
-        class="table table-bordered table-sm table-hover shadow p-3 mb-5 bg-body rounded-3">
-        <thead>
-            <tr>
-                <th>Médicament</th>
-                <th>Maladie</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-if="data.soigners.length != 0" v-for="soigner in data.soigners">
-                <td>{{ soigner.nomMedicament }}</td>
-                <td>{{ soigner.nomMaladie }}</td>
-            </tr>
-            <tr v-else>
-                <td colspan="2">
-                    Ce patient n'a aucun médicament dans sa liste.
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="py-5">
+        <a href="javascript:void(0);" class="text-danger"
+            onclick="document.getElementById('maladieSelect').getElementsByTagName('option')[2].selected = 'selected';">change</a>
+        <h3>Médicaments du patient</h3>
+        <SelecteurPatient @patientEvent="choixPatient" />
+        <table v-if="data.patientChoisiId != ''"
+            class="table table-bordered table-sm table-hover shadow p-3 mb-5 bg-body rounded-3">
+            <thead>
+                <tr>
+                    <th>Médicament</th>
+                    <th>Maladie</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-if="data.soigners.length != 0" v-for="soigner in data.soigners">
+                    <td>{{ soigner.nomMedicament }}</td>
+                    <td>{{ soigner.nomMaladie }}</td>
+                </tr>
+                <tr v-else>
+                    <td colspan="2">
+                        Ce patient n'a aucun médicament dans sa liste.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
