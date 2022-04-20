@@ -2,10 +2,8 @@
   <div class="container espace">
     <AddPatient />
     <DetailPatient />
-
     <DetailMaladie />
   </div>
-
 </template>
 
 <script setup>

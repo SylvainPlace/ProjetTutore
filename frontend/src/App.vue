@@ -3,16 +3,12 @@ import Footer from "@/components/Footer.vue";
 import Header from "@/components/Header.vue";
 </script>
 
-
-
-
 <template>
   <div>
-    <Header  />
+    <Header />
     <Footer />
   </div>
 </template>
-
 
 <style>
 #app {
@@ -23,28 +19,16 @@ import Header from "@/components/Header.vue";
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-
 /* Curseur indiquant un clic possible*/
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Curseur classique*/
 .defaultCursor {
-    cursor: default;
+  cursor: default;
 }
+
 .espace {
   min-height: 70vh;
 }
