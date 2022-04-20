@@ -103,7 +103,7 @@ public class RestController {
 		List<Utilisateur> allUtilisateur = utilisateurDao.findAll();
 		Medicament medicament = null;
 		Maladie maladie = null;
-		Utilisateur utilisateur = null;
+		Utilisateur utilisateur =  utilisateurDao.findAll().get(0);
 		UniteDuree uniteDuree = null;
 		UniteFreq uniteFreq = null;
 		for (Medicament m : allMedicament) {
@@ -120,6 +120,7 @@ public class RestController {
 		}
 		for (Utilisateur u : allUtilisateur) {
 			if (u.getNom().equals(formData.getUtilisateur())) {
+				
 				utilisateur = u;
 				break;
 			}
