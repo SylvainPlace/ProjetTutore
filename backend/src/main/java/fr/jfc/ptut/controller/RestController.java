@@ -95,7 +95,7 @@ public class RestController {
 	// valduree: duree,
 	// valfreq: freq,
 
-	@PostMapping(path = "saveCity")
+	@PostMapping(path = "saveSoigner")
 	public @ResponseBody Soigner enregistreUneVille(@RequestBody SoignerForm formData) {
 		log.info("Reçu: {}", formData);
 		List<Medicament> allMedicament = medicamentDao.findAll();
