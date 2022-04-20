@@ -1,6 +1,7 @@
 <template>
-  <h3>Utilisateur à ajouter</h3>
+
   <div class="container">
+ 
     <form
       @submit.prevent="
         handlerAddPatient(
@@ -14,7 +15,7 @@
       "
       class="row g-3"
       id="form"
-    >
+    > <h3 id="utilisateur">Ajouter un utilisateur :</h3>
       <div class="col-md-6">
         <label for="Nom" class="form-label">Nom :</label>
         <input
@@ -80,14 +81,13 @@
         </select>
       </div>
       <div class="col-12">
-        <input
+        <input id="ajouter"
           type="submit"
           value="Ajouter un patient"
           class="btn btn-primary"
         />
       </div>
     </form>
-    <span id="texte"></span>
   </div>
 </template>
 
@@ -166,7 +166,7 @@ function passwordStrengh(event) {
   } else {
     if (entree.length < 6) {
       msg.textContent = "Mot de passe moyen";
-      msg.style.color = "orange";
+      msg.style.color = "yellow";
     } else {
       msg.textContent = "Mot de passe fort";
       msg.style.color = "green";
@@ -174,3 +174,63 @@ function passwordStrengh(event) {
   }
 }
 </script>
+<style scoped>
+  
+  #form{
+position : relative ; 
+  left : 13px;
+  top : 8px;
+  height : 612px;
+  width : 483px;
+  border: 3px solid ;
+  background: -webkit-linear-gradient(to left, #D09478, #f5bba0);
+    background: linear-gradient(to left, #f5bba0, #D09478);
+ 
+   color : white;
+   text-align : center;
+    border-radius: 10px 100px / 120px;
+  }
+
+  #Nom{
+border-radius : 10px;
+}   
+        
+#Prenom{
+border-radius : 10px;
+}
+#mail{
+border-radius : 10px;
+}
+
+   .col-md-6{
+     position : relative;
+     top : -39px;
+     left: 2px;
+      /*tout ce qui est mdp et prenom et nom*/
+   }
+       
+    #mdp{
+border-radius : 10px;
+    }
+     #msgPasswd{
+
+     }
+   .col-md-2{  
+       /*tout ce qui est date*/} 
+  #ddn{
+border-radius : 10px;
+  }
+  .col-md-4{
+
+  }  /*tout ce qui est catégorie et mail*/
+  #type{
+    border-radius : 10px;
+  }      
+ #ajouter{
+    /*c'est le bouton ajouter*/
+    	background-color: white;
+	border: #B48B75  1px solid;
+  border-radius : 10px;
+  color : black;
+  }
+  </style>
