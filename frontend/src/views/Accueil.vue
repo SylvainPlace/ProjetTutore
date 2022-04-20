@@ -20,10 +20,11 @@ import Footer from "@/components/Footer.vue"
    font-family: Avenir, Helvetica, Arial, sans-serif;
    color :white;
    background-color: #B48B75;
-   width: 832px;
+   width: 842px;
    position :absolute;
    top: 242px;
    left: 265px;
+   border-radius: 10px 100px/120px;
  }
 
  p{
@@ -31,14 +32,14 @@ import Footer from "@/components/Footer.vue"
   font-size: 18px;
   color:black;
   position :absolute;
-  top: 302px;
-  left: 265px;
+  top: 312px;
+  left: 370px;
  }
 
  video{
- width : 450px;
+ width : 600px;
  position :absolute;
- top: 396px;
- left: 466px;
+ top: 374px;
+ left: 380px;
  }
 </style>
