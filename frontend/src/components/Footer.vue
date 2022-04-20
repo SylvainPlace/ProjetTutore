@@ -68,7 +68,6 @@ function pouce() {
     min-height: 15vh;
 
     display: flex;
-    position: fixed;
 
     line-height: 0.9em;
 }
