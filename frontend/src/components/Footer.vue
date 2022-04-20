@@ -1,10 +1,6 @@
 <script setup>
-import { reactive, ref } from "vue";
-let remerciement = ref("");
 function pouce() {
-    console.log("hey");
-    remerciement = ("Merci pour ton avis !");
-    return remerciement;
+    document.getElementById("essai").innerHTML = "Merci pour ton avis !";
 }
 </script>
 
@@ -20,7 +16,7 @@ function pouce() {
                         id="img1" />
                     <img src="@/assets/pouceRouge.png" alt="Bouton pouce rouge" height="45" width="45"
                         @click="pouce()" />
-                    <p>{{ remerciement }}</p>
+                    <p id="essai"></p>
                 </div>
 
                 <div id="contact">
