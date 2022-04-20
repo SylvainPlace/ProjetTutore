@@ -64,6 +64,6 @@ tbody{
 
 #maladie{
   position : relative;
-  top : 5px;
+  top : 16px;
 }
 </style>
