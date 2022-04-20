@@ -237,7 +237,7 @@ function postUnSoigner(
           <h5 id="dureeTraitement">Durée de traitement</h5>
           <input id="choix" type="number" min="0" max="100" v-model="duree" />
           <select class="select" id="selectduree" v-model="dureeUnite">
-            <option disabled selected>Jour</option>
+            <option disabled selected>Durée</option>
             <option v-for="(duree, index) of listeunitDuree">
               {{ duree }}
             </option>
@@ -254,7 +254,7 @@ function postUnSoigner(
           />
           <h5 id="fois">fois par</h5>
           <select class="select" id="selectF" v-model="unitfreq">
-            <option disabled selected>Jour</option>
+            <option disabled selected>Fréquence</option>
             <option v-for="(freq, index) of listeunitFreq">
               {{ freq }}
             </option>
@@ -439,7 +439,7 @@ function postUnSoigner(
 
 #fois {
   position: relative;
-  left: 184px;
+  left: 216px;
   top: 21px;
   width: 86px;
 }
@@ -465,7 +465,7 @@ function postUnSoigner(
 
 #dosetxt {
   position: relative;
-  left: 190px;
+  left: 226px;
   top: -41px;
   width: 162px;
 }
