@@ -1,5 +1,7 @@
 <template>
-    <TableauResultat />
+    <div class="espace">
+        <TableauResultat />
+    </div>
 </template>
 
 <script setup>
