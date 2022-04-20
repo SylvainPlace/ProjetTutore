@@ -2,10 +2,11 @@
 
 <script setup>
 import { reactive, ref } from "vue";
-
+let remerciement = ref("");
 function pouce() {
     console.log("hey");
-        document.getElementById("essai").innerHTML = "Merci pour ton avis !";
+    remerciement = ("Merci pour ton avis !");
+    return remerciement;
 }
 </script>
 
@@ -18,10 +19,10 @@ function pouce() {
                 <div id="aimer">
                     <p>Vous aimez ?</p>
                     <img src="@/assets/pouceVert.png" alt="Bouton pouce vert" height="50" width="50" @click="pouce()"
-                        id="img" />
+                        id="img1" />
                     <img src="@/assets/pouceRouge.png" alt="Bouton pouce rouge" height="45" width="45"
-                        @click="pouce()" id="img"/>
-                    <p id="essai"></p>
+                        @click="pouce()" />
+                    <p>{{ remerciement }}</p>
                 </div>
 
                 <div id="contact">
@@ -40,8 +41,8 @@ function pouce() {
                 <!--<input type="image" id="image" value="Revenir en haut de page" src="@/assets/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page "/>-->
 
                 <div id="haut">
-                    <a href="#top" title="ancre vers le haut de la page"><img src="@/assets/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page"
-                        height="50" width="50" /></a>
+                    <img src="@/assets/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page"
+                        height="50" width="50" />
                     <a href="#top" title="ancre vers le haut de la page">Revenir en haut de page</a>
                 </div>
 
@@ -59,35 +60,33 @@ function pouce() {
     bottom: 0;
     width: 100%;
     padding-top: 20px;
-    height: 11em;
+    height: 20px;
 
     background: #ff5f6d;
     background: -webkit-linear-gradient(to right, #2dafd6, #03619f);
     background: linear-gradient(to right, #03619f, #2dafd6);
-    min-height: 25vh;
+    min-height: 20vh;
 
     display: flex;
-    /*position: fixed;*/
 
     line-height: 0.9em;
 }
-/*
+
 #vide {
     bottom: 0;
     width: 100%;
     height: 50px;
     min-height: 20vh;
 }
-*/
+
 #aimer {
     color: white;
-    padding-top: 5%;
     /*marron foncé color: #9f4850;*/
 }
 
-#img:visited {
-    margin-top: 50%;
+#img1:visited {
     color: #03619f;
+
 }
 
 #contact {
@@ -100,9 +99,5 @@ a:link {
 
 a:visited {
     color: white;
-}
-
-#haut {
-    padding-top: 5%;
 }
 </style>

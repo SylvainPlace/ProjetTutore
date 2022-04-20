@@ -85,27 +85,27 @@ INSERT INTO MEDICAMENT(nom_medic, info_prise, contre_indications)
 VALUES (
         'Maxilase',
         'sirop',
-        'ne pas prendre si intolerance au fructose'
+        'deconseiller pour les patients intolerants au fructose'
     ),
     (
         'Glucophage',
         'comprimé',
-        'ne pas prendre si insuffisance rénale'
+        'deconseiller pour les patients avec une insuffisance rénale'
     ),
     (
         'Paxlovid',
         'Comprimé',
-        'ne pas prendre si insuffisance hépatique sévère '
+        'deconseiller pour les patients présentant une insuffisance hépatique sévère '
     ),
     (
         'Paracétamol',
         'Comprimé',
-        'ne pas prendre si alcoolique ou en insuffisance hépatocellulaire'
+        'deconseiller pour les patients alcooliques ou en insuffisance hépatocellulaire'
     ),
     (
         'Spironolactone',
         'Comprimé',
-        'ne pas prendre si insuffisance rénale grave'
+        'deconseiller pour les patients présentant une insuffisance rénale grave'
     );
 INSERT INTO UTILISATEUR(
         adresse_mail,

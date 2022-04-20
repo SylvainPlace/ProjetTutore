@@ -1,6 +1,5 @@
 <template>
   
-    <img src="@/assets/logo.png" alt="logo" />
     
   <div class="navbar mb-3">
 
@@ -32,7 +31,12 @@ img {
   background: linear-gradient(to right, #03619f, #2dafd6);
 }
 
-.max{
+.max {
   font-size: 1.6em;
+  margin-top: 20px;
+}
+
+.navbar-brand:hover {
+  color: #5F4850;
 }
 </style>
