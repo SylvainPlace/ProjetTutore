@@ -2,6 +2,9 @@
 import { onMounted, reactive, ref } from "vue";
 import traitement from "@/Traitement.js";
 import TabRecapMedic11 from "@/components/TabRecapMedic11.vue";
+let medicChoisi = ref(0);
+let patienchoisi = ref(0);
+let maladieChoisi = ref(0);
 const listeunitFreq = reactive([]);
 const listeunitDuree = reactive([]);
 const listTraitement = reactive([]);
@@ -12,9 +15,9 @@ const maladies = reactive([]);
 onMounted(() => {
   getFrequence();
   getDuree();
+  lesMedicaments("");
   getPatients();
   getMaladies();
-  lesMedicaments("");
 });
 
 function getPatients(event) {
@@ -41,6 +44,16 @@ function getMaladies(event) {
     .catch((error) => alert(error));
 }
 
+function valeurPatientChoisi() {
+  patienchoisi = document.getElementById("selectPatient").value;
+  return patienchoisi;
+}
+
+function valeurMaladieChoisi(id) {
+  maladieChoisi = id;
+  return maladieChoisi;
+}
+
 function lesMedicaments(medic) {
   let fetchOptions = { method: "GET" };
   fetch("/api/medicamentsByName?mot=" + medic)
@@ -56,6 +69,11 @@ function lesMedicaments(medic) {
     .catch((error) => {
       //console.log(error);
     });
+}
+
+function valeurMedicChoisi() {
+  medicChoisi = document.getElementById("selectmedic").value;
+  return medicChoisi;
 }
 
 function getFrequence(event) {
@@ -88,90 +106,50 @@ function getDuree(event) {
     });
 }
 
-function listTraitementEvent(
-  medicChoisi,
-  patienchoisi,
-  maladieChoisi,
-  duree,
-  dureeUnite,
-  frequence,
-  frequenceUnite,
-  quantite
-) {
-  listTraitement.push(
-    new traitement(
-      medicChoisi,
-      maladieChoisi,
-      patienchoisi,
-      duree,
-      dureeUnite,
-      frequence,
-      frequenceUnite,
-      quantite
-    )
-  );
-  console.log(listTraitement);
-}
-
-function deleteMedicament(index) {
-  listTraitement.splice(index, 1);
-  return listTraitement;
-}
-
-function putMedicament() {
-  listTraitement.forEach((item, index) => {
-    console.log(item._medic);
-    postUnSoigner(
-      item._medic,
-      item._maladie,
-      item._utilisateurs,
-      item._unitduree,
-      item._duree,
-      item._unitefreq,
-      item._freq,
-      item._qte,
-      item._date
-    );
-  });
-}
-
-function postUnSoigner(
-  medic,
-  maladie,
-  utilisateurs,
-  unitduree,
-  duree,
-  unitfreq,
-  freq,
-  qte,
-  date
-) {
-  let url = "/api/soigners";
-  let myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  const fetchOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: JSON.stringify({
-      datecreation: date,
-      doseparprise: qte,
-      maladie: maladie,
-      medicament: medic,
-      uniteduree: unitduree,
-      unitefreq: unitfreq,
-      utilisateur: utilisateurs,
-      valduree: duree,
-      valfreq: freq,
-    }),
-  };
-  console.log(fetchOptions);
+function listTraitementEvent() {
+  let dureeUnite = document.getElementById("dureeUnite").value;
+  //console.log("ici " + dureeUnite);
+  let frequenceUnite = document.getElementById("freqUnite").value;
+  let duree = document.getElementById("duree").value;
+  let frequence = document.getElementById("frequence").value;
+  let quantite = document.getElementById("quantite").value;
+  let patient = document.getElementById("selectPatient").value;
+  console.log(medicChoisi)
+  let url = "/api/medicaments/" + medicChoisi;
+  let fetchOptions = { method: "Get" };
+  let medicNom;
   fetch(url, fetchOptions)
-    .then((response) => {
-      return response.json();
+    .then((response) => response.json())
+    .then((json) => {
+      medicNom = json.nom_medic;
+      console.log(maladieChoisi)
+      let url2 = "/api/maladies/" + maladieChoisi;
+      let fetchOptions = { method: "Get" };
+      let maladieNom;
+      fetch(url2, fetchOptions)
+        .then((response) => response.json())
+        .then((json) => {
+          maladieNom = json.nom_maladie;
+          console.log(maladieNom);
+          listTraitement.push(
+            new traitement(
+              medicChoisi,
+              medicNom,
+              maladieChoisi,
+              maladieNom,
+              patienchoisi,
+              duree,
+              dureeUnite,
+              frequence,
+              frequenceUnite,
+              quantite
+            )
+          );
+          console.log(listTraitement);
+        })
+        .catch((error) => alert(error));
     })
-    .then((dataJSON) => {
-      console.log(dataJSON);
-    });
+    .catch((error) => alert(error));
 }
 
 function supprimer(index) {
@@ -188,91 +166,68 @@ function supprimer(index) {
     <!--Case : Choisissez votre patient -->
   <div class="formulaireTraitement">
     <h4 id="patient">Choisissez votre patient : </h4>
-    <select
-      id="selectPatient" v-model="patienchoisi"
-    >
+    <select id="selectPatient" v-model="patienchoisi" @change="valeurPatientChoisi()">
       <option disabled selected>
-        
+
         Choissisez votre utilisateur dans la liste
       </option>
-      <option v-for="patient of patients">
+      <option v-for="patient of patients" :value="patient.id">
         {{ patient.nom }} {{ patient.prenom }}
       </option>
     </select>
     <h4 id="indic">Indiquez la maladie : </h4>
-    <select id="selectMaladie"  v-model="maladieChoisi">
+    <select id="selectMaladie" @change="valeurMaladieChoisi($event.target.value)" v-model="maladieChoisi">
       <option disabled selected>Choissisez votre maladie dans la liste</option>
-      <option v-for="maladie of maladies">
+      <option v-for="maladie of maladies" :value="maladie.id">
         {{ maladie.nom_maladie }}
       </option>
     </select>
     <h4 id="recherche">Recherchez votre médicament :</h4>
-    <form @submit.prevent="
-        listTraitementEvent(
-          medicChoisi,
-          patienchoisi,
-          maladieChoisi,
-          duree,
-          dureeUnite,
-          frequence,
-          frequenceUnite,
-          quantite
-        )
-      ">
+    <form @submit.prevent="listTraitementEvent(dureeUnite)">
       <input id="listeMedic" v-model="medic" @keyup="lesMedicaments(medic)" />
-      <select id="selectmedic" v-model="medicChoisi">
+      <select class="select" id="selectrech" @change="valeurMedicChoisi()">
         <option disabled selected>
-          Choissisez votre Medicament dans la liste
+          Selectionnez
         </option>
-        <option v-for="search of listeSearch">
+        <option v-for="search of listeSearch" :value="search.id">
           {{ search.nom_medic }}
         </option>
       </select>
-      <h4>Posologie ?</h4>
+
+      <h4 id="poso">Entrez la posologie</h4>
       <div>
         <h5 id="dureeTraitement">Durée de traitement</h5>
-        <input id="choix" type="number" min="0" max="100" v-model="duree" />
-        <select  class="select" id="selectduree" v-model="dureeUnite">
+        <input id="choix" type="number" min="0" max="100" />
+        <select class="select" id="selectduree">
           <option disabled selected>
-            Choissisez votre Unite de Duree dans la liste
+            Jour
           </option>
-          <option v-for="(duree, index) of listeunitDuree">
+          <option v-for="(duree, index) of listeunitDuree" :value="index">
             {{ duree }}
           </option>
         </select>
       </div>
       <div>
-        <h5>Fréquence</h5>
-        <input
-          id="frequence"
-          type="number"
-          min="0"
-          max="10"
-          v-model="frequence"
-        />
-        <h5>fois par</h5>
-        <select id="freqUnite" v-model="frequenceUnite">
+        <h5 id="frequenceT">Fréquence</h5>
+        <input id="frequence" type="number" min="0" max="10" />
+        <h5 id="fois">fois par</h5>
+        <select class="select" id="selectF">
           <option disabled selected>
-            Choissisez votre Unite de Frequence dans la liste
+            Jour
           </option>
-          <option v-for="(freq, index) of listeunitFreq">
+          <option v-for="(freq, index) of listeunitFreq" :value="index">
             {{ freq }}
           </option>
         </select>
       </div>
       <div>
-        <h5>Quantité</h5>
-        <input
-          id="quantite"
-          type="number"
-          step=".5"
-          min="0"
-          max="15"
-          v-model="quantite"
-        />
-        <h5>dose(s) par prise</h5>
+        <h5 id="quantitetxt">Quantité</h5>
+        <input id="quantite" type="number" step=".5" min="0" max="15" />
+        <h5 id="dosetxt">dose(s) par prise</h5>
       </div>
-      <input id="valider" type="submit" value="ajouter" />
+      <div>
+        <input id="valider" type="submit" value="Ajouter" />
+      </div>
     </form>
   </div>
 
@@ -349,150 +304,155 @@ function supprimer(index) {
   width : 483px;
   border: 3px solid #B48B75;
   background: -webkit-linear-gradient(to left, #D09478, #f5bba0);
-    background: linear-gradient(to left, #f5bba0, #D09478);
- 
-   color : white;
-   text-align : center;
-    border-radius: 10px 100px / 120px;
+  background: linear-gradient(to left, #f5bba0, #D09478);
+
+  color: white;
+  text-align: center;
+  border-radius: 10px 100px / 120px;
 }
+
 .select {
-	position: relative; 
-	background-color: white;
-	border: #B48B75  1px solid;
+  position: relative;
+  background-color: white;
+  border: #B48B75 1px solid;
   border-radius: 30px;
-	margin: 0 0 1.5em 0;
-	overflow: hidden; 
-  
+  margin: 0 0 1.5em 0;
+  overflow: hidden;
+
 }
 
-#dureeTraitement{
-  position : relative;
-  width : 189px;
-  left : 16px;
-  top : 48px;
-}
-#selectduree{
-  position : relative;
-  left : -50px;
-  top : 48px;
-  border-radius: 30px;}
-#choix{
-   position : relative;
-  left : -62px;
-  top :48px;
-   border-radius: 10px;
+#dureeTraitement {
+  position: relative;
+  width: 189px;
+  left: 16px;
+  top: 48px;
 }
 
-#poso{
-  position : relative;
-  left : -116px;
-  top : 43px;
+#selectduree {
+  position: relative;
+  left: -50px;
+  top: 48px;
+  border-radius: 30px;
 }
 
-#recherche{
-  position : relative;
-  left : -48px;
-  top : 57px;
-}
-
-#listeMedic{
-  position : relative;
-  left : -40px;
-  top : 48px;
+#choix {
+  position: relative;
+  left: -62px;
+  top: 48px;
   border-radius: 10px;
 }
 
-#selectrech{
-   position : relative;
-  left : -27px;
-  top : 48px;
-   border-radius: 10px; 
+#poso {
+  position: relative;
+  left: -116px;
+  top: 43px;
 }
 
-#frequenceT{
-  position : relative;
-  left : -164px;
-  top : 48px;
+#recherche {
+  position: relative;
+  left: -48px;
+  top: 57px;
 }
 
-#frequence{
-  position : relative;
-  left : -116px;
-  top : 48px;
-   border-radius: 10px;
+#listeMedic {
+  position: relative;
+  left: -40px;
+  top: 48px;
+  border-radius: 10px;
 }
 
-#fois{
-  position : relative;
-  left : 215px;
-  top : 21px; 
-  width : 86px;
+#selectrech {
+  position: relative;
+  left: -27px;
+  top: 48px;
+  border-radius: 10px;
 }
 
-#selectF{
-    position : relative;
-  left : 114px;
-  top : -9px; 
+#frequenceT {
+  position: relative;
+  left: -164px;
+  top: 48px;
 }
 
-#quantitetxt{
-  position : relative;
-  left : -174px;
-  top : -13px; 
+#frequence {
+  position: relative;
+  left: -116px;
+  top: 48px;
+  border-radius: 10px;
 }
 
-#quantite{
-  position : relative;
-  left : -115px;
-  top : -13px; 
-   border-radius: 10px;
+#fois {
+  position: relative;
+  left: 215px;
+  top: 21px;
+  width: 86px;
 }
 
-#dosetxt{
-   position : relative;
-  left : 221px;
-  top : -41px; 
-  width : 162px;
+#selectF {
+  position: relative;
+  left: 114px;
+  top: -9px;
 }
 
-#valider{
-  color : black ;
-    border: 3px solid #B48B75;
-    border-radius: 10px 100px / 120px;
-   background: white;
-    position : relative;
-  left : 6px;
-  top : -32px; 
+#quantitetxt {
+  position: relative;
+  left: -174px;
+  top: -13px;
+}
+
+#quantite {
+  position: relative;
+  left: -115px;
+  top: -13px;
+  border-radius: 10px;
+}
+
+#dosetxt {
+  position: relative;
+  left: 221px;
+  top: -41px;
+  width: 162px;
+}
+
+#valider {
+  color: black;
+  border: 3px solid #B48B75;
+  border-radius: 10px 100px / 120px;
+  background: white;
+  position: relative;
+  left: 6px;
+  top: -32px;
 }
 
 
-#selectPatient{
-  position : relative;
-	background-color: white;
-	border: black  1px solid;
-   border-radius: 10px;
-   top : 7px;
-   left : -43px;
-  
+#selectPatient {
+  position: relative;
+  background-color: white;
+  border: black 1px solid;
+  border-radius: 10px;
+  top: 7px;
+  left: -43px;
+
 }
 
-#selectMaladie{
-  position : relative;
- border-radius: 10px;
- background-color: white;
-	border: black  1px solid;
-   top : 31px;
-   left : -50px;
+#selectMaladie {
+  position: relative;
+  border-radius: 10px;
+  background-color: white;
+  border: black 1px solid;
+  top: 31px;
+  left: -50px;
 }
-#patient{
-  position : relative ;
+
+#patient {
+  position: relative;
   left: -85px;
 }
 
-#indic{
-  position : relative ;
+#indic {
+  position: relative;
   left: -105px;
-  top : 25px;
+  top: 25px;
 }
 
 

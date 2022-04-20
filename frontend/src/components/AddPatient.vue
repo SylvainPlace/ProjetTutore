@@ -49,7 +49,7 @@
           required
         />
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <label for="mdp" class="form-label">Mot de passe :</label>
         <input
           type="password"
@@ -73,7 +73,7 @@
           required
         />
       </div>
-      <div class="col-md-4">
+      <div class="col-md-7">
         <label for="type" class="form-label">Categorie d'utilisateur :</label>
         <select class="form-select" id="type" v-model="categorie" required>
           <option selected disabled>Type</option>
@@ -87,6 +87,7 @@
           class="btn btn-primary"
         />
       </div>
+      <div id="texte"></div>
     </form>
   </div>
 </template>
@@ -180,7 +181,7 @@ function passwordStrengh(event) {
 position : relative ; 
   left : 13px;
   top : 8px;
-  height : 612px;
+  height : 433px;
   width : 483px;
   border: 3px solid ;
   background: -webkit-linear-gradient(to left, #D09478, #f5bba0);
@@ -204,33 +205,64 @@ border-radius : 10px;
 
    .col-md-6{
      position : relative;
-     top : -39px;
+     top : -27px;
      left: 2px;
-      /*tout ce qui est mdp et prenom et nom*/
+     width : 234px;
+      /*tout ce qui est  prenom et nom*/
    }
        
     #mdp{
 border-radius : 10px;
     }
-     #msgPasswd{
-
-     }
+  
    .col-md-2{  
+      position : relative;
+      top : -35px;
+      left: 7px;
+      width : 165px;
        /*tout ce qui est date*/} 
+  .col-md-5{  
+      position : relative;
+      top : -35px;
+      left: 7px;
+      } 
   #ddn{
 border-radius : 10px;
   }
   .col-md-4{
-
-  }  /*tout ce qui est catégorie et mail*/
+ position : relative;
+     top : -35px;
+     left: 2px;
+     width: 275px ;
+  }  
+   .col-md-7{
+ position : relative;
+     top : -35px;
+     left: 12px;
+     width: 275px ;
+  }  
   #type{
     border-radius : 10px;
+    	background-color: white;
+	border: #B48B75  1px solid;
   }      
  #ajouter{
     /*c'est le bouton ajouter*/
+    position : relative;
     	background-color: white;
 	border: #B48B75  1px solid;
   border-radius : 10px;
   color : black;
+  cursor : pointer;
+  top : -36px;
+  left : 18px;
+  }
+
+  #texte{
+    color : rgb(70, 15, 15);
+    width : 422px;
+    top : -41px;
+    left: 57px;
+    position : relative;
   }
   </style>
