@@ -36,7 +36,7 @@ function calculDate() {
 
 <template>
     <div class="container py-3">
-        <select class="form-select " id="patientSelect" @change="$emit(`patientEvent`, $event.target.value)"
+        <select class="select-beige form-select" id="patientSelect" @change="$emit(`patientEvent`, $event.target.value)"
             aria-label="Floating label select example">
             <option selected disabled>Choisissez un patient</option>
             <option v-for="patient in data.allPatients" :value="patient.id">{{ patient.prenom }} {{ patient.nom }} né(e)

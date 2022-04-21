@@ -60,7 +60,7 @@ public class Soigner {
     @Enumerated(EnumType.ORDINAL) // STRING, ORDINAL
     private UniteFreq unitefreq;
 
-    private int doseparprise;
+    private double doseparprise;
 
     @Temporal(TemporalType.DATE)
     private Date datecreation;

@@ -1,6 +1,6 @@
 <template>
     <div class="espace">
-    <TableauResultat />
+        <TableauResultat />
     </div>
 </template>
 

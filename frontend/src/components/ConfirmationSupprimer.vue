@@ -1,6 +1,6 @@
 <template>
     <!-- Bouton de suppression -->
-    <button type="button" class="btn bg-violet text-light" data-bs-toggle="modal" :data-bs-target="`#modal${id}`">X</button>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" :data-bs-target="`#modal${id}`">X</button>
 
     <!-- Modal -->
     <div class="modal fade" :id="`modal${id}`" tabindex="-1" aria-labelledby="Confirmation Supprimer"

@@ -1,10 +1,12 @@
 <template>
+  
+    
   <div class="navbar mb-3">
 
 
 
     <nav class="container navbar-expand-lg d-flex justify-content-md-between py-3 mb-4 border-bottom">
-      <img src="@/assets/logo.png" alt="logo" />
+      <img src="@/assets/logo_blanc.png" alt="logo FiveCure" />
       <router-link to="/" class="navbar-brand"><span class="max">Accueil</span></router-link>
       <router-link to="/personnelSoignant" class="navbar-brand"><span class="max">Infirmier</span></router-link>
       <router-link to="/ajoutTraitement" class="navbar-brand"><span class="max">Ajout Traitement</span></router-link>
@@ -29,7 +31,16 @@ img {
   background: linear-gradient(to right, #03619f, #2dafd6);
 }
 
-.max{
+.max {
   font-size: 1.6em;
+  margin-top: 20px;
+}
+
+.navbar-brand:hover {
+  color: #5F4850;
+}
+
+p {
+  color: white;
 }
 </style>

@@ -1,11 +1,6 @@
-
-
 <script setup>
-import { reactive, ref } from "vue";
-
 function pouce() {
-    console.log("hey");
-        document.getElementById("essai").innerHTML = "Merci pour ton avis !";
+    document.getElementById("essai").innerHTML = "Merci pour ton avis !";
 }
 </script>
 
@@ -15,15 +10,17 @@ function pouce() {
         <div id="vide">
             <div id="leFooter" class="row row-cols-3 py-3 my-3 border-top">
 
+                <!-- div sur la partie gauche "aimer" -->
                 <div id="aimer">
                     <p>Vous aimez ?</p>
-                    <img src="@/assets/pouceVert.png" alt="Bouton pouce vert" height="50" width="50" @click="pouce()"
+                    <img src="@/assets/pouceVert.png" alt="Bouton pouce vert" height="45" width="45" @click="pouce()"
                         id="img" />
                     <img src="@/assets/pouceRouge.png" alt="Bouton pouce rouge" height="45" width="45"
                         @click="pouce()" id="img"/>
                     <p id="essai"></p>
                 </div>
 
+                <!-- div sur la partie centre "contacts" -->
                 <div id="contact">
                     <!--<p>Five Cure</p>-->
                     <p>projet <img src="@/assets/logo_blanc.png" alt="logo FiveCure" height="60" width="110" />
@@ -35,13 +32,10 @@ function pouce() {
                         d'ingénieurs, Campus Universitaire</p>
                 </div>
 
-
-                <!-- Bouton -->
-                <!--<input type="image" id="image" value="Revenir en haut de page" src="@/assets/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page "/>-->
-
+                <!-- div sur la partie droite "revenir en haut" -->
                 <div id="haut">
-                    <a href="#top" title="ancre vers le haut de la page"><img src="@/assets/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page"
-                        height="50" width="50" /></a>
+                    <img src="@/assets/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page"
+                        height="50" width="50" />
                     <a href="#top" title="ancre vers le haut de la page">Revenir en haut de page</a>
                 </div>
 
@@ -57,37 +51,32 @@ function pouce() {
 <style>
 #leFooter {
     bottom: 0;
-    width: 100%;
     padding-top: 20px;
-    height: 11em;
 
     background: #ff5f6d;
     background: -webkit-linear-gradient(to right, #2dafd6, #03619f);
     background: linear-gradient(to right, #03619f, #2dafd6);
-    min-height: 25vh;
 
     display: flex;
-    /*position: fixed;*/
 
     line-height: 0.9em;
 }
-/*
+
 #vide {
     bottom: 0;
     width: 100%;
     height: 50px;
     min-height: 20vh;
 }
-*/
+
 #aimer {
     color: white;
-    padding-top: 5%;
     /*marron foncé color: #9f4850;*/
 }
 
-#img:visited {
-    margin-top: 50%;
-    color: #03619f;
+#img {
+    margin: 1%;
+
 }
 
 #contact {
@@ -100,9 +89,5 @@ a:link {
 
 a:visited {
     color: white;
-}
-
-#haut {
-    padding-top: 5%;
 }
 </style>

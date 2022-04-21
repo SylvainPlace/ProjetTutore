@@ -1,6 +1,7 @@
 <template>
-  <h3>Utilisateur à ajouter</h3>
+
   <div class="container">
+ 
     <form
       @submit.prevent="
         handlerAddPatient(
@@ -14,7 +15,7 @@
       "
       class="row g-3"
       id="form"
-    >
+    > <h3 id="utilisateur">Ajouter un utilisateur :</h3>
       <div class="col-md-6">
         <label for="Nom" class="form-label">Nom :</label>
         <input
@@ -48,7 +49,7 @@
           required
         />
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <label for="mdp" class="form-label">Mot de passe :</label>
         <input
           type="password"
@@ -72,7 +73,7 @@
           required
         />
       </div>
-      <div class="col-md-4">
+      <div class="col-md-7">
         <label for="type" class="form-label">Categorie d'utilisateur :</label>
         <select class="form-select" id="type" v-model="categorie" required>
           <option selected disabled>Type</option>
@@ -80,14 +81,14 @@
         </select>
       </div>
       <div class="col-12">
-        <input
+        <input id="ajouter"
           type="submit"
-          value="Ajouter un patient"
+          value="Ajouter un utilisateur"
           class="btn btn-primary"
         />
       </div>
+      <div id="texte"></div>
     </form>
-    <span id="texte"></span>
   </div>
 </template>
 
@@ -95,7 +96,6 @@
 import { onMounted, reactive, ref } from "vue";
 const listeC = reactive([]);
 onMounted(() => {
-  console.log("oui");
   getCategorie();
 });
 
@@ -107,12 +107,9 @@ function getCategorie(event) {
       return response.json();
     })
     .then((dataJSON) => {
-      console.log(dataJSON);
       dataJSON.forEach((v) => listeC.push(v));
-      console.log(listeC);
     })
     .catch((error) => {
-      //console.log(error);
     });
 }
 
@@ -139,13 +136,11 @@ function handlerAddPatient(
       prenom: prenom,
     }),
   };
-  console.log(fetchOptions);
   fetch(url, fetchOptions)
     .then((response) => {
       return response.json();
     })
     .then((dataJSON) => {
-      console.log(dataJSON);
       document.getElementById("texte").innerHTML =
         categorie +
         " " +
@@ -166,7 +161,7 @@ function passwordStrengh(event) {
   } else {
     if (entree.length < 6) {
       msg.textContent = "Mot de passe moyen";
-      msg.style.color = "orange";
+      msg.style.color = "yellow";
     } else {
       msg.textContent = "Mot de passe fort";
       msg.style.color = "green";
@@ -174,3 +169,94 @@ function passwordStrengh(event) {
   }
 }
 </script>
+<style scoped>
+  
+  #form{
+position : relative ; 
+  left : 13px;
+  top : 8px;
+  height : 433px;
+  width : 483px;
+  border: 3px solid ;
+  background: -webkit-linear-gradient(to left, #D09478, #f5bba0);
+    background: linear-gradient(to left, #f5bba0, #D09478);
+ 
+   color : white;
+   text-align : center;
+    border-radius: 10px 100px / 120px;
+  }
+
+  #Nom{
+border-radius : 10px;
+}   
+        
+#Prenom{
+border-radius : 10px;
+}
+#mail{
+border-radius : 10px;
+}
+
+   .col-md-6{
+     position : relative;
+     top : -27px;
+     left: 2px;
+     width : 234px;
+      /*tout ce qui est  prenom et nom*/
+   }
+       
+    #mdp{
+border-radius : 10px;
+    }
+  
+   .col-md-2{  
+      position : relative;
+      top : -35px;
+      left: 7px;
+      width : 165px;
+       /*tout ce qui est date*/} 
+  .col-md-5{  
+      position : relative;
+      top : -35px;
+      left: 7px;
+      } 
+  #ddn{
+border-radius : 10px;
+  }
+  .col-md-4{
+ position : relative;
+     top : -35px;
+     left: 2px;
+     width: 275px ;
+  }  
+   .col-md-7{
+ position : relative;
+     top : -35px;
+     left: 12px;
+     width: 275px ;
+  }  
+  #type{
+    border-radius : 10px;
+    	background-color: white;
+	border: #B48B75  1px solid;
+  }      
+ #ajouter{
+    /*c'est le bouton ajouter*/
+    position : relative;
+    	background-color: white;
+	border: #B48B75  1px solid;
+  border-radius : 10px;
+  color : black;
+  cursor : pointer;
+  top : -36px;
+  left : 18px;
+  }
+
+  #texte{
+    color : rgb(70, 15, 15);
+    width : 422px;
+    top : -41px;
+    left: 57px;
+    position : relative;
+  }
+  </style>
