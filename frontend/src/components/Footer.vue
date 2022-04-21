@@ -10,6 +10,7 @@ function pouce() {
         <div id="vide">
             <div id="leFooter" class="row row-cols-3 py-3 my-3 border-top">
 
+                <!-- div sur la partie gauche "aimer" -->
                 <div id="aimer">
                     <p>Vous aimez ?</p>
                     <img src="@/assets/pouceVert.png" alt="Bouton pouce vert" height="45" width="45" @click="pouce()"
@@ -19,6 +20,7 @@ function pouce() {
                     <p id="essai"></p>
                 </div>
 
+                <!-- div sur la partie centre "contacts" -->
                 <div id="contact">
                     <!--<p>Five Cure</p>-->
                     <p>projet <img src="@/assets/logo_blanc.png" alt="logo FiveCure" height="60" width="110" />
@@ -30,10 +32,7 @@ function pouce() {
                         d'ingénieurs, Campus Universitaire</p>
                 </div>
 
-
-                <!-- Bouton -->
-                <!--<input type="image" id="image" value="Revenir en haut de page" src="@/assets/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page "/>-->
-
+                <!-- div sur la partie droite "revenir en haut" -->
                 <div id="haut">
                     <img src="@/assets/flechePtut.png" alt="Fleche sur laquelle cliquer pour revenir au haut de page"
                         height="50" width="50" />
@@ -52,14 +51,11 @@ function pouce() {
 <style>
 #leFooter {
     bottom: 0;
-    width: 100%;
     padding-top: 20px;
-    height: 100%;
 
     background: #ff5f6d;
     background: -webkit-linear-gradient(to right, #2dafd6, #03619f);
     background: linear-gradient(to right, #03619f, #2dafd6);
-    /*min-height: 50vh;*/
 
     display: flex;
 
