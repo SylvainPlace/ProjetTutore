@@ -52,9 +52,9 @@ function pouce() {
 <style>
 #leFooter {
     bottom: 0;
-    /*width: 100%;*/
+    width: 100%;
     padding-top: 20px;
-    /*height: 100%;*/
+    height: 100%;
 
     background: #ff5f6d;
     background: -webkit-linear-gradient(to right, #2dafd6, #03619f);
