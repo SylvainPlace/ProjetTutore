@@ -386,6 +386,8 @@ function postUnSoigner(
   left: -40px;
   top: 48px;
   border-radius: 10px;
+  left: -31px;
+  width: 156px;
 }
 
 #selectrech {

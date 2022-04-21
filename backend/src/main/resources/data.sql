@@ -1,6 +1,7 @@
--- Initialisation des tables
-INSERT INTO Corps(nom_partie)
-VALUES ('coeur'),
+INSERT INTO
+    Corps(nom_partie)
+VALUES
+    ('coeur'),
     ('poumons'),
     ('genou'),
     ('reins'),
@@ -18,47 +19,90 @@ VALUES ('coeur'),
     ('système excréteur ou urinaire et renal'),
     ('système reproducteur'),
     ('pancréas');
-INSERT INTO Composer(
+INSERT INTO
+    Composer(
         nom_partie_est_composee_id,
         nom_partie_compose_id
     )
-VALUES (
-        SELECT id
-        FROM Corps
-        WHERE nom_partie = 'système cardiovasculaire',
-            SELECT id
-        FROM Corps
-        WHERE nom_partie = 'coeur'
+VALUES
+    (
+        SELECT
+            id
+        FROM
+            Corps
+        WHERE
+            nom_partie = 'système cardiovasculaire',
+        SELECT
+            id
+        FROM
+            Corps
+        WHERE
+            nom_partie = 'coeur'
     ),
     (
-        SELECT id
-        FROM Corps
-        WHERE nom_partie = 'système excréteur ou urinaire et renal',
-            SELECT id
-        FROM Corps
-        WHERE nom_partie = 'reins'
+        SELECT
+            id
+        FROM
+            Corps
+        WHERE
+            nom_partie = 'système excréteur ou urinaire et renal',
+        SELECT
+            id
+        FROM
+            Corps
+        WHERE
+            nom_partie = 'reins'
     ),
     (
-        SELECT id
-        FROM Corps
-        WHERE nom_partie = 'système digestif',
-            SELECT id
-        FROM Corps
-        WHERE nom_partie = 'pancréas'
+        SELECT
+            id
+        FROM
+            Corps
+        WHERE
+            nom_partie = 'système digestif',
+        SELECT
+            id
+        FROM
+            Corps
+        WHERE
+            nom_partie = 'pancréas'
     );
-INSERT INTO Maladie(
+INSERT INTO
+    Maladie(
         nom_maladie,
         symptomes,
         description,
         facteur_aggravant,
         cim_10
     )
-VALUES (
+VALUES
+    (
         'Diabète',
         'Nausées, soif, malaise',
         ' Le diabète est une maladie chronique caractérisée par la présence d’un excès de sucre dans le sang appelé . Il est avéré si le taux de glycémie à jeun est égal ou supérieur à 1,26 g/l ou 7 mmol/l de sang lors de deux dosages successifs.',
         'obésité',
         3
+    ),
+    (
+        'Angine',
+        'Mal de gorge, Toux, difficulté à avaler',
+        ' Il s agit d une inflammation des amygdales ',
+        'Effort physique',
+        9
+    ),
+    (
+        'Asthme',
+        'Respiration sifllante, difficulté à respirer',
+        'Maladie chronique des bronches',
+        'Tabagisme',
+        9
+    ),
+    (
+        'Dépression',
+        'Fatigue, problème de sommeil, irritabilité',
+        'Maladie psychique qui perturbe les troubles de l humeur',
+        'Alcool',
+        4
     ),
     (
         'Arthrose',
@@ -81,33 +125,66 @@ VALUES (
         'Alimentation riche en sel, obésité, alcool',
         8
     );
-INSERT INTO MEDICAMENT(nom_medic, info_prise, contre_indications)
-VALUES (
+INSERT INTO
+    MEDICAMENT(nom_medic, info_prise, contre_indications)
+VALUES
+    (
         'Maxilase',
         'sirop',
-        'deconseiller pour les patients intolerants au fructose'
+        'deconseille pour les patients intolerants au fructose'
     ),
     (
-        'Glucophage',
+        'Glucophage 500mg',
         'comprimé',
-        'deconseiller pour les patients avec une insuffisance rénale'
+        'deconseille pour les patients avec une insuffisance rénale'
+    ),
+    (
+        'Glucophage 1000mg',
+        'comprimé',
+        'deconseille pour les patients avec une insuffisance rénale'
     ),
     (
         'Paxlovid',
         'Comprimé',
-        'deconseiller pour les patients présentant une insuffisance hépatique sévère '
+        'deconseille pour les patients présentant une insuffisance hépatique sévère '
     ),
     (
         'Paracétamol',
         'Comprimé',
-        'deconseiller pour les patients alcooliques ou en insuffisance hépatocellulaire'
+        'deconseille pour les patients alcooliques ou en insuffisance hépatocellulaire'
+    ),
+    (
+        'Cortancyl 20mg',
+        'Comprimé',
+        'deconseille pour les patients avec une infection non traitée'
+    ),
+    (
+        'Oroken 200mg',
+        'Comprimé',
+        'deconseille pour les patients avec un trouble du systeme digestif'
+    ),
+    (
+        'Doliprane 1000mg',
+        'Comprimé',
+        'interdit pour les patients avec une maladie du foie'
+    ),
+    (
+        'Insuline 3ml',
+        'Injectable',
+        'interdit pour les patients avec une pompe portable'
+    ),
+    (
+        'Acarbose 100mg',
+        'Comprimé',
+        'interdit pour les patients atteint de trouble de la digestion'
     ),
     (
         'Spironolactone',
         'Comprimé',
-        'deconseiller pour les patients présentant une insuffisance rénale grave'
+        'deconseille pour les patients présentant une insuffisance rénale grave'
     );
-INSERT INTO UTILISATEUR(
+INSERT INTO
+    UTILISATEUR(
         adresse_mail,
         prenom,
         nom,
@@ -115,7 +192,8 @@ INSERT INTO UTILISATEUR(
         date_de_naiss,
         categorie
     )
-VALUES (
+VALUES
+    (
         'adresse@gmail.com',
         'Micheline',
         'Fleury',
@@ -147,7 +225,8 @@ VALUES (
         '1989-11-12',
         1
     );
-INSERT INTO Soigner(
+INSERT INTO
+    Soigner(
         valDuree,
         uniteDuree,
         valFreq,
@@ -158,22 +237,32 @@ INSERT INTO Soigner(
         utilisateur_id,
         maladie_id
     )
-VALUES (
+VALUES
+    (
         4,
         0,
         3,
         0,
         1,
         '2022-04-06',
-        SELECT id
-        FROM medicament
-        WHERE nom_medic = 'Glucophage',
-            SELECT id
-        FROM utilisateur
-        WHERE adresse_mail = 'adresse@gmail.com',
-            SELECT id
-        FROM maladie
-        WHERE nom_maladie = 'Diabète'
+        SELECT
+            id
+        FROM
+            medicament
+        WHERE
+            nom_medic = 'Glucophage 1000mg',
+        SELECT
+            id
+        FROM
+            utilisateur
+        WHERE
+            adresse_mail = 'adresse@gmail.com',
+        SELECT
+            id
+        FROM
+            maladie
+        WHERE
+            nom_maladie = 'Diabète'
     ),
     (
         4,
@@ -182,15 +271,24 @@ VALUES (
         0,
         2,
         '2022-04-04',
-        SELECT id
-        FROM medicament
-        WHERE nom_medic = 'Paxlovid',
-            SELECT id
-        FROM utilisateur
-        WHERE adresse_mail = 'adresse2@hotmail.fr',
-            SELECT id
-        FROM maladie
-        WHERE nom_maladie = 'Covid-19'
+        SELECT
+            id
+        FROM
+            medicament
+        WHERE
+            nom_medic = 'Paxlovid',
+        SELECT
+            id
+        FROM
+            utilisateur
+        WHERE
+            adresse_mail = 'adresse2@hotmail.fr',
+        SELECT
+            id
+        FROM
+            maladie
+        WHERE
+            nom_maladie = 'Covid-19'
     ),
     (
         4,
@@ -199,15 +297,24 @@ VALUES (
         1,
         1.5,
         '2022-04-07',
-        SELECT id
-        FROM medicament
-        WHERE nom_medic = 'Spironolactone',
-            SELECT id
-        FROM utilisateur
-        WHERE adresse_mail = 'adresse2@hotmail.fr',
-            SELECT id
-        FROM maladie
-        WHERE nom_maladie = 'Hypertension artérielle'
+        SELECT
+            id
+        FROM
+            medicament
+        WHERE
+            nom_medic = 'Spironolactone',
+        SELECT
+            id
+        FROM
+            utilisateur
+        WHERE
+            adresse_mail = 'adresse2@hotmail.fr',
+        SELECT
+            id
+        FROM
+            maladie
+        WHERE
+            nom_maladie = 'Hypertension artérielle'
     ),
     (
         4,
@@ -216,15 +323,24 @@ VALUES (
         1,
         1,
         '2022-04-07',
-        SELECT id
-        FROM medicament
-        WHERE nom_medic = 'Paracétamol',
-            SELECT id
-        FROM utilisateur
-        WHERE adresse_mail = 'adresse2@hotmail.fr',
-            SELECT id
-        FROM maladie
-        WHERE nom_maladie = 'Arthrose'
+        SELECT
+            id
+        FROM
+            medicament
+        WHERE
+            nom_medic = 'Paracétamol',
+        SELECT
+            id
+        FROM
+            utilisateur
+        WHERE
+            adresse_mail = 'adresse2@hotmail.fr',
+        SELECT
+            id
+        FROM
+            maladie
+        WHERE
+            nom_maladie = 'Arthrose'
     ),
     (
         4,
@@ -233,47 +349,81 @@ VALUES (
         1,
         1,
         '2022-04-07',
-        SELECT id
-        FROM medicament
-        WHERE nom_medic = 'Spironolactone',
-            SELECT id
-        FROM utilisateur
-        WHERE adresse_mail = 'adresse2@outlook.com',
-            SELECT id
-        FROM maladie
-        WHERE nom_maladie = 'Hypertension artérielle'
+        SELECT
+            id
+        FROM
+            medicament
+        WHERE
+            nom_medic = 'Spironolactone',
+        SELECT
+            id
+        FROM
+            utilisateur
+        WHERE
+            adresse_mail = 'adresse2@outlook.com',
+        SELECT
+            id
+        FROM
+            maladie
+        WHERE
+            nom_maladie = 'Hypertension artérielle'
     );
---(4, 3, 2, 2, 1,' 2023 -03 -05 ', SELECT id FROM medicament WHERE nom_medic = ' Maxxxxxxxilase ', SELECT id FROM utilisateur WHERE adresse_mail = ' adresse @mail ', SELECT id FROM maladie WHERE nom_maladie = ' Diaaaaabete '); 
-INSERT INTO Toucher(maladie_id, corps_id)
-VALUES (
-        SELECT id
-        FROM Maladie
-        WHERE nom_maladie = 'Diabète',
-            SELECT id
-        FROM Corps
-        WHERE nom_partie = 'pancréas'
+INSERT INTO
+    Toucher(maladie_id, corps_id)
+VALUES
+    (
+        SELECT
+            id
+        FROM
+            Maladie
+        WHERE
+            nom_maladie = 'Diabète',
+        SELECT
+            id
+        FROM
+            Corps
+        WHERE
+            nom_partie = 'pancréas'
     ),
     (
-        SELECT id
-        FROM Maladie
-        WHERE nom_maladie = 'Hypertension artérielle',
-            SELECT id
-        FROM Corps
-        WHERE nom_partie = 'reins'
+        SELECT
+            id
+        FROM
+            Maladie
+        WHERE
+            nom_maladie = 'Hypertension artérielle',
+        SELECT
+            id
+        FROM
+            Corps
+        WHERE
+            nom_partie = 'reins'
     ),
     (
-        SELECT id
-        FROM Maladie
-        WHERE nom_maladie = 'Arthrose',
-            SELECT id
-        FROM Corps
-        WHERE nom_partie = 'genou'
+        SELECT
+            id
+        FROM
+            Maladie
+        WHERE
+            nom_maladie = 'Arthrose',
+        SELECT
+            id
+        FROM
+            Corps
+        WHERE
+            nom_partie = 'genou'
     ),
     (
-        SELECT id
-        FROM Maladie
-        WHERE nom_maladie = 'Covid-19',
-            SELECT id
-        FROM Corps
-        WHERE nom_partie = 'poumons'
+        SELECT
+            id
+        FROM
+            Maladie
+        WHERE
+            nom_maladie = 'Covid-19',
+        SELECT
+            id
+        FROM
+            Corps
+        WHERE
+            nom_partie = 'poumons'
     );
