@@ -18,7 +18,7 @@ function choixMaladie(idMaladie, allMaladies) {
 </script>
 
 <template>
-    <h3>Maladie(s) du patient</h3>
+    <h3>Maladies</h3>
     <SelecteurMaladie @maladieEvent="choixMaladie" />
     <div>
     <table class="table table-bordered table-sm table-hover" >

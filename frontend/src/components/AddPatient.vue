@@ -83,7 +83,7 @@
       <div class="col-12">
         <input id="ajouter"
           type="submit"
-          value="Ajouter un patient"
+          value="Ajouter un utilisateur"
           class="btn btn-primary"
         />
       </div>
