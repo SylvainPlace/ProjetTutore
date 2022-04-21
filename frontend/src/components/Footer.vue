@@ -12,10 +12,10 @@ function pouce() {
 
                 <div id="aimer">
                     <p>Vous aimez ?</p>
-                    <img src="@/assets/pouceVert.png" alt="Bouton pouce vert" height="50" width="50" @click="pouce()"
-                        id="img1" />
+                    <img src="@/assets/pouceVert.png" alt="Bouton pouce vert" height="45" width="45" @click="pouce()"
+                        id="img" />
                     <img src="@/assets/pouceRouge.png" alt="Bouton pouce rouge" height="45" width="45"
-                        @click="pouce()" />
+                        @click="pouce()" id="img"/>
                     <p id="essai"></p>
                 </div>
 
@@ -78,8 +78,8 @@ function pouce() {
     /*marron foncé color: #9f4850;*/
 }
 
-#img1:visited {
-    color: #03619f;
+#img {
+    margin: 1%;
 
 }
 

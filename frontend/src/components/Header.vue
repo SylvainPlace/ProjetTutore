@@ -6,7 +6,7 @@
 
 
     <nav class="container navbar-expand-lg d-flex justify-content-md-between py-3 mb-4 border-bottom">
-      <img src="@/assets/logo.png" alt="logo" />
+      <img src="@/assets/logo_blanc.png" alt="logo FiveCure" />
       <router-link to="/" class="navbar-brand"><span class="max">Accueil</span></router-link>
       <router-link to="/personnelSoignant" class="navbar-brand"><span class="max">Infirmier</span></router-link>
       <router-link to="/ajoutTraitement" class="navbar-brand"><span class="max">Ajout Traitement</span></router-link>
@@ -38,5 +38,9 @@ img {
 
 .navbar-brand:hover {
   color: #5F4850;
+}
+
+p {
+  color: white;
 }
 </style>
