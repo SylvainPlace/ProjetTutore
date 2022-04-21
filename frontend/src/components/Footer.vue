@@ -1,10 +1,6 @@
 <script setup>
-import { reactive, ref } from "vue";
-let remerciement = ref("");
 function pouce() {
-    console.log("hey");
-    remerciement = ("Merci pour ton avis !");
-    return remerciement;
+    document.getElementById("essai").innerHTML = "Merci pour ton avis !";
 }
 </script>
 
@@ -20,7 +16,7 @@ function pouce() {
                         id="img1" />
                     <img src="@/assets/pouceRouge.png" alt="Bouton pouce rouge" height="45" width="45"
                         @click="pouce()" />
-                    <p>{{ remerciement }}</p>
+                    <p id="essai"></p>
                 </div>
 
                 <div id="contact">
@@ -56,9 +52,9 @@ function pouce() {
 <style>
 #leFooter {
     bottom: 0;
-    /*width: 100%;*/
+    width: 100%;
     padding-top: 20px;
-    /*height: 100%;*/
+    height: 100%;
 
     background: #ff5f6d;
     background: -webkit-linear-gradient(to right, #2dafd6, #03619f);

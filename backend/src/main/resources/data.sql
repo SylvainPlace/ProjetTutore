@@ -197,7 +197,7 @@ VALUES (
         2,
         1,
         1,
-        1,
+        1.5,
         '2022-04-07',
         SELECT id
         FROM medicament

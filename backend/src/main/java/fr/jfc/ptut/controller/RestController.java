@@ -103,7 +103,12 @@ public class RestController {
 		List<Utilisateur> allUtilisateur = utilisateurDao.findAll();
 		Medicament medicament = null;
 		Maladie maladie = null;
-		Utilisateur utilisateur =  utilisateurDao.findAll().get(0);
+		Utilisateur utilisateur = null;
+		String nom = formData.getUtilisateur().substring(0, formData.getUtilisateur().indexOf(" "));
+		log.info(nom);
+		String prenom = formData.getUtilisateur().substring(formData.getUtilisateur().indexOf(" ") + 1,
+				formData.getUtilisateur().length());
+		log.info(prenom);
 		UniteDuree uniteDuree = null;
 		UniteFreq uniteFreq = null;
 		for (Medicament m : allMedicament) {
@@ -119,26 +124,26 @@ public class RestController {
 			}
 		}
 		for (Utilisateur u : allUtilisateur) {
-			if (u.getNom().equals(formData.getUtilisateur())) {
-				
-				utilisateur = u;
-				break;
+			if (u.getNom().equals(nom)) {
+				if (u.getPrenom().equals(prenom)) {
+					utilisateur = u;
+				}
 			}
 		}
-
 		for (UniteDuree d : UniteDuree.values()) {
 			if (d.toString().equals(formData.getUnitduree())) {
 				uniteDuree = d;
 				break;
 			}
 		}
+		log.info("unit: {}", formData.getUnitfreq());
 		for (UniteFreq f : UniteFreq.values()) {
 			if (f.toString().equals(formData.getUnitfreq())) {
 				uniteFreq = f;
 				break;
 			}
 		}
-
+		log.info("Enregistré: {}", formData.getDoseparprise());
 		Soigner soigner = new Soigner();
 		soigner.setDatecreation(formData.getDatecreation());
 		soigner.setDoseparprise(formData.getDoseparprise());
@@ -153,6 +158,7 @@ public class RestController {
 		log.info("Enregistré: {}", soigner);
 		return soigner;
 	}
+
 	/**
 	 * Enregistre une ville dans la base
 	 * Requête HTTP POST à l'URL http://localhost:8989/rest/saveCity

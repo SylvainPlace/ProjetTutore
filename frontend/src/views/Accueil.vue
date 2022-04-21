@@ -1,13 +1,13 @@
 <template>
   <div class="home espace">
-      <h1 class="mx-auto">Bienvenue sur l'application WEB de FiveCure !</h1>
+    <h1 class="mx-auto">Bienvenue sur l'application WEB de FiveCure !</h1>
 
-      <p>Ce site WEB vous permettra de gérer les ordonnances mieux que quiconque. <br> Une prise en main facilitée
-        expliquée en quelques images </p>
-      <video controls poster="video.jpg">
-        <source src="@/assets/video.mp4" />
-      </video>
-    </div>
+    <p>Ce site WEB vous permettra de gérer les ordonnances mieux que quiconque. <br> Une prise en main facilitée
+      expliquée en quelques images </p>
+    <video controls poster="@/assets/Site.png">
+      <source src="@/assets/video.mp4" />
+    </video>
+  </div>
 </template>
 
 <script setup>

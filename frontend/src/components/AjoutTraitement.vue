@@ -2,6 +2,7 @@
 import { onMounted, reactive, ref } from "vue";
 import traitement from "@/Traitement.js";
 import TabRecapMedic11 from "@/components/TabRecapMedic11.vue";
+import { format } from "path";
 let medicChoisi = ref(0);
 let patienchoisi = ref(0);
 let maladieChoisi = ref(0);
@@ -21,13 +22,12 @@ onMounted(() => {
 });
 
 function getPatients(event) {
-  let url = "/api/utilisateurs";
+  let url = "/api/ListePatient/";
   let fetchOptions = { method: "Get" };
   fetch(url, fetchOptions)
     .then((response) => response.json())
     .then((json) => {
-      let results = json._embedded.utilisateurs;
-      results.forEach((v) => patients.push(v));
+      json.forEach((v) => patients.push(v));
     })
     .catch((error) => alert(error));
 }
@@ -66,9 +66,7 @@ function lesMedicaments(medic) {
       dataJSON.forEach((v) => listeSearch.push(v));
     })
 
-    .catch((error) => {
-      //console.log(error);
-    });
+    .catch((error) => { });
 }
 
 function valeurMedicChoisi() {
@@ -86,9 +84,7 @@ function getFrequence(event) {
     .then((dataJSON) => {
       dataJSON.forEach((v) => listeunitFreq.push(v));
     })
-    .catch((error) => {
-      //console.log(error);
-    });
+    .catch((error) => { });
 }
 
 function getDuree(event) {
@@ -101,192 +97,223 @@ function getDuree(event) {
     .then((dataJSON) => {
       dataJSON.forEach((v) => listeunitDuree.push(v));
     })
-    .catch((error) => {
-      //console.log(error);
-    });
+    .catch((error) => { });
 }
 
-function listTraitementEvent() {
-  let dureeUnite = document.getElementById("dureeUnite").value;
-  //console.log("ici " + dureeUnite);
-  let frequenceUnite = document.getElementById("freqUnite").value;
-  let duree = document.getElementById("duree").value;
-  let frequence = document.getElementById("frequence").value;
-  let quantite = document.getElementById("quantite").value;
-  let patient = document.getElementById("selectPatient").value;
-  console.log(medicChoisi)
-  let url = "/api/medicaments/" + medicChoisi;
-  let fetchOptions = { method: "Get" };
-  let medicNom;
-  fetch(url, fetchOptions)
-    .then((response) => response.json())
-    .then((json) => {
-      medicNom = json.nom_medic;
-      console.log(maladieChoisi)
-      let url2 = "/api/maladies/" + maladieChoisi;
-      let fetchOptions = { method: "Get" };
-      let maladieNom;
-      fetch(url2, fetchOptions)
-        .then((response) => response.json())
-        .then((json) => {
-          maladieNom = json.nom_maladie;
-          console.log(maladieNom);
-          listTraitement.push(
-            new traitement(
-              medicChoisi,
-              medicNom,
-              maladieChoisi,
-              maladieNom,
-              patienchoisi,
-              duree,
-              dureeUnite,
-              frequence,
-              frequenceUnite,
-              quantite
-            )
-          );
-          console.log(listTraitement);
-        })
-        .catch((error) => alert(error));
-    })
-    .catch((error) => alert(error));
+function listTraitementEvent(
+  medicChoisi,
+  patienchoisi,
+  maladieChoisi,
+  duree,
+  dureeUnite,
+  frequence,
+  unitfreq,
+  quantite
+) {
+  listTraitement.push(
+    new traitement(
+      medicChoisi,
+      maladieChoisi,
+      patienchoisi,
+      duree,
+      dureeUnite,
+      frequence,
+      unitfreq,
+      quantite
+    )
+  );
+  document.getElementById("form").reset();
 }
 
 function supprimer(index) {
   listTraitement.splice(index, 1);
   return listTraitement;
 }
+
+function putMedicament() {
+  listTraitement.forEach((item, index) => {
+    postUnSoigner(
+      item._medic,
+      item._maladie,
+      item._utilisateurs,
+      item._unitduree,
+      item._duree,
+      item._unitfreq,
+      item._freq,
+      item._qte,
+      item._date
+    );
+  });
+  listTraitement.splice(0, listTraitement.length);
+}
+
+function postUnSoigner(
+  medic,
+  maladie,
+  utilisateurs,
+  unitduree,
+  duree,
+  unitfreq,
+  freq,
+  qte,
+  date
+) {
+  let url = "/api/saveSoigner";
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  const fetchOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify({
+      datecreation: date,
+      doseparprise: qte,
+      maladie: maladie,
+      medicament: medic,
+      unitduree: unitduree,
+      unitfreq: unitfreq,
+      utilisateur: utilisateurs,
+      valduree: duree,
+      valfreq: freq,
+    }),
+  };
+  fetch(url, fetchOptions)
+    .then((response) => {
+      return response.json();
+    })
+    .then((dataJSON) => { });
+}
 </script>
 
 
 <template>
-  
   <div id="formulaireETtableau">
-
     <!--Case : Choisissez votre patient -->
-  <div class="formulaireTraitement">
-    <h4 id="patient">Choisissez votre patient : </h4>
-    <select id="selectPatient" v-model="patienchoisi" @change="valeurPatientChoisi()">
-      <option disabled selected>
-
-        Choissisez votre utilisateur dans la liste
-      </option>
-      <option v-for="patient of patients" :value="patient.id">
-        {{ patient.nom }} {{ patient.prenom }}
-      </option>
-    </select>
-    <h4 id="indic">Indiquez la maladie : </h4>
-    <select id="selectMaladie" @change="valeurMaladieChoisi($event.target.value)" v-model="maladieChoisi">
-      <option disabled selected>Choissisez votre maladie dans la liste</option>
-      <option v-for="maladie of maladies" :value="maladie.id">
-        {{ maladie.nom_maladie }}
-      </option>
-    </select>
-    <h4 id="recherche">Recherchez votre médicament :</h4>
-    <form @submit.prevent="listTraitementEvent(dureeUnite)">
-      <input id="listeMedic" v-model="medic" @keyup="lesMedicaments(medic)" />
-      <select class="select" id="selectrech" @change="valeurMedicChoisi()">
-        <option disabled selected>
-          Selectionnez
-        </option>
-        <option v-for="search of listeSearch" :value="search.id">
-          {{ search.nom_medic }}
-        </option>
-      </select>
-
-      <h4 id="poso">Entrez la posologie</h4>
-      <div>
-        <h5 id="dureeTraitement">Durée de traitement</h5>
-        <input id="choix" type="number" min="0" max="100" />
-        <select class="select" id="selectduree">
+    <div class="formulaireTraitement">
+      <form @submit.prevent="
+        listTraitementEvent(
+          medicChoisi,
+          patienchoisi,
+          maladieChoisi,
+          duree,
+          dureeUnite,
+          frequence,
+          unitfreq,
+          quantite
+        )
+      " id="form">
+        <h4 id="patient">Choisissez votre patient :</h4>
+        <select id="selectPatient" v-model="patienchoisi">
           <option disabled selected>
-            Jour
+            Choissisez votre utilisateur dans la liste
           </option>
-          <option v-for="(duree, index) of listeunitDuree" :value="index">
-            {{ duree }}
+          <option v-for="patient of patients">
+            {{ patient.nom }} {{ patient.prenom }}
           </option>
         </select>
-      </div>
-      <div>
-        <h5 id="frequenceT">Fréquence</h5>
-        <input id="frequence" type="number" min="0" max="10" />
-        <h5 id="fois">fois par</h5>
-        <select class="select" id="selectF">
+        <h4 id="indic">Indiquez la maladie :</h4>
+        <select id="selectMaladie" v-model="maladieChoisi">
           <option disabled selected>
-            Jour
+            Choissisez votre maladie dans la liste
           </option>
-          <option v-for="(freq, index) of listeunitFreq" :value="index">
-            {{ freq }}
+          <option v-for="maladie of maladies">
+            {{ maladie.nom_maladie }}
           </option>
         </select>
-      </div>
-      <div>
-        <h5 id="quantitetxt">Quantité</h5>
-        <input id="quantite" type="number" step=".5" min="0" max="15" />
-        <h5 id="dosetxt">dose(s) par prise</h5>
-      </div>
-      <div>
-        <input id="valider" type="submit" value="Ajouter" />
-      </div>
-    </form>
+        <h4 id="recherche">Rechercher votre médicament :</h4>
+
+        <input id="listeMedic" v-model="medic" @keyup="lesMedicaments(medic)" />
+        <select class="select" id="selectrech" v-model="medicChoisi">
+          <option disabled selected>Selectionnez</option>
+          <option v-for="search of listeSearch">
+            {{ search.nom_medic }}
+          </option>
+        </select>
+
+        <h4 id="poso">Entrez la posologie</h4>
+        <div>
+          <h5 id="dureeTraitement">Durée de traitement</h5>
+          <input id="choix" type="number" min="0" max="100" v-model="duree" />
+          <select class="select" id="selectduree" v-model="dureeUnite">
+            <option disabled selected>Durée</option>
+            <option v-for="(duree, index) of listeunitDuree">
+              {{ duree }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <h5 id="frequenceT">Fréquence</h5>
+          <input id="frequence" type="number" min="0" max="10" v-model="frequence" />
+          <h5 id="fois">fois par</h5>
+          <select class="select" id="selectF" v-model="unitfreq">
+            <option disabled selected>Fréquence</option>
+            <option v-for="(freq, index) of listeunitFreq">
+              {{ freq }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <h5 id="quantitetxt">Quantité</h5>
+          <input id="quantite" type="number" step=".5" min="0" max="15" v-model="quantite" />
+          <h5 id="dosetxt">dose(s) par prise</h5>
+        </div>
+        <div>
+          <input id="valider" type="submit" value="Ajouter" />
+        </div>
+      </form>
+    </div>
+
+    <!--Case : Tableau -->
+    <div class="tableau">
+      <h2>Liste des médicaments en cours d'ajout</h2>
+
+      <table border="1" id="leTableau" class="table table-bordered table-sm table-hover">
+        <thead>
+          <tr>
+            <th colspan="4" id="liste">
+              Liste de vos médicaments en cours de saisie
+            </th>
+            <th id="action">Réécrire une saisie</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(ceTraitement, index) in listTraitement" :key="index">
+            <td id="1">
+              Nom du médicament : <br />
+              Maladie traité :
+            </td>
+            <td id="2">
+              {{ ceTraitement._medic }} <br />
+              {{ ceTraitement._maladie }}
+            </td>
+            <td id="3">
+              Durée de prise : <br />
+
+              Fréquence de prise : <br />
+
+              Quantité à prendre :
+            </td>
+            <td id="4">
+              {{ ceTraitement._duree }} {{ ceTraitement._unitduree }} <br />
+
+              {{ ceTraitement._freq }} / {{ ceTraitement._unitfreq }} <br />
+
+              {{ ceTraitement._qte }} / Prise<br />
+            </td>
+            <td id="5">
+              <!-- Bouton -->
+              <input type="button" value="Supprimer" id="enregistrer" @click="supprimer(index)" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Bouton -->
+      <input type="button" id="enregistrer" value="Valider la liste et l'enregistrer" @click="putMedicament()" />
+    </div>
   </div>
-
-  <!--Case : Tableau -->
-  <div class="tableau"> 
-
-    <h2> Liste des médicaments en cours d'ajout </h2>
-	
-	<table border="1" id="leTableau" class="table table-bordered table-sm table-hover">
-		<thead>
-			<tr>
-				<th colspan="4" id="liste">Liste de vos médicaments en cours de saisie</th>
-				<th id="action">Réécrire une saisie</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr v-for="(ceTraitement, index) in listTraitement" 
-      :key="index"
-        >
-				<td id="1">
-          Nom du médicament : <br/>
-          Maladie traité :
-        </td>
-        <td id="2">
-          {{ceTraitement._medic}} <br/>
-          {{ceTraitement._maladie}}
-        </td>
-        <td id="3">
-          Durée de prise : <br/>
-          
-          Fréquence de prise : <br/>
-          
-          Quantité à prendre :
-        </td>
-        <td id="4">
-          {{ceTraitement._duree}} {{ceTraitement._unitduree}} <br/>
-          
-          {{ceTraitement._freq}} / {{ceTraitement._unitfreq}} <br/>
-          
-          {{ceTraitement._qte}} / Prise<br/>
-        </td>
-				<td id="5">
-          <!-- Bouton -->
-			    <input type="button" value="Supprimer" id="enregistrer" @click="supprimer(index)" />
-        </td>
-			</tr>
-		</tbody>
-	</table>
-
-  <!-- Bouton -->
-	<input type="button" id="enregistrer" value="Valider la liste et l'enregistrer" @click="putMedicament()" />
-
-  </div>
-  </div>
-
 </template>
 <style scopped>
-
-/* CSS formulaire + tableau */ 
+/* CSS formulaire + tableau */
 
 #formulaireETtableau {
   display: flex;
@@ -295,16 +322,16 @@ function supprimer(index) {
 
 /* CSS Formulaire */
 
-.formulaireTraitement{
-  position : relative ; 
+.formulaireTraitement {
+  position: relative;
   /*left : 13px;*/
   margin-left: 5%;
-  top : 8px;
-  height : 612px;
-  width : 483px;
-  border: 3px solid #B48B75;
-  background: -webkit-linear-gradient(to left, #D09478, #f5bba0);
-  background: linear-gradient(to left, #f5bba0, #D09478);
+  top: 8px;
+  height: 612px;
+  width: 483px;
+  border: 3px solid #b48b75;
+  background: -webkit-linear-gradient(to left, #d09478, #f5bba0);
+  background: linear-gradient(to left, #f5bba0, #d09478);
 
   color: white;
   text-align: center;
@@ -314,17 +341,16 @@ function supprimer(index) {
 .select {
   position: relative;
   background-color: white;
-  border: #B48B75 1px solid;
+  border: #b48b75 1px solid;
   border-radius: 30px;
   margin: 0 0 1.5em 0;
   overflow: hidden;
-
 }
 
 #dureeTraitement {
   position: relative;
   width: 189px;
-  left: 16px;
+  left: 42px;
   top: 48px;
 }
 
@@ -340,11 +366,12 @@ function supprimer(index) {
   left: -62px;
   top: 48px;
   border-radius: 10px;
+  width: 170px;
 }
 
 #poso {
   position: relative;
-  left: -116px;
+  left: -91px;
   top: 43px;
 }
 
@@ -370,20 +397,21 @@ function supprimer(index) {
 
 #frequenceT {
   position: relative;
-  left: -164px;
+  left: -142px;
   top: 48px;
 }
 
 #frequence {
   position: relative;
-  left: -116px;
+  left: -107px;
   top: 48px;
   border-radius: 10px;
+  width: 170px;
 }
 
 #fois {
   position: relative;
-  left: 215px;
+  left: 216px;
   top: 21px;
   width: 86px;
 }
@@ -396,34 +424,34 @@ function supprimer(index) {
 
 #quantitetxt {
   position: relative;
-  left: -174px;
+  left: -154px;
   top: -13px;
 }
 
 #quantite {
   position: relative;
-  left: -115px;
+  left: -105px;
   top: -13px;
   border-radius: 10px;
+  width: 170px;
 }
 
 #dosetxt {
   position: relative;
-  left: 221px;
+  left: 226px;
   top: -41px;
   width: 162px;
 }
 
 #valider {
   color: black;
-  border: 3px solid #B48B75;
+  border: 3px solid #b48b75;
   border-radius: 10px 100px / 120px;
   background: white;
   position: relative;
   left: 6px;
   top: -32px;
 }
-
 
 #selectPatient {
   position: relative;
@@ -432,7 +460,6 @@ function supprimer(index) {
   border-radius: 10px;
   top: 7px;
   left: -43px;
-
 }
 
 #selectMaladie {
@@ -446,41 +473,46 @@ function supprimer(index) {
 
 #patient {
   position: relative;
-  left: -85px;
+  left: -60px;
 }
 
 #indic {
   position: relative;
-  left: -105px;
+  left: -80px;
   top: 25px;
 }
 
+#recherche {
+  position: relative;
+  left: -27px;
+  top: 50px;
+}
 
 /* CSS Tableau */
 
-.tableau{
-  position : relative ; 
-  top : 8px;
-  min-height : 612px;
-  border: 5px solid #B48B75;
+.tableau {
+  position: relative;
+  top: 8px;
+  min-height: 612px;
+  border: 5px solid #b48b75;
   /*background: -webkit-linear-gradient(to left, #D09478, #f5bba0);
     background: linear-gradient(to left, #f5bba0, #D09478);*/
   background-color: white;
 
-   color : #B48B75 ;
-   text-align : center;
-   border-radius: 100px 10px / 120px;
+  color: #b48b75;
+  text-align: center;
+  border-radius: 100px 10px / 120px;
 
-   padding: 5%;
-  margin-right: 5%; 
-  margin-left: 5%;  
+  padding: 5%;
+  margin-right: 5%;
+  margin-left: 5%;
 }
 
 #leTableau {
-  width : 800px;
+  width: 800px;
 
   table-layout: auto;
-width: 100%;
+  width: 100%;
 }
 
 #liste {
@@ -488,18 +520,17 @@ width: 100%;
 }
 
 tbody {
-  border: 1px solid #B48B75 ;
+  border: 1px solid #b48b75;
 }
 
 tr {
-  border: 1px solid #B48B75 ;
+  border: 1px solid #b48b75;
 }
 
-#enregistrer{
-  color : black ;
-    border: 3px solid #B48B75;
-    border-radius: 10px 100px / 120px;
-   background: white;
+#enregistrer {
+  color: black;
+  border: 3px solid #b48b75;
+  border-radius: 10px 100px / 120px;
+  background: white;
 }
-
 </style>

@@ -17,7 +17,7 @@ public interface PatientDetailMedicaments {
     String getUniteDuree();
     int getValFreq();
     String getUniteFreq();
-    int getDoseParPrise();
+    double getDoseParPrise();
     Date getdateCreation();
     String getNomMaladie();
 }

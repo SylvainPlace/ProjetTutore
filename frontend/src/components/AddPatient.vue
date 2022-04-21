@@ -83,7 +83,7 @@
       <div class="col-12">
         <input id="ajouter"
           type="submit"
-          value="Ajouter un patient"
+          value="Ajouter un utilisateur"
           class="btn btn-primary"
         />
       </div>
@@ -96,7 +96,6 @@
 import { onMounted, reactive, ref } from "vue";
 const listeC = reactive([]);
 onMounted(() => {
-  console.log("oui");
   getCategorie();
 });
 
@@ -108,12 +107,9 @@ function getCategorie(event) {
       return response.json();
     })
     .then((dataJSON) => {
-      console.log(dataJSON);
       dataJSON.forEach((v) => listeC.push(v));
-      console.log(listeC);
     })
     .catch((error) => {
-      //console.log(error);
     });
 }
 
@@ -140,13 +136,11 @@ function handlerAddPatient(
       prenom: prenom,
     }),
   };
-  console.log(fetchOptions);
   fetch(url, fetchOptions)
     .then((response) => {
       return response.json();
     })
     .then((dataJSON) => {
-      console.log(dataJSON);
       document.getElementById("texte").innerHTML =
         categorie +
         " " +
