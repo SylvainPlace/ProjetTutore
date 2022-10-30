@@ -1,5 +1,13 @@
 # Un "MonoRepo" avec Spring Boot, vue.js et Bootstrap
 
+## Description du projet
+Le principe de ce projet est de permettre à un patient d’avoir un semainier en ligne. Ce serait un outil utile lors du remplissage du semainier physique. Il permettrait également de s’informer sur la maladie et sur la prise du médicament. De plus, il donnerait des indications sur la posologie afin de ne pas l’oublier, et sur les conseils de contre-indications, en guise de rappel.
+S'il y a plusieurs ordonnances de plusieurs médecins différents, le projet nous permettrait de gérer ce problème. Il aiderait aussi les infirmières qui l’utiliseraient à mieux connaître les différentes maladies du patient : qu’elles n’aient pas à faire des recherches pour connaître une maladie.
+
+## Team
+Mathilde Raynal, Florian Chavernac, Manon Mouric, Océane Chabus, Sylvain Place
+
+
 ## Project setup
 
 ```
@@ -37,7 +45,3 @@ On peut lancer webpack-dev-server, qui "rafraîchit" automatiquement le front-en
 ```
 npm run serve
 ```
-
-## Browser developer tools extension
-
-Installer vue-devtools Browser extension https://devtools.vuejs.org/  dans votre navigateur pour débugger plus facilement le front-end.
